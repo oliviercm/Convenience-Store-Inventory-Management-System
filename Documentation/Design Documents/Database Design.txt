@@ -1,0 +1,103 @@
+*************
+README:
+*************
+
+-- Use www.upcitemdb.com or Google to look up items and UPCs.
+-- We will be modeling our items as if it were a gas station convenience store, but the software can handle any kind of store.
+-- If an item doesn't require a specific field, it can be completely omitted.
+
+*************
+FORMAT:
+*************
+
+<item>
+	<UID>int</UID> //Unique ID. Doesn't have to be in order, for example all drinks can start with 1xxxx and all snacks can be 2xxxx. Must be unique.
+	<UPC>string</UPC> //Universal Product Code/Barcode. Get this from www.upcitemdb.com. This is what gets scanned on the item into the POS.
+	<name>string</name> //Product's name, such as "Hot Cheetos" or "Coke"
+	<size>string</size> //Product's size, such as "8oz" or "2L". Not always applicable.
+	<category>int</category> //Product's category UID, see CATEGORIES
+	<wholesale>double</wholesale> //Wholesale price, what the store buys it for.
+	<retail>double</retail> //Retail price, what the store sells it for.
+	<quantity>int</quantity> //Quantity in stock.
+</item>
+
+*************
+CATEGORIES:
+*************
+
+<category>
+	<UID>int</UID>
+	<name>string</name>
+</category>
+
+0 default //Normally shouldnt be used, is the default category if for some reason an item doesnt have a category
+1 snack //Chips, frozen foods, candy, etc
+2 drink //Soda, water, coffee, etc
+3 tobacco //Cigarettes, rolling papers, cigarillos
+4 lotto //Lottery (Mega Millions, Powerball, etc.) AND scratch cards
+5 misc //Automobile (engine oil, electronic components), lighters, condoms, tampons/pads, beauty cosmetics (lotion, tissues)
+
+*************
+EXAMPLES:
+*************
+
+**** Hot Cheetos ****
+
+<item>
+	<UID>12</UID>
+	<UPC>028400596695</UPC>
+	<name>Cheetos Puffs Cheese Flavored Snacks, Flamin' Hot</name>
+	<size>8oz</size>
+	<category>1</category>
+	<wholesale>1.21</wholesale>
+	<retail>2.99</retail>
+	<quantity>10</quantity>
+</item>
+
+**** Coke 2L ****
+
+<item>
+	<UID>9101</UID>
+	<UPC>049000050103</UPC>
+	<name>Coca-Cola, 2 Liter Bottle</name>
+	<size>2L</size>
+	<category>2</category>
+	<wholesale>0.98</wholesale>
+	<retail>2.49</retail>
+	<quantity>13</quantity>
+</item>
+
+**** Marlboro Reds 72 ****
+
+<item>
+	<UID>9101</UID>
+	<UPC>0028200009630</UPC>
+	<name>Marlboro Reds 72</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>2.21</wholesale>
+	<retail>6.99</retail>
+	<quantity>51</quantity>
+</item>
+
+**** Mega Millions ****
+
+<item>
+	<UID>67</UID>
+	<name>Mega Millions</name>
+	<category>4</category>
+	<retail>2.00</retail>
+</item>
+
+**** Trojan Condoms ****
+
+<item>
+	<UID>41</UID>
+	<UPC>022600907527</UPC>
+	<name>Trojan Enz Non-Lubricated Premium Latex Condoms</name>
+	<size>12ct</size>
+	<category>5</category>
+	<wholesale>3.95</wholesale>
+	<retail>5.99</retail>
+	<quantity>6</quantity>
+</item>
