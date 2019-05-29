@@ -1,0 +1,106 @@
+﻿<category>
+        <UID>192</UID>
+        <name>drink</name>
+</category>
+
+
+<item>
+        <UID>192</UID>
+        <UPC>049000418347</UPC>
+        <name>Coca-Cola</name>
+        <size>16oz</size>
+        <category>2</category>
+        <wholesale>1.50</wholesale>
+        <retail>2.60</retail>
+        <quantity>60</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>049000028706</UPC>
+        <name>Dasani Purified Water</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>1.10</wholesale>
+        <retail>2.50</retail>
+        <quantity>80</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>018200007712</UPC>
+        <name>Budweiser</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>2.50</wholesale>
+        <retail>4.30</retail>
+        <quantity>40</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>0611269991246</UPC>
+        <name>Red Bull</name>
+        <size>8oz</size>
+        <category>2</category>
+        <wholesale>3.0</wholesale>
+        <retail>4.60</retail>
+        <quantity>70</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>9011020724310</UPC>
+        <name>Gatorade</name>
+        <size>16oz</size>
+        <category>2</category>
+        <wholesale>2.50</wholesale>
+        <retail>4.25</retail>
+        <quantity>30</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>0818094000246</UPC>
+        <name>Rockstar</name>
+        <size>16oz</size>
+        <category>2</category>
+        <wholesale>3.50</wholesale>
+        <retail>4.89</retail>
+        <quantity>50</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>0049000030730</UPC>
+        <name>Fanta</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>2.50</wholesale>
+        <retail>3.98</retail>
+        <quantity>60</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>0072890000118</UPC>
+        <name>Heineken</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>3.50</wholesale>
+        <retail>5.97</retail>
+        <quantity>40</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>0012000041396</UPC>
+        <name>Starbucks Coffee</name>
+        <size>11oz</size>
+        <category>2</category>
+        <wholesale>3.50</wholesale>
+        <retail>4.98</retail>
+        <quantity>30</quantity>
+</item>
+<item>
+        <UID>192</UID>
+        <UPC>049000028928</UPC>
+        <name>Sprite</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>1.50</wholesale>
+        <retail>2.98</retail>
+        <quantity>60</quantity>
+</item>
