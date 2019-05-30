@@ -1,0 +1,524 @@
+<item>
+	<UID>1000</UID>
+	<UPC>028400070560</UPC>
+	<name>Doritos Nacho Cheese Tortilla Chips</name>
+	<size>1.75oz</size>
+	<category>1</category>
+	<wholesale>0.44</wholesale>
+	<retail>0.66</retail>
+	<quantity>49</quantity>
+</item>
+<item>
+	<UID>1001</UID>
+	<UPC>034000470204</UPC>
+	<name>Reese's Minis Peanut Butter Cups</name>
+	<size>8oz</size>
+	<category>1</category>
+	<wholesale>2.21</wholesale>
+	<retail>3.83</retail>
+	<quantity>35</quantity>
+</item>
+<item>
+	<UID>1002</UID>
+	<UPC>044000032234</UPC>
+	<name>Chips Ahoy! - Chewy</name>
+	<size>13oz</size>
+	<category>1</category>
+	<wholesale>1.87</wholesale>
+	<retail>2.56</retail>
+	<quantity>12</quantity>
+</item>
+<item>
+	<UID>1003</UID>
+	<UPC>027000419113</UPC>
+	<name>Hunts Snack Pack Pudding, Chocolate</name>
+	<size>13oz</size>
+	<category>1</category>
+	<wholesale>0.59</wholesale>
+	<retail>1.00</retail>
+	<quantity>23</quantity>
+</item>
+<item>
+	<UID>1004</UID>
+	<UPC>029000016071</UPC>
+	<name>Planters Cashews - Halves and Pieces</name>
+	<size>9.25oz</size>
+	<category>1</category>
+	<wholesale>4.31</wholesale>
+	<retail>5.88</retail>
+	<quantity>44</quantity>
+</item>
+<item>
+	<UID>1005</UID>
+	<UPC>030000169797</UPC>
+	<name>Quaker Popped Caramel Corn Rice Crisps</name>
+	<size>7.04oz</size>
+	<category>1</category>
+	<wholesale>2.27</wholesale>
+	<retail>3.83</retail>
+	<quantity>37</quantity>
+</item>
+<item>
+	<UID>1006</UID>
+	<UPC>678523040102</UPC>
+	<name>Glutino Gluten Free Pretzel Sticks</name>
+	<size>14.1oz</size>
+	<category>1</category>
+	<wholesale>4.11</wholesale>
+	<retail>4.48</retail>
+	<quantity>20</quantity>
+</item>
+<item>
+	<UID>1007</UID>
+	<UPC>023896166803</UPC>
+	<name>Pop-Secret Popcorn - Premium Extra Butter</name>
+	<size>3.2oz</size>
+	<category>1</category>
+	<wholesale>1.55</wholesale>
+	<retail>3.68</retail>
+	<quantity>28</quantity>
+</item>
+<item>
+	<UID>1008</UID>
+	<UPC>185889000652</UPC>
+	<name>Peeled Snacks Organic Mango Strips Dried Fruit</name>
+	<size>2.8oz</size>
+	<category>1</category>
+	<wholesale>3.02</wholesale>
+	<retail>3.28</retail>
+	<quantity>16</quantity>
+</item>
+<item>
+	<UID>1009</UID>
+	<UPC>038000311307</UPC>
+	<name>Kellogg's Pop Tarts, Brown Sugar Cinnamon</name>
+	<size>3.52oz</size>
+	<category>1</category>
+	<wholesale>2.99</wholesale>
+	<retail>5.70</retail>
+	<quantity>31</quantity>
+</item>
+<item>
+        <UID>2000</UID>
+        <UPC>049000418347</UPC>
+        <name>Coca-Cola</name>
+        <size>16oz</size>
+        <category>2</category>
+        <wholesale>1.50</wholesale>
+        <retail>2.60</retail>
+        <quantity>60</quantity>
+</item>
+<item>
+        <UID>2001</UID>
+        <UPC>049000028706</UPC>
+        <name>Dasani Purified Water</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>1.10</wholesale>
+        <retail>2.50</retail>
+        <quantity>80</quantity>
+</item>
+<item>
+        <UID>2002</UID>
+        <UPC>018200007712</UPC>
+        <name>Budweiser</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>2.50</wholesale>
+        <retail>4.30</retail>
+        <quantity>40</quantity>
+</item>
+<item>
+        <UID>2003</UID>
+        <UPC>0611269991246</UPC>
+        <name>Red Bull</name>
+        <size>8oz</size>
+        <category>2</category>
+        <wholesale>3.0</wholesale>
+        <retail>4.60</retail>
+        <quantity>70</quantity>
+</item>
+<item>
+        <UID>2004</UID>
+        <UPC>9011020724310</UPC>
+        <name>Gatorade</name>
+        <size>16oz</size>
+        <category>2</category>
+        <wholesale>2.50</wholesale>
+        <retail>4.25</retail>
+        <quantity>30</quantity>
+</item>
+<item>
+        <UID>2005</UID>
+        <UPC>0818094000246</UPC>
+        <name>Rockstar</name>
+        <size>16oz</size>
+        <category>2</category>
+        <wholesale>3.50</wholesale>
+        <retail>4.89</retail>
+        <quantity>50</quantity>
+</item>
+<item>
+        <UID>2006</UID>
+        <UPC>0049000030730</UPC>
+        <name>Fanta</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>2.50</wholesale>
+        <retail>3.98</retail>
+        <quantity>60</quantity>
+</item>
+<item>
+        <UID>2007</UID>
+        <UPC>0072890000118</UPC>
+        <name>Heineken</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>3.50</wholesale>
+        <retail>5.97</retail>
+        <quantity>40</quantity>
+</item>
+<item>
+        <UID>2008</UID>
+        <UPC>0012000041396</UPC>
+        <name>Starbucks Coffee</name>
+        <size>11oz</size>
+        <category>2</category>
+        <wholesale>3.50</wholesale>
+        <retail>4.98</retail>
+        <quantity>30</quantity>
+</item>
+<item>
+        <UID>2009</UID>
+        <UPC>049000028928</UPC>
+        <name>Sprite</name>
+        <size>12oz</size>
+        <category>2</category>
+        <wholesale>1.50</wholesale>
+        <retail>2.98</retail>
+        <quantity>60</quantity>
+</item>
+<item>
+	<UID>3000</UID>
+	<UPC>028200136800</UPC>
+	<name>Marlboro Red Label</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>5.10</wholesale>
+	<retail>5.99</retail>
+	<quantity>89</quantity>
+</item>
+<item>
+	<UID>3001</UID>
+	<UPC>028200137807</UPC>
+	<name>Marlboro Gold Pack</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>5.05</wholesale>
+	<retail>5.99</retail>
+	<quantity>76</quantity>
+</item>
+<item>
+	<UID>3002</UID>
+	<UPC>028200136107</UPC>
+	<name>Marlboro Menthol</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>5.11</wholesale>
+	<retail>5.99</retail>
+	<quantity>46</quantity>
+</item>
+<item>
+	<UID>3003</UID>
+	<UPC>012300197403</UPC>
+	<name>Camel Crush Kings</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>5.20</wholesale>
+	<retail>5.99</retail>
+	<quantity>50</quantity>
+</item>
+<item>
+	<UID>3004</UID>
+	<UPC>026100865394</UPC>
+	<name>Newport Menthol 100s</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>5.14</wholesale>
+	<retail>6.99</retail>
+	<quantity>43</quantity>
+</item>
+<item>
+	<UID>3005</UID>
+	<UPC>042100000061</UPC>
+	<name>Grizzly Smokeless Pouches Straight</name>
+	<size>0.82oz</size>
+	<category>3</category>
+	<wholesale>3.09</wholesale>
+	<retail>3.65</retail>
+	<quantity>21</quantity>
+</item>
+<item>
+	<UID>3006</UID>
+	<UPC>630125948835</UPC>
+	<name>RAW 11/4 Rolling Papers</name>
+	<size>6ct</size>
+	<category>3</category>
+	<wholesale>0.80</wholesale>
+	<retail>0.99</retail>
+	<quantity>15</quantity>
+</item>
+<item>
+	<UID>3007</UID>
+	<UPC>025900227265</UPC>
+	<name>Swisher Sweets Cigarillos 2 for 99</name>
+	<size>2ct</size>
+	<category>3</category>
+	<wholesale>0.68</wholesale>
+	<retail>0.99</retail>
+	<quantity>34</quantity>
+</item>
+<item>
+	<UID>3008</UID>
+	<UPC>025900227272</UPC>
+	<name>Swisher Sweets Grape Cigarillos 2 for 99</name>
+	<size>2ct</size>
+	<category>3</category>
+	<wholesale>0.68</wholesale>
+	<retail>0.99</retail>
+	<quantity>22</quantity>
+</item>
+<item>
+	<UID>3009</UID>
+	<UPC>070137000235</UPC>
+	<name>Black & Mild Wine Cigars</name>
+	<size>5ct</size>
+	<category>3</category>
+	<wholesale>4.21</wholesale>
+	<retail>4.99</retail>
+	<quantity>13</quantity>
+</item>
+<item>
+	<UID>4000</UID>
+	<name>Mega Millions</name>
+	<category>4</category>
+	<retail>2.00</retail>
+</item>
+<item>
+	<UID>4001</UID>
+	<name>Powerball</name>
+	<category>4</category>
+	<retail>2.00</retail>
+</item>
+<item>
+	<UID>4002</UID>
+	<name>SuperLotto</name>
+	<category>4</category>
+	<retail>2.00</retail>
+</item>
+<item>
+	<UID>4003</UID>
+	<UPC>053137011685</UPC>
+	<name>Monopoly $10</name>
+	<category>4</category>
+	<retail>10.00</retail>
+	<quantity>90</quantity>
+</item>
+<item>
+	<UID>4004</UID>
+	<UPC>053137011746</UPC>
+	<name>Fireball $50s</name>
+	<category>4</category>
+	<retail>1.00</retail>
+	<quantity>412</quantity>
+</item>
+<item>
+	<UID>4005</UID>
+	<UPC>053137012132</UPC>
+	<name>8 Ball Bingo</name>
+	<category>4</category>
+	<retail>3.00</retail>
+	<quantity>107</quantity>
+</item>
+<item>
+	<UID>4006</UID>
+	<UPC>053137012651</UPC>
+	<name>Black Ice</name>
+	<category>4</category>
+	<retail>10.00</retail>
+	<quantity>67</quantity>
+</item>
+<item>
+	<UID>4007</UID>
+	<UPC>053137012002</UPC>
+	<name>Cash Explosion</name>
+	<category>4</category>
+	<retail>20.00</retail>
+	<quantity>45</quantity>
+</item>
+<item>
+	<UID>4008</UID>
+	<UPC>053137012880</UPC>
+	<name>Mermaid Money</name>
+	<category>4</category>
+	<retail>1.00</retail>
+	<quantity>831</quantity>
+</item>
+<item>
+	<UID>4009</UID>
+	<UPC>053137012545</UPC>
+	<name>Gold Rush Bingo</name>
+	<category>4</category>
+	<retail>3.00</retail>
+	<quantity>245</quantity>
+</item>
+<item>
+	<UID>5000</UID>
+	<UPC>045893072239</UPC>
+	<name>Suave Advanced Therapy Body Lotion 18-ounce</name>
+	<size>18oz</size>
+	<category>5</category>
+	<wholesale>1.60</wholesale>
+	<retail>3.99</retail>
+	<quantity>15</quantity>
+</item>
+<item>
+	<UID>5001</UID>
+	<UPC>079400187765</UPC>
+	<name>Suave Skin Therapy Exhale Alluring Rich + Moisturizing Body Lotion Lavender Vani</name>
+	<size>18oz</size>
+	<category>5</category>
+	<wholesale>1.28</wholesale>
+	<retail>3.19</retail>
+	<quantity>12</quantity>
+</item>
+<item>
+	<UID>5002</UID>
+	<UPC>381370036005</UPC>
+	<name>Aveeno Active Naturals Daily Moisturizing Lotion</name>
+	<size>12oz</size>
+	<category>5</category>
+	<wholesale>3.20</wholesale>
+	<retail>7.99</retail>
+	<quantity>10</quantity>
+</item>
+<item>
+	<UID>5003</UID>
+	<UPC>041689100032</UPC>
+	<name>Zippo Brushed Chrome Pocket Lighter</name>
+	<size>1ct</size>
+	<category>5</category>
+	<wholesale>8.70</wholesale>
+	<retail>21.74</retail>
+	<quantity>16</quantity>
+</item>
+<item>
+	<UID>5004</UID>
+	<UPC>041689113452</UPC>
+	<name>Zippo Red Matte With Zippo Logo 233ZL</name>
+	<size>small</size>
+	<category>5</category>
+	<wholesale>6.88</wholesale>
+	<retail>17.19</retail>
+	<quantity>15</quantity>
+</item>
+<item>
+	<UID>5005</UID>
+	<UPC>049807102791</UPC>
+	<name>Lucas Oil 10279 Engine Oil Stop Leak - 1 Gallon</name>
+	<size>1gal</size>
+	<category>5</category>
+	<wholesale>10.18</wholesale>
+	<retail>25.46</retail>
+	<quantity>12</quantity>
+</item>
+<item>
+	<UID>5006</UID>
+	<UPC>049807102784</UPC>
+	<name>Lucas Oil 10278 Engine Oil Stop Leak - 1 Quart</name>
+	<size>1qt</size>
+	<category>5</category>
+	<wholesale>3.20</wholesale>
+	<retail>7.99</retail>
+	<quantity>19</quantity>
+</item>
+<item>
+	<UID>5007</UID>
+	<UPC>302993927167</UPC>
+	<name>Cetaphil Facial Cleanser, Daily, for Normal to Oily Skin, 16 fl oz</name>
+	<size>16oz</size>
+	<category>5</category>
+	<wholesale>3.84</wholesale>
+	<retail>9.59</retail>
+	<quantity>21</quantity>
+</item>
+<item>
+	<UID>5008</UID>
+	<UPC>604079016100</UPC>
+	<name>Philosophy Pure & Miraculous Trio</name>
+	<size>8oz</size>
+	<category>5</category>
+	<wholesale>7.20</wholesale>
+	<retail>17.97</retail>
+	<quantity>16</quantity>
+</item>
+<item>
+	<UID>5009</UID>
+	<UPC>724742003234</UPC>
+	<name>Alba Botanica Deep Sea Facial Mask 4oz</name>
+	<size>4oz</size>
+	<category>5</category>
+	<wholesale>3.70</wholesale>
+	<retail>9.24</retail>
+	<quantity>23</quantity>
+</item>
+<item>
+	<UID>5010</UID>
+	<UPC>020714494940</UPC>
+	<name>Clinique High Impact 01 Black Waterproof Mascara</name>
+	<size>0.28oz</size>
+	<category>5</category>
+	<wholesale>7.60</wholesale>
+	<retail>19.00</retail>
+	<quantity>18</quantity>
+</item>
+<item>
+	<UID>5011</UID>
+	<UPC>073010001305</UPC>
+	<name>Tampax Pearl Tampons, Plastic, Triple Pack, Unscented, 36 tampons</name>
+	<size>36ct</size>
+	<category>5</category>
+	<wholesale>2.80</wholesale>
+	<retail>6.99</retail>
+	<quantity>22</quantity>
+</item>
+<item>
+	<UID>5012</UID>
+	<UPC>016169060120</UPC>
+	<name>Kimono MicroThin, Ultra Lubricated Latex Condoms Aqua Lube</name>
+	<size>12ct</size>
+	<category>5</category>
+	<wholesale>3.80</wholesale>
+	<retail>9.50</retail>
+	<quantity>19</quantity>
+</item>
+<item>
+	<UID>5013</UID>
+	<UPC>078175189240</UPC>
+	<name>Mothers Speed All-Purpose Cleaner 24 oz</name>
+	<size>24oz</size>
+	<category>5</category>
+	<wholesale>1.38</wholesale>
+	<retail>3.44</retail>
+	<quantity>25</quantity>
+</item>
+<item>
+	<UID>5014</UID>
+	<UPC>028882719094</UPC>
+	<name>MaxLife 719009 Antifreeze - Gallon</name>
+	<size>1gal</size>
+	<category>5</category>
+	<wholesale>7.25</wholesale>
+	<retail>18.12</retail>
+	<quantity>16</quantity>
+</item>
