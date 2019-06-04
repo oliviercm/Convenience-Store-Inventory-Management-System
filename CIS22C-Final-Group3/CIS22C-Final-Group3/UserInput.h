@@ -11,11 +11,14 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
 
-class IO
+class UserInput
 {
-	static int getUserInputInt();
-	static double getUserInputDouble();
+private:
+public:
+	static int getUserInputInt(const int = INT_MIN, const int = INT_MAX);
+	static double getUserInputDouble(const double = DBL_MIN, const double = DBL_MAX);
 	static std::string getUserInputString();
 };

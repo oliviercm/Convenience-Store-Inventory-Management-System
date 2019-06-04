@@ -1,7 +1,11 @@
-string generateBars(int number)
+#include "Interface.h"
+
+std::string Interface::BARS_CHARACTER = "=";
+
+std::string Interface::generateBars(int number)
 {
-	string bars = string();
-	string bar = UI::BARS_CHARACTER;
+	std::string bars = std::string();
+	std::string bar = BARS_CHARACTER;
 
 	for (int i = 0; i < number; i++)
 	{
@@ -11,7 +15,7 @@ string generateBars(int number)
 	return bars;
 }
 
-void clearScreen(bool displayHeader)
+void Interface::clearScreen(bool displayHeader)
 {
 	std::system("CLS");
 	if (displayHeader)
@@ -21,49 +25,49 @@ void clearScreen(bool displayHeader)
 	return;
 }
 
-void pause()
+void Interface::pause()
 {
-	cout << "Press ENTER to continue.";
-	cin.get();
+	std::cout << "Press ENTER to continue.";
+	std::cin.get();
 }
 
-void initialize()
+void Interface::initialize()
 {
 	//Resize the terminal window
-	string systemResizeStr = "mode " + to_string(UI::TERMINAL_WIDTH) + ", " + to_string(UI::TERMINAL_HEIGHT);
+	std::string systemResizeStr = "mode " + std::to_string(TERMINAL_WIDTH) + ", " + std::to_string(TERMINAL_HEIGHT);
 	system(systemResizeStr.c_str());
 
 	//Rename the window
-	system("title Serendipity Booksellers by Olivier Chan, Luis Guerrero, Samuel Ruiz Cervantes, and Manasi Gowda");
+	system("title Instaventory by Olivier Chan, Luis Guerrero, Hiren Rathod, and Yue Pan");
 
-	//Format cout
-	cout << fixed << setprecision(2);
+	//Format std::cout
+	std::cout << std::fixed << std::setprecision(2);
 }
 
-void printHeader()
+void Interface::printHeader()
 {
-	const string bars = generateBars(UI::TERMINAL_WIDTH);
-	const string header1 = R"(   _____                         _ _       _ _           ____              _             _ _               )";
-	const string header2 = R"(  / ____|                       | (_)     (_) |         |  _ \            | |           | | |              )";
-	const string header3 = R"( | (___   ___ _ __ ___ _ __   __| |_ _ __  _| |_ _   _  | |_) | ___   ___ | | _____  ___| | | ___ _ __ ___ )";
-	const string header4 = R"(  \___ \ / _ \ '__/ _ \ '_ \ / _` | | '_ \| | __| | | | |  _ < / _ \ / _ \| |/ / __|/ _ \ | |/ _ \ '__/ __|)";
-	const string header5 = R"(  ____) |  __/ | |  __/ | | | (_| | | |_) | | |_| |_| | | |_) | (_) | (_) |   <\__ \  __/ | |  __/ |  \__ \)";
-	const string header6 = R"( |_____/ \___|_|  \___|_| |_|\__,_|_| .__/|_|\__|\__, | |____/ \___/ \___/|_|\_\___/\___|_|_|\___|_|  |___/)";
-	const string header7 = R"(                                    | |           __/ |                                                    )";
-	const string header8 = R"(                                    |_|          |___/                                                     )";
+	const std::string bars = generateBars(TERMINAL_WIDTH);
+	const std::string header1 = R"(  _____              _                             _                      )";
+	const std::string header2 = R"( |_   _|            | |                           | |                     )";
+	const std::string header3 = R"(   | |   _ __   ___ | |_  __ _ __   __ ___  _ __  | |_  ___   _ __  _   _ )";
+	const std::string header4 = R"(   | |  | '_ \ / __|| __|/ _` |\ \ / // _ \| '_ \ | __|/ _ \ | '__|| | | |)";
+	const std::string header5 = R"(  _| |_ | | | |\__ \| |_| (_| | \ V /|  __/| | | || |_| (_) || |   | |_| |)";
+	const std::string header6 = R"( |_____||_| |_||___/ \__|\__,_|  \_/  \___||_| |_| \__|\___/ |_|    \__, |)";
+	const std::string header7 = R"(                                                                     __/ |)";
+	const std::string header8 = R"(                                                                    |___/ )";
 
-	cout << right;
+	std::cout << std::right;
 
-	cout << setw((UI::TERMINAL_WIDTH + header1.length()) / 2) << header1 << endl
-		<< setw((UI::TERMINAL_WIDTH + header2.length()) / 2) << header2 << endl
-		<< setw((UI::TERMINAL_WIDTH + header3.length()) / 2) << header3 << endl
-		<< setw((UI::TERMINAL_WIDTH + header4.length()) / 2) << header4 << endl
-		<< setw((UI::TERMINAL_WIDTH + header5.length()) / 2) << header5 << endl
-		<< setw((UI::TERMINAL_WIDTH + header6.length()) / 2) << header6 << endl
-		<< setw((UI::TERMINAL_WIDTH + header7.length()) / 2) << header7 << endl
-		<< setw((UI::TERMINAL_WIDTH + header8.length()) / 2) << header8 << endl << endl;
+	std::cout << std::setw((TERMINAL_WIDTH + header1.length()) / 2) << header1 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header2.length()) / 2) << header2 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header3.length()) / 2) << header3 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header4.length()) / 2) << header4 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header5.length()) / 2) << header5 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header6.length()) / 2) << header6 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header7.length()) / 2) << header7 << std::endl
+		<< std::setw((TERMINAL_WIDTH + header8.length()) / 2) << header8 << std::endl << std::endl;
 
-	cout << bars << endl << endl;
+	std::cout << bars << std::endl << std::endl;
 
 	return;
 }

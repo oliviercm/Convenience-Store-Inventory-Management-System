@@ -1,7 +1,6 @@
-#include <iostream>
-#include <string>
+#include "UserInput.h"
 
-int getUserInputInt(const int& min, const int& max)
+int UserInput::getUserInputInt(const int min, const int max)
 {
 	std::string input;
 	int inputInt;
@@ -21,23 +20,23 @@ int getUserInputInt(const int& min, const int& max)
 			//Input must be between min and max
 			if (inputInt < min || inputInt > max)
 			{
-				std::cerr << UI::ERR_INVALID_OPTION_RANGE << min << " and " << max << " inclusive." << std::endl;
+				std::cerr << "ERROR: Invalid option, option must be between " << min << " and " << max << " inclusive." << std::endl;
 				err = true;
 			}
 		}
-		catch (invalid_argument&)
+		catch (std::invalid_argument&)
 		{
-			std::cerr << UI::ERR_EXCEPTION_INVALID_ARGUMENT << std::endl;
+			std::cerr << "ERROR: Invalid option, option is not a valid argument. Are you correctly typing a number or a string?" << std::endl;
 			err = true;
 		}
-		catch (out_of_range&)
+		catch (std::out_of_range&)
 		{
-			std::cerr << UI::ERR_EXCEPTION_OUT_OF_RANGE << std::endl;
+			std::cerr << "ERROR: Invalid option, option is out of range." << std::endl;
 			err = true;
 		}
 		catch (...)
 		{
-			std::cerr << UI::ERR_EXCEPTION_GENERIC << std::endl;
+			std::cerr << "ERROR: An exception occurred." << std::endl;
 			err = true;
 		}
 
@@ -46,7 +45,7 @@ int getUserInputInt(const int& min, const int& max)
 	return inputInt;
 }
 
-double getUserInputDouble(const double& min, const double& max)
+double UserInput::getUserInputDouble(const double min, const double max)
 {
 	std::string input;
 	double inputDouble;
@@ -66,23 +65,23 @@ double getUserInputDouble(const double& min, const double& max)
 			//Input must be between min and max
 			if (inputDouble < min || inputDouble > max)
 			{
-				std::cerr << UI::ERR_INVALID_OPTION_RANGE << min << " and " << max << " inclusive." << std::endl;
+				std::cerr << "ERROR: Invalid option, option must be between " << min << " and " << max << " inclusive." << std::endl;
 				err = true;
 			}
 		}
-		catch (invalid_argument&)
+		catch (std::invalid_argument&)
 		{
-			std::cerr << UI::ERR_EXCEPTION_INVALID_ARGUMENT << std::endl;
+			std::cerr << "ERROR: Invalid option, option is not a valid argument. Are you correctly typing a number or a string?" << std::endl;
 			err = true;
 		}
-		catch (out_of_range&)
+		catch (std::out_of_range&)
 		{
-			std::cerr << UI::ERR_EXCEPTION_OUT_OF_RANGE << std::endl;
+			std::cerr << "ERROR: Invalid option, option is out of range." << std::endl;
 			err = true;
 		}
 		catch (...)
 		{
-			std::cerr << UI::ERR_EXCEPTION_GENERIC << std::endl;
+			std::cerr << "ERROR: An exception occurred." << std::endl;
 			err = true;
 		}
 
@@ -91,7 +90,7 @@ double getUserInputDouble(const double& min, const double& max)
 	return inputDouble;
 }
 
-std::string getUserInputString()
+std::string UserInput::getUserInputString()
 {
 	std::string input;
 

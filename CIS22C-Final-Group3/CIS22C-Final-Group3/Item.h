@@ -18,10 +18,16 @@ struct Item
 private:
 public:
 	int uid;
-	//Array& attributes;
+	std::string upc;
+	std::string name;
+	std::string size;
+	int category;
+	double wholesale;
+	double retail;
+	int quantity;
 
 	Item();
-	~Item();
+	virtual ~Item();
 
 	Item& operator=(const Item&);
 
