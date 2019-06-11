@@ -99,104 +99,104 @@
 	<quantity>31</quantity>
 </item>
 <item>
-        <UID>2000</UID>
-        <UPC>049000418347</UPC>
-        <name>Coca-Cola</name>
-        <size>16oz</size>
-        <category>2</category>
-        <wholesale>1.50</wholesale>
-        <retail>2.60</retail>
-        <quantity>60</quantity>
+	<UID>2000</UID>
+	<UPC>049000418347</UPC>
+	<name>Coca-Cola</name>
+	<size>16oz</size>
+	<category>2</category>
+	<wholesale>1.50</wholesale>
+	<retail>2.60</retail>
+	<quantity>60</quantity>
 </item>
 <item>
-        <UID>2001</UID>
-        <UPC>049000028706</UPC>
-        <name>Dasani Purified Water</name>
-        <size>12oz</size>
-        <category>2</category>
-        <wholesale>1.10</wholesale>
-        <retail>2.50</retail>
-        <quantity>80</quantity>
+	<UID>2001</UID>
+	<UPC>049000028706</UPC>
+	<name>Dasani Purified Water</name>
+	<size>12oz</size>
+	<category>2</category>
+	<wholesale>1.10</wholesale>
+	<retail>2.50</retail>
+	<quantity>80</quantity>
 </item>
 <item>
-        <UID>2002</UID>
-        <UPC>018200007712</UPC>
-        <name>Budweiser</name>
-        <size>12oz</size>
-        <category>2</category>
-        <wholesale>2.50</wholesale>
-        <retail>4.30</retail>
-        <quantity>40</quantity>
+	<UID>2002</UID>
+	<UPC>018200007712</UPC>
+	<name>Budweiser</name>
+	<size>12oz</size>
+	<category>2</category>
+	<wholesale>2.50</wholesale>
+	<retail>4.30</retail>
+	<quantity>40</quantity>
 </item>
 <item>
-        <UID>2003</UID>
-        <UPC>0611269991246</UPC>
-        <name>Red Bull</name>
-        <size>8oz</size>
-        <category>2</category>
-        <wholesale>3.0</wholesale>
-        <retail>4.60</retail>
-        <quantity>70</quantity>
+	<UID>2003</UID>
+	<UPC>0611269991246</UPC>
+	<name>Red Bull</name>
+	<size>8oz</size>
+	<category>2</category>
+	<wholesale>3.00</wholesale>
+	<retail>4.60</retail>
+	<quantity>70</quantity>
 </item>
 <item>
-        <UID>2004</UID>
-        <UPC>9011020724310</UPC>
-        <name>Gatorade</name>
-        <size>16oz</size>
-        <category>2</category>
-        <wholesale>2.50</wholesale>
-        <retail>4.25</retail>
-        <quantity>30</quantity>
+	<UID>2004</UID>
+	<UPC>9011020724310</UPC>
+	<name>Gatorade</name>
+	<size>16oz</size>
+	<category>2</category>
+	<wholesale>2.50</wholesale>
+	<retail>4.25</retail>
+	<quantity>30</quantity>
 </item>
 <item>
-        <UID>2005</UID>
-        <UPC>0818094000246</UPC>
-        <name>Rockstar</name>
-        <size>16oz</size>
-        <category>2</category>
-        <wholesale>3.50</wholesale>
-        <retail>4.89</retail>
-        <quantity>50</quantity>
+	<UID>2005</UID>
+	<UPC>0818094000246</UPC>
+	<name>Rockstar</name>
+	<size>16oz</size>
+	<category>2</category>
+	<wholesale>3.50</wholesale>
+	<retail>4.89</retail>
+	<quantity>50</quantity>
 </item>
 <item>
-        <UID>2006</UID>
-        <UPC>0049000030730</UPC>
-        <name>Fanta</name>
-        <size>12oz</size>
-        <category>2</category>
-        <wholesale>2.50</wholesale>
-        <retail>3.98</retail>
-        <quantity>60</quantity>
+	<UID>2006</UID>
+	<UPC>0049000030730</UPC>
+	<name>Fanta</name>
+	<size>12oz</size>
+	<category>2</category>
+	<wholesale>2.50</wholesale>
+	<retail>3.98</retail>
+	<quantity>60</quantity>
 </item>
 <item>
-        <UID>2007</UID>
-        <UPC>0072890000118</UPC>
-        <name>Heineken</name>
-        <size>12oz</size>
-        <category>2</category>
-        <wholesale>3.50</wholesale>
-        <retail>5.97</retail>
-        <quantity>40</quantity>
+	<UID>2007</UID>
+	<UPC>0072890000118</UPC>
+	<name>Heineken</name>
+	<size>12oz</size>
+	<category>2</category>
+	<wholesale>3.50</wholesale>
+	<retail>5.97</retail>
+	<quantity>40</quantity>
 </item>
 <item>
-        <UID>2008</UID>
-        <UPC>0012000041396</UPC>
-        <name>Starbucks Coffee</name>
-        <size>11oz</size>
-        <category>2</category>
-        <wholesale>3.50</wholesale>
-        <retail>4.98</retail>
-        <quantity>30</quantity>
+	<UID>2008</UID>
+	<UPC>0012000041396</UPC>
+	<name>Starbucks Coffee</name>
+	<size>11oz</size>
+	<category>2</category>
+	<wholesale>3.50</wholesale>
+	<retail>4.98</retail>
+	<quantity>30</quantity>
 </item>
 <item>
-        <UID>2009</UID>
-        <UPC>049000028928</UPC>
-        <name>Sprite</name>
-        <size>12oz</size>
-        <category>2</category>
-        <wholesale>1.50</wholesale>
-        <retail>2.98</retail>
-        <quantity>60</quantity>
+	<UID>2009</UID>
+	<UPC>049000028928</UPC>
+	<name>Sprite</name>
+	<size>12oz</size>
+	<category>2</category>
+	<wholesale>1.50</wholesale>
+	<retail>2.98</retail>
+	<quantity>60</quantity>
 </item>
 <item>
 	<UID>3000</UID>
@@ -300,27 +300,41 @@
 </item>
 <item>
 	<UID>4000</UID>
+	<UPC></UPC>
 	<name>Mega Millions</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>2.00</retail>
+	<quantity>0</quantity>
 </item>
 <item>
 	<UID>4001</UID>
+	<UPC></UPC>
 	<name>Powerball</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>2.00</retail>
+	<quantity>0</quantity>
 </item>
 <item>
 	<UID>4002</UID>
+	<UPC></UPC>
 	<name>SuperLotto</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>2.00</retail>
+	<quantity>0</quantity>
 </item>
 <item>
 	<UID>4003</UID>
 	<UPC>053137011685</UPC>
 	<name>Monopoly $10</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>10.00</retail>
 	<quantity>90</quantity>
 </item>
@@ -328,7 +342,9 @@
 	<UID>4004</UID>
 	<UPC>053137011746</UPC>
 	<name>Fireball $50s</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>1.00</retail>
 	<quantity>412</quantity>
 </item>
@@ -336,7 +352,9 @@
 	<UID>4005</UID>
 	<UPC>053137012132</UPC>
 	<name>8 Ball Bingo</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>3.00</retail>
 	<quantity>107</quantity>
 </item>
@@ -344,7 +362,9 @@
 	<UID>4006</UID>
 	<UPC>053137012651</UPC>
 	<name>Black Ice</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>10.00</retail>
 	<quantity>67</quantity>
 </item>
@@ -352,7 +372,9 @@
 	<UID>4007</UID>
 	<UPC>053137012002</UPC>
 	<name>Cash Explosion</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>20.00</retail>
 	<quantity>45</quantity>
 </item>
@@ -360,7 +382,9 @@
 	<UID>4008</UID>
 	<UPC>053137012880</UPC>
 	<name>Mermaid Money</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>1.00</retail>
 	<quantity>831</quantity>
 </item>
@@ -368,7 +392,9 @@
 	<UID>4009</UID>
 	<UPC>053137012545</UPC>
 	<name>Gold Rush Bingo</name>
+	<size></size>
 	<category>4</category>
+	<wholesale>0.00</wholesale>
 	<retail>3.00</retail>
 	<quantity>245</quantity>
 </item>

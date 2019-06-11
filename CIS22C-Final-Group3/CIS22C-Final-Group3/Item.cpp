@@ -1,11 +1,12 @@
 #include "Item.h"
 
-Item::Item()
+Item::Item(const int& ui, const std::string& up, const std::string& na, const std::string& si, const int& ca, const double& wh, const double& re, const int& qu)
+	: uid(ui), upc(up), name(na), size(si), category(ca), wholesale(wh), retail(re), quantity(qu)
 {
-
+	
 }
-
-Item::~Item()
+Item::Item(int&& ui, std::string&& up, std::string&& na, std::string&& si, int&& ca, double&& wh, double&& re, int&& qu)
+	: uid(ui), upc(up), name(na), size(si), category(ca), wholesale(wh), retail(re), quantity(qu)
 {
 
 }

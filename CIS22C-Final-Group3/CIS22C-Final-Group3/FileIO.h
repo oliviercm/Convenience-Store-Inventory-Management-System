@@ -1,43 +1,45 @@
+/********************************************************************************
+*********************************** FileIO **************************************
+*********************************************************************************
+* Author: Olivier Chan - 100%
+*
+* The purpose of these functions are to handle saving and loading data from files.
+*****************
+***** USAGE *****
+*****************
+* WIP
+*********************************************************************************/
+
 #pragma once
 
-#include <fstream>
 #include <string>
+#include "Item.h"
+#include "List.h"
 
-class FileIO
+namespace FileIO
 {
-public:
-	FileIO();
-	virtual ~FileIO();
-
 	/**
-	* parseString
+	* @author Olivier Chan
 	*
-	* @brief Returns a substring of the passed string starting at the (skip + 1)th instance of "<delimiter>" and ending after the subsequent instance of "</delimiter>".
-	*	The angle brackets and delimiters are removed from the substring.
-	*	If skip is greater than the number of delimiters in the string, an empty string is returned.
+	* @brief Populates the passed empty List with all Items that can be loaded from the given file path.
 	*
-	* @detail Example: parseString("<txt>Foo</txt> <txt>Bar</txt>", "txt", 0) will return "Foo".
+	* @pre list must be empty. filePath must point to a file that is correctly formatted following the documentation.
+	* @post list will contain all Item objects that could be constructed from the file.
 	*
-	* @param str The string to parse. The string should contain "<delimiter>" and "</delimiter>" tags.
-	*
-	* @param delimiter The string to act as a delimiter. This function adds angle brackets around the delimiter, so they should not be included in the passed delimiter.
-	*
-	* @param skip The number of times to skip an instance of the delimiter.
-	*
-	* @return A substring of the passed string starting at the (skip + 1)th instance of "<delimiter>" and ending after the subsequent instance of "</delimiter>".
-	*	The angle brackets and delimiters are removed from the substring.
-	*	If skip is greater than the number of delimiters in the string, an empty string is returned.
+	* @param list The List to populate.
+	* @param filePath The filepath of the file containing the Item data.
 	*/
-	static std::string parseString(const std::string str, const std::string delimiter);
-	static std::string parseString(const std::string str, const std::string delimiter, const int skip);
+	void loadFileIntoList(List<Item>& list, const std::string& filePath);
 	/**
-	* fileToString
+	* @author Olivier Chan
 	*
-	* @brief Returns the contents of the file located at path as a string. If the file at path doesn't exist, returns an empty string.
+	* @brief Serializes the list of items into a file at the given filepath.
 	*
-	* @param path The path of the file to convert contents to a string.
+	* @pre list should contain any number of Items. filePath should point to the current data file location.
+	* @post The file at filePath will be overwritten to contain the contents of list, serialized into database format following documentation.
 	*
-	* @return The contents of the file from path as a string. If the file at path doesn't exist, returns an empty string.
+	* @param list The List to serialize.
+	* @param filePath The filepath of the file to save the serialized data.
 	*/
-	static std::string fileToString(std::string path);
+	void saveListIntoFile(List<Item>& list, const std::string& filePath);
 };

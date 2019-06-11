@@ -1,7 +1,9 @@
 /********************************************************************************
 ************************************ List ***************************************
 *********************************************************************************
-* WIP
+* Author: Olivier Chan - 50%
+* Author: Luis Guerrero - 50%
+* 
 * The purpose of this class is to provide a List ADT.
 *****************
 ***** USAGE *****
@@ -17,7 +19,7 @@
 
 template <typename U> class List;
 template <typename U>
-std::ostream& operator<<(std::ostream& os, List<U> list)
+std::ostream& operator<<(std::ostream& os, List<U>& list)
 {
 	for (int i = 0; i < list.getCount(); i++)
 	{
@@ -37,34 +39,44 @@ public:
 	List();
 	virtual ~List();
 
-	bool isEmpty();
-	int getCount();
-	Node<T>* insert(T&, int); //A number outside the range 0-count will return nullptr! Insertion pushes both the element in the desired position and all elements after that element to the right.
-	Node<T>* insertFirst(T&);
-	Node<T>* insertLast(T&);
-	void remove(int); //A number outside the range 0-(count - 1) will fail silently!
+	List(const List&) = delete;
+	List& operator=(const List&) = delete;
+
+	virtual bool isEmpty() const;
+	virtual int getCount() const;
+	Node<T>* insert(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	Node<T>* insertFirst(const T&);
+	Node<T>* insertLast(const T&);
+	Node<T>* insert(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	Node<T>* insertFirst(T&&);
+	Node<T>* insertLast(T&&);
+	void remove(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	void removeFirst();
 	void removeLast();
 	void removeAll();
-	T& getData(int); //An invalid index will throw an exception.
+	T& getData(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	T& getFirstData();
 	T& getLastData();
-	void setData(T&, int); //An invalid index will fail silently!
-	void setFirstData(T&);
-	void setLastData(T&);
+	void setData(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	void setFirstData(const T&);
+	void setLastData(const T&);
+	void setData(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	void setFirstData(T&&);
+	void setLastData(T&&);
+
+	T& operator[](const int);
 };
 
 template <typename T>
-List<T>::List()
+List<T>::List() : count(0), head(nullptr)
 {
-	count = 0;
-	head = nullptr;
+
 }
 
 template <typename T>
 List<T>::~List()
 {
-	
+	removeAll();
 }
 
 /*
@@ -74,7 +86,7 @@ Checks if the link-list is empty
 @return true if count is 0, otherwise false.
 */
 template <typename T>
-bool List<T>::isEmpty()
+bool List<T>::isEmpty() const
 {
 	if (count == 0)
 	{
@@ -93,7 +105,7 @@ Gets the count of the link-list
 @return count.
 */
 template <typename T>
-int List<T>::getCount()
+int List<T>::getCount() const
 {
 	return count;
 }
@@ -105,27 +117,27 @@ Insert data into the list
 @return N/A.
 */
 template <typename T>
-Node<T>* List<T>::insert(T& newData, int pos)
+Node<T>* List<T>::insert(const T& newData, const int pos)
 {
 	if (pos < 0 || pos > count)
 	{
-		return nullptr;
+		throw std::out_of_range("Index out of range.");
 	}
+
+	Node<T>* returnNode;
 
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(newData);
 
-		count++;
-		return head;
+		returnNode = head;
 	}
 	else if (pos == 0) //Replacing head
 	{
 		Node<T>* temp = head;
 		head = new Node<T>(newData, temp);
 
-		count++;
-		return head;
+		returnNode = head;
 	}
 	else
 	{
@@ -138,10 +150,52 @@ Node<T>* List<T>::insert(T& newData, int pos)
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(newData, temp);
 
-		count++;
-		return currentNode->next;
+		returnNode = currentNode->next;
 	}
 
+	count++;
+	return returnNode;
+}
+template <typename T>
+Node<T>* List<T>::insert(T&& newData, const int pos)
+{
+	if (pos < 0 || pos > count)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	Node<T>* returnNode;
+
+	if (head == nullptr) //The list is empty
+	{
+		head = new Node<T>(std::move(newData));
+
+		returnNode = head;
+	}
+	else if (pos == 0) //Replacing head
+	{
+		Node<T>* temp = head;
+		head = new Node<T>(std::move(newData), temp);
+
+		returnNode = head;
+	}
+	else
+	{
+		Node<T>* currentNode = head;
+		for (int i = 0; i < pos - 1; i++)
+		{
+			currentNode = currentNode->next;
+		}
+
+		Node<T>* temp = currentNode->next;
+		currentNode->next = new Node<T>(std::move(newData), temp);
+
+		returnNode = currentNode->next;
+	}
+
+	count++;
+
+	return returnNode;
 }
 
 /*
@@ -151,9 +205,14 @@ Inserts data in the first position of the list
 @return.
 */
 template <typename T>
-Node<T>* List<T>::insertFirst(T& newData)
+Node<T>* List<T>::insertFirst(const T& newData)
 {
 	return insert(newData, 0);
+}
+template <typename T>
+Node<T>* List<T>::insertFirst(T&& newData)
+{
+	return insert(std::move(newData), 0);
 }
 
 /*
@@ -163,56 +222,59 @@ Inserts data at the last position of the list
 @return.
 */
 template <typename T>
-Node<T>* List<T>::insertLast(T& newData)
+Node<T>* List<T>::insertLast(const T& newData)
 {
 	return insert(newData, count);
+}
+template <typename T>
+Node<T>* List<T>::insertLast(T&& newData)
+{
+	return insert(std::move(newData), count);
 }
 
 /*
 Remove data from the list
 @pre Position has to be less than 0 or greater than count -1.
-@post Cheks if data can be remove / remove the data from the position entered
+@post Checks if data can be removed / remove the data from the position entered
 @return.
 */
 template <typename T>
-void List<T>::remove(int pos)
+void List<T>::remove(const int pos)
 {
-	if (pos < 0 || pos > count - 1)
-	{
-		return;
-	}
-
 	if (head == nullptr) //The list is empty
 	{
-		return;
+		throw std::out_of_range("List is empty.");
+	}
+
+	if (pos < 0 || pos > count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	if (pos == 0)
+	{
+		Node<T>* nextNode = head->next;
+
+		delete head;
+		head = nextNode;
 	}
 	else
 	{
-		if (pos == 0)
+		Node<T>* previousNode = nullptr;
+		Node<T>* currentNode = head;
+		for (int i = 0; i < pos; i++)
 		{
-			Node<T>* nextNode = head->next;
-
-			delete head;
-			head = nextNode;
+			previousNode = currentNode;
+			currentNode = currentNode->next;
 		}
-		else
+
+		if (currentNode->next != nullptr)
 		{
-			Node<T>* previousNode = nullptr;
-			Node<T>* currentNode = head;
-			for (int i = 0; i < pos; i++)
-			{
-				previousNode = currentNode;
-				currentNode = currentNode->next;
-			}
-
-			if (currentNode->next != nullptr)
-			{
-				Node<T>* temp = currentNode->next;
-				previousNode->next = temp;
-			}
-
-			delete currentNode;
+			Node<T>* temp = currentNode->next;
+			previousNode->next = temp;
 		}
+
+		delete currentNode;
 	}
 
 	count--;
@@ -260,11 +322,10 @@ void List<T>::removeAll()
 	}
 	else
 	{
-		Node<T>* previousNode = nullptr;
 		Node<T>* currentNode = head;
 		while (currentNode->next != nullptr)
 		{
-			previousNode = currentNode;
+			Node<T>* previousNode = currentNode;
 			currentNode = currentNode->next;
 			delete previousNode;
 		}
@@ -286,11 +347,16 @@ Gets data from the list
 */
 
 template <typename T>
-T& List<T>::getData(int pos)
+T& List<T>::getData(const int pos)
 {
-	if (pos < 0 || pos > count - 1 || head == nullptr)
+	if (head == nullptr) //The list is empty
 	{
-		throw "Invalid index";
+		throw std::out_of_range("List is empty.");
+	}
+
+	if (pos < 0 || pos > count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
 	}
 
 	Node<T>* currentNode = head;
@@ -321,6 +387,7 @@ Gets data from the last element.
 @post Gets the last element.
 @return The data from the last element on the list.
 */
+
 template <typename T>
 T& List<T>::getLastData()
 {
@@ -334,11 +401,16 @@ Sets data in the list.
 @return.
 */
 template <typename T>
-void List<T>::setData(T& newData, int pos)
+void List<T>::setData(const T& newData, const int pos)
 {
-	if (pos < 0 || pos > count - 1 || head == nullptr)
+	if (head == nullptr) //The list is empty
 	{
-		return;
+		throw std::out_of_range("List is empty.");
+	}
+
+	if (pos < 0 || pos > count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
 	}
 
 	Node<T>* currentNode = head;
@@ -350,6 +422,28 @@ void List<T>::setData(T& newData, int pos)
 	currentNode->data = newData;
 	return;
 }
+template <typename T>
+void List<T>::setData(T&& newData, const int pos)
+{
+	if (head == nullptr) //The list is empty
+	{
+		throw std::out_of_range("List is empty.");
+	}
+
+	if (pos < 0 || pos > count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	Node<T>* currentNode = head;
+	for (int i = 0; i < pos; i++)
+	{
+		currentNode = currentNode->next;
+	}
+
+	currentNode->data = std::move(newData);
+	return;
+}
 
 /*
 Sets data of the first element.
@@ -358,9 +452,15 @@ Sets data of the first element.
 @return.
 */
 template <typename T>
-void List<T>::setFirstData(T& newData)
+void List<T>::setFirstData(const T& newData)
 {
 	setData(newData, 0);
+	return;
+}
+template <typename T>
+void List<T>::setFirstData(T&& newData)
+{
+	setData(std::move(newData), 0);
 	return;
 }
 
@@ -371,8 +471,20 @@ Sets data of the last element.
 @return.
 */
 template <typename T>
-void List<T>::setLastData(T& newData)
+void List<T>::setLastData(const T& newData)
 {
 	setData(newData, count - 1);
 	return;
+}
+template <typename T>
+void List<T>::setLastData(T&& newData)
+{
+	setData(std::move(newData), count - 1);
+	return;
+}
+
+template <typename T>
+T& List<T>::operator[](const int index)
+{
+	return getData(index);
 }

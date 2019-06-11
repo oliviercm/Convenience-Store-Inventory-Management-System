@@ -1,6 +1,9 @@
 /********************************************************************************
 ************************************ Stack **************************************
 *********************************************************************************
+* Author: Olivier Chan - 50%
+* Author: Luis Guerrero - 50%
+*
 * This class is an Abstract Data Structure, modeling the functionality of a stack.
 * As this class is template based, it can be used with almost any type of data.
 * This data structure follows a First In, Last Out pattern.
@@ -19,12 +22,19 @@ template <typename T>
 class Stack : protected List<T>
 {
 public:
-	void push(T&);
-	T& pop();
+	Stack() = default;
+	virtual ~Stack() = default;
+
+	Stack(const Stack&) = delete;
+	Stack& operator=(const Stack&) = delete;
+	
+	void push(const T&);
+	void push(T&&);
+	T pop();
 	T& peek();
 	void empty();
-	int getCount();
-	bool isEmpty();
+	int getCount() const override;
+	bool isEmpty() const override;
 };
 
 /*
@@ -32,15 +42,20 @@ Puts data into stack.
 
 @pre New data.
 
-@post Insert the firts element.
+@post Insert the first element.
 
 @return N/A.
 */
 
 template <typename T>
-void Stack<T>::push(T& newData)
+void Stack<T>::push(const T& newData)
 {
-	this->insertFirst(newData);
+	List<T>::insertFirst(newData);
+}
+template <typename T>
+void Stack<T>::push(T&& newData)
+{
+	List<T>::insertFirst(std::move(newData));
 }
 
 /*
@@ -54,13 +69,18 @@ Removes data from the stack.
 */
 
 template <typename T>
-T& Stack<T>::pop()
+T Stack<T>::pop()
 {
-	T& data = this->getFirstData();
+	if (List<T>::isEmpty())
+	{
+		throw std::out_of_range("Stack is empty.");
+	}
 	
-	this->removeFirst();
+	T data = List<T>::getFirstData();
+	
+	List<T>::removeFirst();
 
-	return data;
+	return std::move(data);
 }
 
 /*
@@ -75,7 +95,12 @@ Gets the first elemnt in the stack.
 template <typename T>
 T& Stack<T>::peek()
 {
-	return this->getFirstData();
+	if (List<T>::isEmpty())
+	{
+		throw std::out_of_range("Stack is empty.");
+	}
+	
+	return List<T>::getFirstData();
 }
 
 /*
@@ -91,7 +116,7 @@ Empties out the stack.
 template <typename T>
 void Stack<T>::empty()
 {
-	this->removeAll();
+	List<T>::removeAll();
 }
 
 /**
@@ -103,9 +128,9 @@ void Stack<T>::empty()
 */
 
 template <typename T>
-int Stack<T>::getCount()
+int Stack<T>::getCount() const
 {
-	return this->count;
+	return List<T>::getCount();
 }
 
 
@@ -118,14 +143,7 @@ int Stack<T>::getCount()
 */
 
 template <typename T>
-bool Stack<T>::isEmpty()
+bool Stack<T>::isEmpty() const
 {
-	if (this->getCount() == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return List<T>::isEmpty();
 }

@@ -1,6 +1,9 @@
 /********************************************************************************
 ************************************ Queue **************************************
 *********************************************************************************
+* Author: Olivier Chan - 50%
+* Author: Luis Guerrero - 50%
+* 
 * This class is an Abstract Data Structure, modeling the functionality of a queue.
 * As this class is template based, it can be used with almost any type of data.
 * This data structure follows a First In, First Out pattern.
@@ -33,24 +36,27 @@ class Queue : protected List<T>
 private:
 	Node<T>* front; //The node in the front of the queue
 	Node<T>* rear; //The node in the back of the queue
-
 public:
 	Queue();
+	virtual ~Queue() = default;
 
-	void enqueue(T&);
-	T& dequeue();
+	Queue(const Queue&) = delete;
+	Queue& operator=(const Queue&) = delete;
+
+	void enqueue(const T&);
+	void enqueue(T&&);
+	T dequeue();
 	T& getFront();
 	T& getRear();
-	int getCount();
 	void empty();
-	bool isEmpty();
+	int getCount() const override;
+	bool isEmpty() const override;
 };
 
 template<typename T>
-Queue<T>::Queue()
+Queue<T>::Queue() : front(nullptr), rear(nullptr)
 {
-	front = nullptr;
-	rear = nullptr;
+
 }
 
 /**
@@ -61,11 +67,24 @@ Queue<T>::Queue()
 * @param newData The data to add to the front of the queue.
 */
 
-
 template<typename T>
-void Queue<T>::enqueue(T& newData)
+void Queue<T>::enqueue(const T& newData)
 {
-	Node<T>* temp = (this->insertLast(newData));
+	Node<T>* temp = List<T>::insertLast(newData);
+	if (this->front == nullptr)
+	{
+		this->front = temp;
+		this->rear = temp;
+	}
+	else
+	{
+		this->rear = temp;
+	}
+}
+template<typename T>
+void Queue<T>::enqueue(T&& newData)
+{
+	Node<T>* temp = List<T>::insertLast(newData);
 	if (this->front == nullptr)
 	{
 		this->front = temp;
@@ -80,22 +99,22 @@ void Queue<T>::enqueue(T& newData)
 /**
 * dequeue
 *
-* @brief Removes the data at the end of the queue. Note that this doesn't actually delete the data itself.
+* @brief Removes the data at the end of the queue.
 */
 
 template<typename T>
-T& Queue<T>::dequeue()
+T Queue<T>::dequeue()
 {
-	if (this->isEmpty())
+	if (List<T>::isEmpty())
 	{
-		throw "Queue empty";
+		throw std::out_of_range("Queue is empty.");
 	}
 
-	T& data = this->getFirstData();
+	T data = List<T>::getFirstData();
 	
 	if (this->front == this->rear)
 	{
-		this->removeFirst();
+		List<T>::removeFirst();
 		this->front = nullptr;
 		this->rear = nullptr;
 	}
@@ -106,7 +125,7 @@ T& Queue<T>::dequeue()
 		this->front = next;
 	}
 
-	return data;
+	return std::move(data);
 }
 
 /**
@@ -120,7 +139,7 @@ T& Queue<T>::dequeue()
 template<typename T>
 T& Queue<T>::getFront()
 {
-	return this->getFirstData();
+	return this->front.data;
 }
 
 /**
@@ -134,7 +153,7 @@ T& Queue<T>::getFront()
 template<typename T>
 T& Queue<T>::getRear()
 {
-	return this->getLastData();
+	return this->rear.data;
 }
 
 /**
@@ -146,7 +165,7 @@ T& Queue<T>::getRear()
 template<typename T>
 void Queue<T>::empty()
 {
-	this->removeAll();
+	List<T>::removeAll();
 }
 
 /**
@@ -158,9 +177,9 @@ void Queue<T>::empty()
 */
 
 template<typename T>
-int Queue<T>::getCount()
+int Queue<T>::getCount() const
 {
-	return this->count;
+	return List<T>::count;
 }
 
 /**
@@ -172,14 +191,7 @@ int Queue<T>::getCount()
 */
 
 template<typename T>
-bool Queue<T>::isEmpty()
+bool Queue<T>::isEmpty() const
 {
-	if (this->getCount() == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return List<T>::isEmpty();
 }

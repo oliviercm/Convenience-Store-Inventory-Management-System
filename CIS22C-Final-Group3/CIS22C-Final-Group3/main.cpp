@@ -14,23 +14,44 @@ Yue Pan
 #include "FileIO.h"
 #include "Interface.h"
 #include "Item.h"
-#include "UserInput.h"
-#include "Array.h"
+#include "Input.h"
+#include "List.h"
+#include "Stack.h"
+#include "Queue.h"
 
 using namespace std;
 
 int main()
 {
+	Interface::initialize();
 	Interface::printHeader();
 	
-	//std::string filepath = "items.txt";
-	//cout << FileIO::fileToString(filepath) << endl;
-	
-	Array<int> myArray = Array<int>();
+	std::string filepath;
+	cout << "Enter path to data file: ";
+	filepath = Input::getString();
 
-	myArray.append(10);
-	cout << myArray[0] << endl;
+	List<Item> itemList;
+	try
+	{
+		FileIO::loadFileIntoList(itemList, filepath);
+	}
+	catch(std::invalid_argument e)
+	{
+		cerr << e.what() << endl;
+		cout << "Quitting..." << endl;
+		Interface::pause();
+		return 0;
+	}
+	catch (...)
+	{
+		cerr << "ERROR: Data file corrupted." << endl;
+		cout << "Quitting..." << endl;
+		Interface::pause();
+		return 0;
+	}
 
-	system("pause");
+	FileIO::saveListIntoFile(itemList, filepath);
+
+	Interface::pause();
 	return 0;
 }

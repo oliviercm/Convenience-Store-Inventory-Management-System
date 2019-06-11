@@ -119,10 +119,9 @@
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="UserInput.cpp" />
+    <ClCompile Include="Input.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Array.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Item.h" />
@@ -130,7 +129,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
-    <ClInclude Include="UserInput.h" />
+    <ClInclude Include="Input.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="items.txt" />

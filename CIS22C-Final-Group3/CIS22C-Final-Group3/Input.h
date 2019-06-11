@@ -1,7 +1,9 @@
 /********************************************************************************
-********************************* UserInput *************************************
+*********************************** Input ***************************************
 *********************************************************************************
-* WIP
+** Author: Olivier Chan - 75%
+* Author: Luis Guerrero - 25%
+*
 * The purpose of this class is to handle and validate user input.
 *****************
 ***** USAGE *****
@@ -11,14 +13,11 @@
 
 #pragma once
 
-#include <iostream>
 #include <string>
 
-class UserInput
+namespace Input
 {
-private:
-public:
-	static int getUserInputInt(const int = INT_MIN, const int = INT_MAX);
-	static double getUserInputDouble(const double = DBL_MIN, const double = DBL_MAX);
-	static std::string getUserInputString();
+	int getInt(int, int);
+	double getDouble(double, double);
+	std::string getString();
 };
