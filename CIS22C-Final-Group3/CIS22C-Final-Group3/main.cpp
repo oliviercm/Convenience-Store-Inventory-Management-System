@@ -69,6 +69,7 @@ int main()
 	
 		case 1:
 		{
+		
 			Interface::clearScreen(true);
 			cout << "Enter the UID of the item" << endl;
 			newUid = Input::getInt(1, 7000);
@@ -88,8 +89,8 @@ int main()
 			newQuantity = Input::getInt(1, 1000);
 			Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
 			itemList.insertLast(newItem);
-
-			for (int i = 0; i < 56; i++)
+			
+			for (int i = 0; i < itemList.getCount(); i++)
 			{
 				cout << itemList[i] << endl;
 			}
@@ -98,8 +99,8 @@ int main()
 			break;
 		}
 		case 2:
-			cout << "Enter the name of the item you what to delete";
-
+			cout << "Enter the name of the item you what to delete" << endl;
+			itemToDelete = Input::getString();
 			break;
 		case 3:
 			break;
