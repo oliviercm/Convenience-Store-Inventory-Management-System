@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\panyue\source\repos\cis22c\group_project_bst\group_project_bst\binarysearchtree.h(203): warning C4715: 'BinarySearchTree<int>::leftmost_leaf': not all control paths return a value
+  Group_Project_BST.vcxproj -> C:\Users\panyue\source\repos\CIS22C\Group_Project_BST\Debug\Group_Project_BST.exe
