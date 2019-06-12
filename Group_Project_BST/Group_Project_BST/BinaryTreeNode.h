@@ -32,7 +32,6 @@ BinaryTreeNode<T>::BinaryTreeNode(const T & i_item)
 template <typename T>
 BinaryTreeNode<T>::~BinaryTreeNode()
 {
-	datum = NULL;
 	left_ptr = nullptr;
 	right_ptr = nullptr;
 }

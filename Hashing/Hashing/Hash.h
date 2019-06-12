@@ -240,7 +240,7 @@ bool HashTable<T>::add(T item)
     //If number of nodes are greater than table size
     if (calcLoadFactor() > 1.0)
     {
-        reHash(); //Rehashing
+    	reHash(); //Rehashing
     }
     return true;
 }
@@ -308,21 +308,19 @@ int HashTable<T>::genAlg(std::string item)
 template<typename T>
 void HashTable<T>::reHash()
 {
-    //Temporary array with count > size of table
+	//Temporary array with count > size of table
     int prevCount = count;
     T* holder = new T[prevCount];
     int j = 0;
     for (int i = 0; i < size; i++)
     {
-        while (!(arr + i)->isEmpty())
+    	while (!(arr + i)->isEmpty())
         {
-            T data;
+    		T data;
             data = (arr + i)->getFirstData();
-            std::cout << data << std::endl;
             *(holder + j) = data;
             (arr + i)->removeFirst();
-            if (!(arr + i)->isEmpty())
-                j++;
+			j++;
         }
         if (!(arr + i)->isEmpty())
             j++;

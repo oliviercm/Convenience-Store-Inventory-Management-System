@@ -66,9 +66,14 @@ void visit(int & x)
 #include "AVLTree.h"
 using namespace std;
 
-void visit(int &);
-void read_in_data(BinarySearchTree<int> &);
-void delete_data(BinarySearchTree<int> &);
+template <typename T>
+void visit(T &);
+
+template <typename T>
+void read_in_data(BinarySearchTree<T> &);
+
+template <typename T>
+void delete_data(BinarySearchTree<T> &);
 
 int main()
 {
@@ -76,7 +81,9 @@ int main()
 
 	read_in_data(bst);
 
-	delete_data(bst);
+	//delete_data(bst);
+
+	//cout << bst.leftmost_leaf(bst.root_ptr)->datum << endl;
 
 	bst.preorder_traverse(visit);
 	cout << endl;
@@ -89,35 +96,38 @@ int main()
 	return 0;
 }
 
-void read_in_data(BinarySearchTree<int> & bst)
+template <typename T>
+void read_in_data(BinarySearchTree<T> & bst)
 {
 	ifstream inputFile;
-	int datum;
-	inputFile.open("C:\\Users\\panyue\\source\\repos\\CIS22C\\Group_Project_BST\\input.txt");
+	T datum;
+	inputFile.open("input.txt");
 	while (inputFile >> datum)
 	{
 		bst.add(datum);
-		bst.inorder_traverse(visit);
-		cout << endl << endl <<"****************************************************************************************************************************************************************" << endl << endl;
+		//bst.inorder_traverse(visit);
+		//cout << endl << endl <<"****************************************************************************************************************************************************************" << endl << endl;
 	}
 	inputFile.close();
 }
 
-void delete_data(BinarySearchTree<int> & bst)
+template <typename T>
+void delete_data(BinarySearchTree<T> & bst)
 {
 	ifstream inputFile;
-	int datum;
-	inputFile.open("C:\\Users\\panyue\\source\\repos\\CIS22C\\Group_Project_BST\\input_dele.txt");
+	T datum;
+	inputFile.open("input_dele.txt");
 	while (inputFile >> datum)
 	{
 		bst.remove(datum);
-		bst.inorder_traverse(visit);
-		cout << endl << endl << "****************************************************************************************************************************************************************" << endl << endl;
+		//bst.inorder_traverse(visit);
+		//cout << endl << endl << "****************************************************************************************************************************************************************" << endl << endl;
 	}
 	inputFile.close();
 }
 
-void visit(int & x)
+template <typename T>
+void visit(T & x)
 {
 	cout << x << " ";
 }
