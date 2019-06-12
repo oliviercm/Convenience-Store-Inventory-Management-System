@@ -19,4 +19,7 @@ namespace Interface
 	void pause();
 	void initialize();
 	void printHeader();
+	void promptOption();
+	void displayMainMenu();
+	void displayTypeTrees();
 };

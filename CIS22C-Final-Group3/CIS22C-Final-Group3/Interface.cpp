@@ -82,4 +82,66 @@ namespace Interface
 
 		return;
 	}
+
+	void promptOption()
+	{
+		std::cout << "Choose an option: ";
+	}
+
+	void displayMainMenu()
+	{
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string mainMenuText = "[ MAIN MENU ]";
+		const std::string addNewDataText = "[ 1 ] ADD NEW DATA";
+		const std::string deleteDataText = "[ 2 ] DELETE DATA";
+		const std::string findDataRecordText = "[ 3 ] FIND DATA RECORD";
+		const std::string listDataHashText = "[ 4 ] LIST DATA IN HASH TABLE SEQUENCE";
+		const std::string listDataKeyText = "[ 5 ] LIST DATA IN KEY SEQUENCE";
+		const std::string printTreeText = "[ 6 ] PRINT TREE";
+		const std::string efficiencyText = "[ 7 ] EFFICIENCY";
+		const std::string teamOptionText = "[ 8 ] MARGINS AND PROFITABILITY";
+		const std::string quitText = "[ 9 ] QUIT";
+
+		
+		const size_t titleMargin = (TERMINAL_WIDTH + mainMenuText.length()) / 2;
+		const size_t optionMargin = titleMargin - mainMenuText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << mainMenuText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << std::setw(optionMargin + addNewDataText.length()) << addNewDataText << std::endl << std::endl
+			<< std::setw(optionMargin + deleteDataText.length()) << deleteDataText << std::endl << std::endl
+			<< std::setw(optionMargin + findDataRecordText.length()) << findDataRecordText << std::endl << std::endl
+			<< std::setw(optionMargin + listDataHashText.length()) << listDataHashText << std::endl << std::endl
+			<< std::setw(optionMargin + listDataKeyText.length()) << listDataKeyText << std::endl << std::endl
+			<< std::setw(optionMargin + printTreeText.length()) << printTreeText << std::endl << std::endl
+			<< std::setw(optionMargin + efficiencyText.length()) << efficiencyText << std::endl << std::endl
+			<< std::setw(optionMargin + teamOptionText.length()) << teamOptionText << std::endl << std::endl
+			<< std::setw(optionMargin + quitText.length()) << quitText << std::endl << std::endl
+			<< bars << std::endl << std::endl;
+
+		return;
+
+	}
+	void displayTypeTrees()
+	{
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string typeTreesText = "[ TYPE OF TREES ]";
+		const std::string bstText = "[ 1 ] BINARY SEARCH TREE";
+		const std::string avlTreeText = "[ 2 ] AVL Tree";
+		const std::string backtext = "[ 3 ] BACK";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + typeTreesText.length()) / 2;
+		const size_t optionMargin = titleMargin - typeTreesText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << typeTreesText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << std::setw(optionMargin + bstText.length()) << bstText << std::endl << std::endl
+			<< std::setw(optionMargin + avlTreeText.length()) << avlTreeText << std::endl << std::endl
+			<< std::setw(optionMargin + backtext.length()) << backtext << std::endl << std::endl
+			<< bars << std::endl << std::endl;
+	}
 }
