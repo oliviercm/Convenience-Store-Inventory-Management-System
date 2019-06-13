@@ -137,46 +137,50 @@ namespace Interface
 
 		Interface::clearScreen(true);
 
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string titleText = "[ ADD NEW DATA ]";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + titleText.length()) / 2;
+		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
+
 		std::cout << "Enter the 4-digit UID of the item" << std::endl;
 		newUid = Input::getInt(1, 5999);
 		std::string temp = std::to_string(newUid);
 		while (temp.length() != 4)
 		{
-			std::cout << "Error: UID must be a 4-digits long, try again:" << std::endl;
+			std::cout << "ERROR: UID must be a 4-digits long, try again:" << std::endl;
 			newUid = Input::getInt(1, 5999);
 			temp = std::to_string(newUid);
 		}
+
 		std::cout << "Enter the UPC of the item" << std::endl;
 		newUpc = Input::getString();
 		while (newUpc.length() != 13)
 		{
-			std::cout << "Error: UPC must be 13-digits long, try again:" << std::endl;
+			std::cout << "ERROR: UPC must be 13-digits long, try again:" << std::endl;
 			newUpc = Input::getString();
 		}
+
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
+
 		std::cout << "Enter the size of the item" << std::endl;
 		newSize = Input::getString();
+
 		std::cout << "Enter the category of the item" << std::endl;
 		newCategory = Input::getInt(1, 6);
+
 		std::cout << "Enter the whole-sale of the item" << std::endl;
 		newWholeSale = Input::getDouble(0.0, 100000.0);
+
 		std::cout << "Enter the retail price of the item" << std::endl;
 		newRetail = Input::getDouble(0.0, 100000.0);
+
 		std::cout << "Enter the quantity of the tem" << std::endl;
 		newQuantity = Input::getInt(1, 1000);
+
 		Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
-			/*
-			itemList.insertLast(newItem);
-			for (int i = 0; i < itemList.getCount(); i++)
-			{
-				std::cout << itemList[i] << std::endl;
-			}
-			Interface::pause();
-			std::cout << "Would you like to add another item? [1] Yes [2] No" << std::endl;
-			inputAgain = Input::getInt(1, 2);
-			Interface::clearScreen(true);
-			*/
+
 		return newItem;
 	}
 	void displayDeleteMenu()
