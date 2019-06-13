@@ -63,7 +63,7 @@ public:
 	void setData(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	void setFirstData(T&&);
 	void setLastData(T&&);
-
+	int getPos(T);
 	T& operator[](const int);
 };
 
@@ -481,6 +481,21 @@ void List<T>::setLastData(T&& newData)
 {
 	setData(std::move(newData), count - 1);
 	return;
+}
+
+template<typename T>
+int List<T>::getPos(T data)
+{
+	int pos = 0;
+	Node<T> *current = head;
+	while (current != 0)
+	{
+		if (current->data == data)
+			return pos;
+		pos++;
+		current = current->next;
+	}
+	return -1;
 }
 
 template <typename T>

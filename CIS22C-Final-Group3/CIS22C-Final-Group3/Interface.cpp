@@ -1,4 +1,6 @@
 #include "Interface.h"
+#include "Input.h"
+#include "Item.h"
 
 #include <iostream>
 #include <iomanip>
@@ -124,6 +126,83 @@ namespace Interface
 		return;
 
 	}
+	void displayInventory()
+	{
+	}
+	Item addNewItem()
+	{
+		int newUid, newCategory, newQuantity, inputAgain;
+		std::string newUpc, newName, newSize;
+		double newWholeSale, newRetail;
+
+		Interface::clearScreen(true);
+
+		std::cout << "Enter the 4-digit UID of the item" << std::endl;
+		newUid = Input::getInt(1, 5999);
+		std::string temp = std::to_string(newUid);
+		while (temp.length() != 4)
+		{
+			std::cout << "Error: UID must be a 4-digits long, try again:" << std::endl;
+			newUid = Input::getInt(1, 5999);
+			temp = std::to_string(newUid);
+		}
+		std::cout << "Enter the UPC of the item" << std::endl;
+		newUpc = Input::getString();
+		while (newUpc.length() != 13)
+		{
+			std::cout << "Error: UPC must be 13-digits long, try again:" << std::endl;
+			newUpc = Input::getString();
+		}
+		std::cout << "Enter the name of the item" << std::endl;
+		newName = Input::getString();
+		std::cout << "Enter the size of the item" << std::endl;
+		newSize = Input::getString();
+		std::cout << "Enter the category of the item" << std::endl;
+		newCategory = Input::getInt(1, 6);
+		std::cout << "Enter the whole-sale of the item" << std::endl;
+		newWholeSale = Input::getDouble(0.0, 100000.0);
+		std::cout << "Enter the retail price of the item" << std::endl;
+		newRetail = Input::getDouble(0.0, 100000.0);
+		std::cout << "Enter the quantity of the tem" << std::endl;
+		newQuantity = Input::getInt(1, 1000);
+		Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
+			/*
+			itemList.insertLast(newItem);
+			for (int i = 0; i < itemList.getCount(); i++)
+			{
+				std::cout << itemList[i] << std::endl;
+			}
+			Interface::pause();
+			std::cout << "Would you like to add another item? [1] Yes [2] No" << std::endl;
+			inputAgain = Input::getInt(1, 2);
+			Interface::clearScreen(true);
+			*/
+		return newItem;
+	}
+	void displayDeleteMenu()
+	{
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string deleteText = "[ DELETE ]";
+		const std::string byUidText = "[ 1 ] BY UID";
+		const std::string byNameText = "[ 2 ] BY NAME";
+		const std::string byUpcText = "[ 3 ] BY UPC";
+		const std::string backText = "[ 4 ] BACK";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + deleteText.length()) / 2;
+		const size_t optionMargin = titleMargin - deleteText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << deleteText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << std::setw(optionMargin + byUidText.length()) << byUidText << std::endl << std::endl
+			<< std::setw(optionMargin + byNameText.length()) << byNameText << std::endl << std::endl
+			<< std::setw(optionMargin + byUpcText.length()) << byUpcText << std::endl << std::endl
+			<< std::setw(optionMargin + backText.length()) << backText << std::endl << std::endl
+			<< bars << std::endl << std::endl;
+
+		return;
+	}
 	void displayTypeTrees()
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
@@ -143,5 +222,7 @@ namespace Interface
 			<< std::setw(optionMargin + avlTreeText.length()) << avlTreeText << std::endl << std::endl
 			<< std::setw(optionMargin + backtext.length()) << backtext << std::endl << std::endl
 			<< bars << std::endl << std::endl;
+
+		return;
 	}
 }

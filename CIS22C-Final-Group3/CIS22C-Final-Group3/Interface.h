@@ -12,6 +12,7 @@
 *********************************************************************************/
 
 #pragma once
+#include "Item.h"
 
 namespace Interface
 {
@@ -21,5 +22,8 @@ namespace Interface
 	void printHeader();
 	void promptOption();
 	void displayMainMenu();
+	void displayInventory();
+	Item addNewItem();
+	void displayDeleteMenu();
 	void displayTypeTrees();
 };
