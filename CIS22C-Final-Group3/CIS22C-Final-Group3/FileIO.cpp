@@ -35,25 +35,6 @@ namespace FileIO
 		*	The angle brackets and delimiters are removed from the substring.
 		*	If skip is greater than the number of delimiters in the string, an empty string is returned.
 		*/
-		std::string parseString(const std::string& str, const std::string& delimiter)
-		{
-			const std::string delimitBeg = "<" + delimiter + ">";
-			const std::string delimitEnd = "</" + delimiter + ">";
-
-			//Find the positions of the first instances of the beginning and ending delimiters
-			const size_t delimitBegPos = str.find(delimitBeg);
-			const size_t delimitEndPos = str.find(delimitEnd);
-
-			if (delimitBegPos != std::string::npos)
-			{
-				return str.substr(delimitBegPos + delimitBeg.length(), delimitEndPos - delimitBegPos - delimitBeg.length());
-			}
-			else
-			{
-				//The delimiter doesn't exist in the string, return an empty string
-				return std::string();
-			}
-		}
 		std::string parseString(const std::string& str, const std::string& delimiter, const int skip)
 		{
 			const std::string delimitBeg = "<" + delimiter + ">";
@@ -81,6 +62,25 @@ namespace FileIO
 
 			//Return the substring between the beginning and ending delimiters
 			return str.substr(delimitBegPos + delimitBeg.length(), delimitEndPos - delimitBegPos - delimitBeg.length());
+		}
+		std::string parseString(const std::string& str, const std::string& delimiter)
+		{
+			const std::string delimitBeg = "<" + delimiter + ">";
+			const std::string delimitEnd = "</" + delimiter + ">";
+
+			//Find the positions of the first instances of the beginning and ending delimiters
+			const size_t delimitBegPos = str.find(delimitBeg);
+			const size_t delimitEndPos = str.find(delimitEnd);
+
+			if (delimitBegPos != std::string::npos)
+			{
+				return str.substr(delimitBegPos + delimitBeg.length(), delimitEndPos - delimitBegPos - delimitBeg.length());
+			}
+			else
+			{
+				//The delimiter doesn't exist in the string, return an empty string
+				return std::string();
+			}
 		}
 		/**
 		* @author Olivier Chan
@@ -147,15 +147,13 @@ namespace FileIO
 		*/
 		std::string itemToString(const Item& item)
 		{
-			std::string itemString = std::string();
-
 			std::string wholesaleString = std::to_string(item.wholesale);
 			wholesaleString = wholesaleString.substr(0, wholesaleString.find('.') + 3);
 
 			std::string retailString = std::to_string(item.retail);
 			retailString = retailString.substr(0, retailString.find('.') + 3);
 
-			itemString =
+			std::string itemString =
 				"<" + DELIM_ITEM + ">" + "\n"
 				+ "\t" + "<" + DELIM_UID + ">" + std::to_string(item.uid) + "</" + DELIM_UID + ">" + "\n"
 				+ "\t" + "<" + DELIM_UPC + ">" + item.upc + "</" + DELIM_UPC + ">" + "\n"
