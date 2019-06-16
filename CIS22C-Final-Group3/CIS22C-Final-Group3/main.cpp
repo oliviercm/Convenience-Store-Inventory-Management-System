@@ -18,6 +18,7 @@ Yue Pan
 #include "List.h"
 #include "Stack.h"
 #include "Queue.h"
+#include "HashTable.h"
 
 using namespace std;
 
@@ -53,8 +54,9 @@ int main()
 	FileIO::saveListIntoFile(itemList, filepath);
 
 	Interface::displayInventory(itemList);
-
 	Interface::pause();
+	
+	HashTable<Item> itemHashTable;
 
 	int inputMainMenu;
 	do
@@ -103,37 +105,16 @@ int main()
 				break;
 				case 2:
 				{
-					Interface::clearScreen(true);
-					cout << "Enter the Name of the item you want to delete:" << endl;
-					strItemToDelete = Input::getString();
-					while (itemList[i].name != strItemToDelete)
-					{
-						positionOfItem++;
-						i++;
-					}
-					itemList.remove(positionOfItem);
-					for (int i = 0; i < itemList.getCount(); i++)
-					{
-						cout << itemList[i] << endl;
-					}
+					Interface::deleteByName(itemList);
+					Interface::displayInventory(itemList);
 					Interface::pause();
 				}
 				Interface::clearScreen(true);
 				break;
 				case 3:
 				{
-					cout << "Enter the UPC of the item you want to delete:" << endl;
-					strItemToDelete = Input::getString();
-					while (itemList[i].upc != strItemToDelete)
-					{
-						positionOfItem++;
-						i++;
-					}
-					itemList.remove(positionOfItem);
-					for (int i = 0; i < itemList.getCount(); i++)
-					{
-						cout << itemList[i] << endl;
-					}
+					Interface::deleteByUpc(itemList);
+					Interface::displayInventory(itemList);
 					Interface::pause();
 				}
 				Interface::clearScreen(true);
