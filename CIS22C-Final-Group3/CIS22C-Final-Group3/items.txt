@@ -300,9 +300,9 @@
 </item>
 <item>
 	<UID>4000</UID>
-	<UPC></UPC>
+	<UPC>0986547231234</UPC>
 	<name>Mega Millions</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>2.00</retail>
@@ -310,9 +310,9 @@
 </item>
 <item>
 	<UID>4001</UID>
-	<UPC></UPC>
+	<UPC>0983517452435</UPC>
 	<name>Powerball</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>2.00</retail>
@@ -320,9 +320,9 @@
 </item>
 <item>
 	<UID>4002</UID>
-	<UPC></UPC>
+	<UPC>0956274983756</UPC>
 	<name>SuperLotto</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>2.00</retail>
@@ -332,7 +332,7 @@
 	<UID>4003</UID>
 	<UPC>053137011685</UPC>
 	<name>Monopoly $10</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>10.00</retail>
@@ -342,7 +342,7 @@
 	<UID>4004</UID>
 	<UPC>053137011746</UPC>
 	<name>Fireball $50s</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>1.00</retail>
@@ -352,7 +352,7 @@
 	<UID>4005</UID>
 	<UPC>053137012132</UPC>
 	<name>8 Ball Bingo</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>3.00</retail>
@@ -362,7 +362,7 @@
 	<UID>4006</UID>
 	<UPC>053137012651</UPC>
 	<name>Black Ice</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>10.00</retail>
@@ -372,7 +372,7 @@
 	<UID>4007</UID>
 	<UPC>053137012002</UPC>
 	<name>Cash Explosion</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>20.00</retail>
@@ -382,7 +382,7 @@
 	<UID>4008</UID>
 	<UPC>053137012880</UPC>
 	<name>Mermaid Money</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>1.00</retail>
@@ -392,7 +392,7 @@
 	<UID>4009</UID>
 	<UPC>053137012545</UPC>
 	<name>Gold Rush Bingo</name>
-	<size></size>
+	<size>N/A</size>
 	<category>4</category>
 	<wholesale>0.00</wholesale>
 	<retail>3.00</retail>

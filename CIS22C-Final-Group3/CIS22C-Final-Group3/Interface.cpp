@@ -148,23 +148,22 @@ namespace Interface
 
 		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
 
+		std::cout << std::left;
+
+		//std::cout << std::endl << std::endl;
+
+		std::cout << std::setw(uidColumnLength) << uidText
+			<< std::setw(upcColumnLength) << upcText
+			<< std::setw(nameColumnLength) << nameText
+			<< std::setw(sizeColumnLength) << sizeText
+			<< std::setw(categoryColumnLength) << categoryText
+			<< std::setw(wholesaleColumnLength) << wholesaleText
+			<< std::setw(retailColumnLength) << retailText
+			<< std::setw(quantityColumnLength) << quantityText
+			<< std::endl << std::endl;
 
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
-
-			std::cout << std::left;
-
-			//std::cout << std::endl << std::endl;
-
-			std::cout << std::setw(uidColumnLength) << uidText
-				<< std::setw(upcColumnLength) << upcText
-				<< std::setw(nameColumnLength) << nameText
-				<< std::setw(sizeColumnLength) << sizeText
-				<< std::setw(categoryColumnLength) << categoryText
-				<< std::setw(wholesaleColumnLength) << wholesaleText
-				<< std::setw(retailColumnLength) << retailText
-				<< std::setw(quantityColumnLength) << quantityText
-				<< std::endl;
 
 			std::cout << std::setw(uidColumnLength) << itemList[i].uid
 				<< std::setw(upcColumnLength) << itemList[i].upc

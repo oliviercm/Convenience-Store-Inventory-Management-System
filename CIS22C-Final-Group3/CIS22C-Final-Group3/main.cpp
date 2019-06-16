@@ -58,6 +58,8 @@ int main()
 	
 	HashTable<Item> itemHashTable;
 
+	//itemHashTable.add(itemList);
+
 	int inputMainMenu;
 	do
 	{
@@ -124,6 +126,7 @@ int main()
 				}
 			} while (inputSubMenu != 4);
 		}
+		Interface::clearScreen(true);
 			break;
 		case 3:
 			break;
