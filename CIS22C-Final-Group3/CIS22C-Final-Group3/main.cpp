@@ -58,7 +58,10 @@ int main()
 	
 	HashTable<Item> itemHashTable;
 
-	//itemHashTable.add(itemList);
+	for (int i = 0; i < itemList.getCount(); i++)
+	{
+		itemHashTable.add(itemList[i]);
+	}
 
 	int inputMainMenu;
 	do
@@ -129,10 +132,22 @@ int main()
 		Interface::clearScreen(true);
 			break;
 		case 3:
+		{
+
+		}
+		Interface::clearScreen(true);
 			break;
 		case 4:
+		{
+
+		}
+		Interface::clearScreen(true);
 			break;
 		case 5:
+		{
+
+		}
+		Interface::clearScreen(true);
 			break;
 		case 6:
 			do
