@@ -63,8 +63,7 @@ int main()
 		Interface::promptOption();
 		inputMainMenu = Input::getInt(1, 9);
 
-		int inputSubMenu, inputAgain, intItemToDelete, positionOfItem = 0;
-		string strItemToDelete;
+		int inputSubMenu, inputAgain, positionOfItem = 0;
 
 		switch (inputMainMenu)
 		{
@@ -72,54 +71,9 @@ int main()
 		{
 			do
 			{
-				/*
-				Interface::clearScreen(true);
-				cout << "Enter the 4-digit UID of the item" << endl;
-				newUid = Input::getInt(1, 5999);
-				string temp = to_string(newUid);
-				while (temp.length() != 4)
-				{
-					cout << "Error: UID must be a 4-digits long, try again:" << endl;
-					newUid = Input::getInt(1, 5999);
-				}
-				cout << "Enter the UPC of the item" << endl;
-				newUpc = Input::getString();
-				while (newUpc.length() != 13)
-				{
-					cout << "Error: UPC must be 13-digits long, try again:" << endl;
-					newUpc = Input::getString();
-				}
-				cout << "Enter the name of the item" << endl;
-				newName = Input::getString();
-				cout << "Enter the size of the item" << endl;
-				newSize = Input::getString();
-				cout << "Enter the category of the item" << endl;
-				newCategory = Input::getInt(1, 6);
-				cout << "Enter the whole-sale of the item" << endl;
-				newWholeSale = Input::getDouble(0.0, 100000.0);
-				cout << "Enter the retail price of the item" << endl;
-				newRetail = Input::getDouble(0.0, 100000.0);
-				cout << "Enter the quantity of the tem" << endl;
-				newQuantity = Input::getInt(1, 1000);
-				Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
-				itemList.insertLast(newItem);
-				for (int i = 0; i < itemList.getCount(); i++)
-				{
-					cout << itemList[i] << endl;
-				}
-				Interface::pause();
-				cout << "Would you like to add another item? [1] Yes [2] No" << endl;
-				inputAgain = Input::getInt(1, 2);
-				Interface::clearScreen(true);
-				*/
-				Item newItem = Interface::addNewItem(itemList);
-				itemList.insertLast(newItem);
+				Item newItem;
+				Interface::addNewItem(itemList);
 				Interface::displayInventory(itemList);
-				/*
-				for (int i = 0; i < itemList.getCount(); i++)
-				{
-					cout << itemList[i] << endl;
-				}*/
 				cout << endl;
 				cout << "Would you like to add another item? [1] Yes [2] No" << endl;
 				inputAgain = Input::getInt(1, 2);
@@ -141,19 +95,8 @@ int main()
 				{
 				case 1:
 				{
-					Interface::clearScreen(true);
-					cout << "Enter the UID of the item you want to delete:" << endl;
-					intItemToDelete = Input::getInt(1,5999);
-					while (itemList[i].uid != intItemToDelete)
-					{
-						positionOfItem++;
-						i++;
-					}
-					itemList.remove(positionOfItem);
-					for (int i = 0; i < itemList.getCount(); i++)
-					{
-						cout << itemList[i] << endl;
-					}
+					Interface::deleteByUid(itemList);
+					Interface::displayInventory(itemList);
 					Interface::pause();
 				}
 				Interface::clearScreen(true);

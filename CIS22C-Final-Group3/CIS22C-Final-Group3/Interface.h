@@ -24,7 +24,10 @@ namespace Interface
 	void promptOption();
 	void displayMainMenu();
 	void displayInventory(List<Item>&);
-	Item addNewItem(List<Item>&);
+	void addNewItem(List<Item>&);
 	void displayDeleteMenu();
+	void deleteByUid(List<Item>&);
+	void deleteByName(List<Item>&);
+	void deleteByUpc(List<Item>&);
 	void displayTypeTrees();
 };

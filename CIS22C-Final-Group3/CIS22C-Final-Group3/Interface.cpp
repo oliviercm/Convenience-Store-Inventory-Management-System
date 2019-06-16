@@ -179,9 +179,9 @@ namespace Interface
 		}
 
 	}
-	Item addNewItem(List<Item>& itemList)
+	void addNewItem(List<Item>& itemList)
 	{
-		int newUid, newCategory, newQuantity, inputAgain;
+		int newUid, newCategory, newQuantity;
 		std::string newUpc, newName, newSize;
 		double newWholeSale, newRetail;
 		bool found = false;
@@ -196,30 +196,54 @@ namespace Interface
 
 		std::cout << "Enter the 4-digit UID of the item" << std::endl;
 		newUid = Input::getInt(1, 5999);
+		std::cout << std::endl;
 		std::string temp = std::to_string(newUid);
 		while (temp.length() != 4)
 		{
 			std::cout << "ERROR: UID must be a 4-digits long, try again:" << std::endl;
 			newUid = Input::getInt(1, 5999);
+			std::cout << std::endl;
 			temp = std::to_string(newUid);
 		}
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			if (itemList[i].uid == newUid)
+			while (itemList[i].uid == newUid)
 			{
-				std::cout << "ERROR: The UID you enter already exists" << std::endl;
+				std::cout << "ERROR: The UID you enter already exists, try another UID:" << std::endl;
+				newUid = Input::getInt(1, 5999);
+				std::cout << std::endl;
 			}
 		}
 		std::cout << "Enter the UPC of the item" << std::endl;
 		newUpc = Input::getString();
-		while (newUpc.length() != 13)
+		std::cout << std::endl;
+		while (newUpc.length() < 12)
 		{
 			std::cout << "ERROR: UPC must be 13-digits long, try again:" << std::endl;
 			newUpc = Input::getString();
+			std::cout << std::endl;
 		}
 
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+			while (itemList[i].upc == newUpc)
+			{
+				std::cout << "ERROR: The UPC you enter already exists, try another UPC:" << std::endl;
+				newUpc = Input::getString();
+				std::cout << std::endl;
+			}
+		}
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+			while (itemList[i].name == newName)
+			{
+				std::cout << "ERROR: The name you enter already exists, try another name:" << std::endl;
+				newName = Input::getString();
+				std::cout << std::endl;
+			}
+		}
 
 		std::cout << "Enter the size of the item" << std::endl;
 		newSize = Input::getString();
@@ -238,7 +262,9 @@ namespace Interface
 
 		Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
 
-		return newItem;
+		itemList.insertLast(newItem);
+
+		return;
 	}
 	void displayDeleteMenu()
 	{
@@ -261,6 +287,92 @@ namespace Interface
 			<< std::setw(optionMargin + byUpcText.length()) << byUpcText << std::endl << std::endl
 			<< std::setw(optionMargin + backText.length()) << backText << std::endl << std::endl
 			<< bars << std::endl << std::endl;
+
+		return;
+	}
+	void deleteByUid(List<Item>& itemList)
+	{
+		int intItemToDelete, i = 0, positionOfItem = 0;
+		bool found = false;
+		Interface::clearScreen(true);
+		std::cout << "Enter the UID of the item you want to delete:" << std::endl;
+		intItemToDelete = Input::getInt(1, 5999);
+		for (i = 0; i < itemList.getCount(); i++)
+		{
+			if (itemList[i].uid == intItemToDelete)
+			{
+				positionOfItem = i;
+				found = true;
+				break;
+			}
+		}
+		if (found == true)
+		{
+			itemList.remove(positionOfItem);
+		}
+		else
+		{
+			std::cout << "ERROR: The UID you entered does not exists" << std::endl;
+		}
+		pause();
+
+		return;
+	}
+	void deleteByName(List<Item>& itemList)
+	{
+		int i = 0, positionOfItem = 0;
+		std::string strItemToDelete;
+		bool found = false;
+		Interface::clearScreen(true);
+		std::cout << "Enter the name of the item you want to delete:" << std::endl;
+		strItemToDelete = Input::getString();
+		for (i = 0; i < itemList.getCount(); i++)
+		{
+			if (itemList[i].name == strItemToDelete)
+			{
+				positionOfItem = i;
+				found = true;
+				break;
+			}
+		}
+		if (found == true)
+		{
+			itemList.remove(positionOfItem);
+		}
+		else
+		{
+			std::cout << "ERROR: The name you entered does not exists" << std::endl;
+		}
+		pause();
+
+		return;
+	}
+	void deleteByUpc(List<Item>& itemList)
+	{
+		int i = 0, positionOfItem = 0;
+		std::string strItemToDelete;
+		bool found = false;
+		Interface::clearScreen(true);
+		std::cout << "Enter the UPC of the item you want to delete:" << std::endl;
+		strItemToDelete = Input::getString();
+		for (i = 0; i < itemList.getCount(); i++)
+		{
+			if (itemList[i].upc == strItemToDelete)
+			{
+				positionOfItem = i;
+				found = true;
+				break;
+			}
+		}
+		if (found == true)
+		{
+			itemList.remove(positionOfItem);
+		}
+		else
+		{
+			std::cout << "ERROR: The UPC you entered does not exists" << std::endl;
+		}
+		pause();
 
 		return;
 	}
