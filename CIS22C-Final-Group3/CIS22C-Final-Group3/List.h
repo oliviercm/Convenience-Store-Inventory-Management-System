@@ -3,7 +3,7 @@
 *********************************************************************************
 * Author: Olivier Chan - 50%
 * Author: Luis Guerrero - 50%
-* 
+*
 * The purpose of this class is to provide a List ADT.
 *****************
 ***** USAGE *****
@@ -45,7 +45,9 @@ public:
 	virtual bool isEmpty() const;
 	virtual int getCount() const;
 	Node<T>* insert(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	Node<T>* insert(const T& newData, const int pos, const T& k);
 	Node<T>* insertFirst(const T&);
+	Node<T>* insertFirst(const T&, const T&);
 	Node<T>* insertLast(const T&);
 	Node<T>* insert(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	Node<T>* insertFirst(T&&);
@@ -63,7 +65,34 @@ public:
 	void setData(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	void setFirstData(T&&);
 	void setLastData(T&&);
-	int getPos(T);
+	/*
+	* getPos
+	*
+	* brief: Function that returns the position of a node in the linked list
+	*
+	* param: item - value assumed to be present
+	*
+	* returns: index of node in the table
+	*/
+	int getPos(T item);
+	/*
+	* getKey
+	*
+	* brief: Function that returns the key of a node within the linked list
+	*
+	* param: pos - location of node that contains a key within the linked list
+	*
+	* returns: key of node at provided location
+	*/
+	T& getKey(const int pos);
+	/*
+	* getFirstKey
+	*
+	* brief: Function that returns the key of the first node
+	*
+	* returns: key of first node
+	*/
+	T& getFirstKey();
 	T& operator[](const int);
 };
 
@@ -161,7 +190,7 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 {
 	if (pos < 0 || pos > count)
 	{
-		throw std::out_of_range("Index out of range.");
+		//throw std::out_of_range("Index out of range.");
 	}
 
 	Node<T>* returnNode;
@@ -209,6 +238,13 @@ Node<T>* List<T>::insertFirst(const T& newData)
 {
 	return insert(newData, 0);
 }
+
+template <typename T>
+Node<T>* List<T>::insertFirst(const T& newData, const T& k)
+{
+	return insert(newData, 0, k);
+}
+
 template <typename T>
 Node<T>* List<T>::insertFirst(T&& newData)
 {
@@ -368,6 +404,28 @@ T& List<T>::getData(const int pos)
 	return currentNode->data;
 }
 
+template <typename T>
+T& List<T>::getKey(const int pos)
+{
+	if (head == nullptr) //The list is empty
+	{
+		throw std::out_of_range("List is empty.");
+	}
+
+	if (pos < 0 || pos > count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	Node<T>* currentNode = head;
+	for (int i = 0; i < pos; i++)
+	{
+		currentNode = currentNode->next;
+	}
+
+	return currentNode->key;
+}
+
 /*
 Gets data from the first element.
 @pre None.
@@ -379,6 +437,12 @@ template <typename T>
 T& List<T>::getFirstData()
 {
 	return getData(0);
+}
+
+template <typename T>
+T& List<T>::getFirstKey()
+{
+	return getKey(0);
 }
 
 /*
@@ -483,14 +547,20 @@ void List<T>::setLastData(T&& newData)
 	return;
 }
 
+template <typename T>
+T& List<T>::operator[](const int index)
+{
+	return getData(index);
+}
+
 template<typename T>
-int List<T>::getPos(T data)
+int List<T>::getPos(T item)
 {
 	int pos = 0;
 	Node<T> *current = head;
 	while (current != 0)
 	{
-		if (current->data == data)
+		if (current->data == item)
 			return pos;
 		pos++;
 		current = current->next;
@@ -499,7 +569,42 @@ int List<T>::getPos(T data)
 }
 
 template <typename T>
-T& List<T>::operator[](const int index)
+Node<T>* List<T>::insert(const T& newData, const int pos, const T& k)
 {
-	return getData(index);
+	if (pos < 0 || pos > count)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	Node<T>* returnNode;
+
+	if (head == nullptr) //The list is empty
+	{
+		head = new Node<T>(newData);
+		head->key = k;
+		returnNode = head;
+	}
+	else if (pos == 0) //Replacing head
+	{
+		Node<T>* temp = head;
+		head = new Node<T>(newData, temp);
+		head->key = k;
+		returnNode = head;
+	}
+	else
+	{
+		Node<T>* currentNode = head;
+		for (int i = 0; i < pos - 1; i++)
+		{
+			currentNode = currentNode->next;
+		}
+
+		Node<T>* temp = currentNode->next;
+		currentNode->next = new Node<T>(newData, temp);
+		currentNode->next->key = k;
+		returnNode = currentNode->next;
+	}
+
+	count++;
+	return returnNode;
 }

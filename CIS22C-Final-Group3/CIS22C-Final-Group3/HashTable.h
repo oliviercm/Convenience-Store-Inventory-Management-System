@@ -31,12 +31,12 @@ Keep in mind:
 #include <iostream>
 #include "List.h"
 
-template<typename T>
+template<typename K, typename V>
 class HashTable
 {
 private:
 	//Pointer to array of linked lists
-	List<T>* arr;
+	List<V>* arr;
 	//Size of table
 	int size;
 	//Num of items in the table
@@ -44,7 +44,7 @@ private:
 	//Load factor with respect to the hash table
 	double loadFactor;
 	//key used for key/value pairs for better searching, encrypting, and handling of complex data types
-	int key;
+	int cachedKey;
 	//number of nodes that are chained on the linked list...non O(1) traversal;
 	int offTable;
 	/*
@@ -56,7 +56,7 @@ private:
 	*
 	* returns: index that serves as a hash address
 	*/
-	int genAlg(int item);
+	int genAlg(int key) const;
 	/*
 	* genAlg
 	*
@@ -66,7 +66,7 @@ private:
 	*
 	* returns: index that serves as a hash address
 	*/
-	int genAlg(double item);
+	int genAlg(double key) const;
 	/*
 	* genAlg
 	*
@@ -76,7 +76,7 @@ private:
 	*
 	* returns: index that serves as a hash address
 	*/
-	int genAlg(char item);
+	int genAlg(char key) const;
 	/*
 	* genAlg
 	*
@@ -88,7 +88,7 @@ private:
 	*
 	* note: Performs a specialized folding algorithm with each character of the string. genAlg function is replicated for all data types as modulo operations on string objects are not allowed.
 	*/
-	int genAlg(std::string item);
+	int genAlg(std::string key) const;
 	/*
 	* reHash
 	*
@@ -119,7 +119,7 @@ public:
 	*
 	* returns: boolean value to represent success/failure
 	*/
-	bool add(const T& item);
+	bool add(const K& key); //If no value is passed, it is assumed the key is the value as well
 	/*
 	* add
 	*
@@ -129,7 +129,7 @@ public:
 	*
 	* returns: boolean value to represent success/failure
 	*/
-	bool add(const T& key, const T& value);
+	bool add(const K& key, const V& value);
 	/*
 	* remove
 	*
@@ -139,7 +139,7 @@ public:
 	*
 	* returns: boolean value to represent success/failure
 	*/
-	bool remove(const T& item);
+	bool remove(const K& key);
 	/*
 	* remove
 	*
@@ -149,7 +149,7 @@ public:
 	*
 	* returns: boolean value to represent success/failure
 	*/
-	bool remove(const T& k, const T& item);
+	bool remove(const K& key, const V& value);
 	/*
 	* calcLoadFactor
 	*
@@ -157,7 +157,7 @@ public:
 	*
 	* returns: loadFactor
 	*/
-	double calcLoadFactor();
+	double calcLoadFactor() const;
 	/*
 	* getAddress
 	*
@@ -167,7 +167,7 @@ public:
 	*
 	* returns: valid hash address
 	*/
-	int getAddress(T item);
+	int getAddress(const K& key);
 	/*
 	* empty
 	*
@@ -199,7 +199,7 @@ public:
 	*
 	* returns: number of traversals in a linked list
 	*/
-	int getOperations(T item);
+	int getOperations(const K& key);
 	/*
 	* getOperations
 	*
@@ -209,7 +209,7 @@ public:
 	*
 	* returns: number of traversals in a linked list
 	*/
-	int getOperations(T key, T item);
+	int getOperations(const K& key, const V& value);
 	/*
 	* getNextPrime
 	*
@@ -233,77 +233,77 @@ public:
 	*/
 	~HashTable();
 	//Friend Overloaded Insertion Operator for printing
-	template <typename U>
-	friend std::ostream& operator<<(std::ostream& os, const HashTable<U>& table);
+	template <typename K, typename V>
+	friend std::ostream& operator<<(std::ostream& os, const HashTable<K, V>& table);
 };
 
-template<typename T>
-HashTable<T>::HashTable()
+template<typename K, typename V>
+HashTable<K, V>::HashTable()
 {
 	//Member Variables initialized, size set to prime number 101
 	size = 101;
 	count = 0;
-	arr = new List<T>[size];
-	key = -1;
+	arr = new List<V>[size];
+	cachedKey = -1;
 	offTable = 0;
 }
 
-template<typename T>
-int HashTable<T>::getOperations(T item)
+template<typename K, typename V>
+int HashTable<K, V>::getOperations(const K& key)
 {
 	//Finding index of item on table
-	int index = getAddress(item);
+	int index = getAddress(key);
 	//Counts number of traversals at that index to find item
-	int op = (arr + index)->getPos(item);
+	int op = (arr + index)->getPos(key);
 	if (op == -1)
 		return -1;
 	//Increments operations by one as the list begins at the 0th index
 	return op + 1;
 }
 
-template<typename T>
-int HashTable<T>::getOperations(T k, T item)
+template<typename K, typename V>
+int HashTable<K, V>::getOperations(const K& key, const V& value)
 {
-	key = k;
+	cachedKey = key;
 	//Finding index of item on table
 	int index = getAddress(key);
 	//Counts number of traversals at that index to find item
-	int op = (arr + index)->getPos(item);
+	int op = (arr + index)->getPos(value);
 	if (op == -1)
 		return 0;
 	//Increments operations by one as the list begins at the 0th index
 	return op + 1;
 }
 
-template<typename T>
-int HashTable<T>::getSize() const
+template<typename K, typename V>
+int HashTable<K, V>::getSize() const
 {
 	//Size of table
 	return size;
 }
 
-template<typename T>
-int HashTable<T>::getCount() const
+template<typename K, typename V>
+int HashTable<K, V>::getCount() const
 {
 	//Number of nodes in table
 	return count;
 }
 
-template<typename T>
-double HashTable<T>::calcLoadFactor()
+template<typename K, typename V>
+double HashTable<K, V>::calcLoadFactor() const
 {
 	//Load Factor = table items / table size
 	return ((double)count / size);
 }
 
-template<typename T>
-bool HashTable<T>::add(const T& item)
+template<typename K, typename V>
+bool HashTable<K, V>::add(const K& key)
 {
-	key = item;
-	if (!(arr + getAddress(item))->isEmpty())
+	cachedKey = key;
+	if (!(arr + getAddress(key))->isEmpty())
 		offTable++;
 	//Calls hash function and stores at beginning of the list at computed index
-	(arr + getAddress(item))->insertFirst(item, key);
+	(arr + getAddress(key))->insertFirst(key);
 	//Increments number of nodes
 	count++;
 	//If number of nodes are greater than table size
@@ -312,14 +312,14 @@ bool HashTable<T>::add(const T& item)
 	return true;
 }
 
-template<typename T>
-bool HashTable<T>::add(const T& k, const T& item)
+template<typename K, typename V>
+bool HashTable<K, V>::add(const K& key, const V& value)
 {
-	key = k;
+	cachedKey = key;
 	if (!(arr + getAddress(key))->isEmpty())
 		offTable++;
 	//Calls hash function and stores at beginning of the list at computed index
-	(arr + getAddress(key))->insertFirst(item, key);
+	(arr + getAddress(key))->insertFirst(value);
 	//Increments number of nodes
 	count++;
 	//If number of nodes are greater than table size
@@ -329,32 +329,13 @@ bool HashTable<T>::add(const T& k, const T& item)
 }
 
 
-template<typename T>
-bool HashTable<T>::remove(const T& item)
+template<typename K, typename V>
+bool HashTable<K, V>::remove(const K& key)
 {
-	//Get hash address
-	int index = getAddress(item);
-	//Finds specific item's location in the list
-	int position = (arr + index)->getPos(item);
-	if (position == -1)
-		return false;
-	//Removes it from list
-	(arr + index)->remove(position);
-	if ((arr + index)->getCount() >= 1)
-		offTable--;
-	//Decrement Count
-	count--;
-	return true;
-}
-
-template<typename T>
-bool HashTable<T>::remove(const T& k, const T& item)
-{
-	key = k;
 	//Get hash address
 	int index = getAddress(key);
 	//Finds specific item's location in the list
-	int position = (arr + index)->getPos(item);
+	int position = (arr + index)->getPos(key);
 	if (position == -1)
 		return false;
 	//Removes it from list
@@ -366,66 +347,85 @@ bool HashTable<T>::remove(const T& k, const T& item)
 	return true;
 }
 
-template<typename T>
-int HashTable<T>::getAddress(T item)
+template<typename K, typename V>
+bool HashTable<K, V>::remove(const K& key, const V& value)
+{
+	cachedKey = key;
+	//Get hash address
+	int index = getAddress(key);
+	//Finds specific item's location in the list
+	int position = (arr + index)->getPos(value);
+	if (position == -1)
+		return false;
+	//Removes it from list
+	(arr + index)->remove(position);
+	if ((arr + index)->getCount() >= 1)
+		offTable--;
+	//Decrement Count
+	count--;
+	return true;
+}
+
+template<typename K, typename V>
+int HashTable<K, V>::getAddress(const K& key)
 {
 	//Passes item to a genAlg function when data type of item is determined and returns a hash address
-	return genAlg(item);
+	return genAlg(key);
 }
 
 
-template<typename T>
-int HashTable<T>::genAlg(int item)
+template<typename K, typename V>
+int HashTable<K, V>::genAlg(int key) const
 {
 	//Return hash address
-	return(static_cast<int>(item) % size);
+	return(static_cast<int>(key) % size);
 }
 
-template<typename T>
-int HashTable<T>::genAlg(double item)
+template<typename K, typename V>
+int HashTable<K, V>::genAlg(double key) const
 {
 	//Return hash address
-	return(static_cast<int>(item) % size);
+	return(static_cast<int>(key) % size);
 }
 
-template<typename T>
-int HashTable<T>::genAlg(char item)
+template<typename K, typename V>
+int HashTable<K, V>::genAlg(char key) const
 {
 	//Return hash address
-	return(static_cast<int>(item) % size);
+	return(static_cast<int>(key) % size);
 }
 
 
-template<typename T>
-int HashTable<T>::genAlg(std::string item)
+template<typename K, typename V>
+int HashTable<K, V>::genAlg(std::string key) const
 {
 	//Performs folding for string items
 	int holder = 0;
-	for (int i = 0; i < item.size(); i++)
+	for (int i = 0; i < key.size(); i++)
 	{
 		//Folding each character
-		holder += (int)item[i];
+		holder += (int)key[i];
 	}
 	//Return hash address
 	return (holder % size);
 }
 
-template<typename T>
-int HashTable<T>::getOffTable() const
+template<typename K, typename V>
+int HashTable<K, V>::getOffTable() const
 {
 	//Return nodes off the table
 	return offTable;
 }
 
-template<typename T>
-void HashTable<T>::reHash()
+template<typename K, typename V>
+void HashTable<K, V>::reHash()
 {
 	//Temporary array with count > size of table
 	const int prevCount = count;
 	//Pointer to an array to hold data values of array that needs resizing
-	T* dataHolder = new T[prevCount];
+	V* dataHolder = new V[prevCount];
 	//Pointer to an array to hold key values of array that needs resizing
-	T* keyHolder = new T[prevCount];
+	K* keyHolder = new K[prevCount];
 	//Iterates from 0 to count
 	int j = 0;
 	//Iterates through all linked lists in the table
@@ -433,12 +433,12 @@ void HashTable<T>::reHash()
 	{
 		while (!(arr + i)->isEmpty())
 		{
-			T data;
+			V data;
 			//Storing data and keys into their respective arrays
 			data = (arr + i)->getFirstData();
-			key = (arr + i)->getFirstKey();
+			cachedKey = (arr + i)->getFirstKey();
 			dataHolder[j] = data;
-			keyHolder[j] = key;
+			keyHolder[j] = cachedKey;
 			j++;
 			//Removing processed node from the linked list
 			(arr + i)->removeFirst();
@@ -456,29 +456,29 @@ void HashTable<T>::reHash()
 	//deleting array
 	delete[] arr;
 	//Redeclaring arr as a new pointer to an array of linked lists with updated size
-	arr = new List<T>[size];
+	arr = new List<V>[size];
 	//Reinserting all nodes back into the updated array
 	for (int i = 0; i < prevCount; i++)
 	{
-		T data;
+		V data;
 		data = dataHolder[i];
-		key = keyHolder[i];
-		add(key, data);
+		cachedKey = keyHolder[i];
+		add(cachedKey, data);
 	}
 	//deleting the holder arrays
 	delete[] dataHolder;
 	delete[] keyHolder;
 }
 
-template<typename T>
-bool HashTable<T>::isEmpty()
+template<typename K, typename V>
+bool HashTable<K, V>::isEmpty()
 {
 	//Returns number of nodes present in the table
 	return (count == 0);
 }
 
-template<typename T>
-void HashTable<T>::empty()
+template<typename K, typename V>
+void HashTable<K, V>::empty()
 {
 	//Count set to zero
 	count = 0;
@@ -491,8 +491,8 @@ void HashTable<T>::empty()
 
 }
 
-template<typename T>
-HashTable<T>::~HashTable()
+template<typename K, typename V>
+HashTable<K, V>::~HashTable()
 {
 	//Empty all linked lists of nodes
 	empty();
@@ -500,8 +500,9 @@ HashTable<T>::~HashTable()
 	arr = 0;
 	delete[] arr;
 }
-template<typename U>
-std::ostream& operator<<(std::ostream& os, const HashTable<U>& table)
+
+template<typename K, typename V>
+std::ostream& operator<<(std::ostream& os, const HashTable<K, V>& table)
 {
 	//Printing the table
 	for (int i = 0; i < table.size; i++)
@@ -516,8 +517,8 @@ std::ostream& operator<<(std::ostream& os, const HashTable<U>& table)
 }
 
 //Returning the next available prime number
-template<typename T>
-int HashTable<T>::getNextPrime()
+template<typename K, typename V>
+int HashTable<K, V>::getNextPrime()
 {
 	bool flag = true;
 	int n = size + 1;
