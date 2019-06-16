@@ -58,10 +58,10 @@ int main()
 	
 	HashTable<Item> itemHashTable;
 
-	for (int i = 0; i < itemList.getCount(); i++)
+	/*for (int i = 0; i < itemList.getCount(); i++)
 	{
 		itemHashTable.add(itemList[i].uid, itemList[i]);
-	}
+	}*/
 
 	int inputMainMenu;
 	do
@@ -93,11 +93,11 @@ int main()
 		{
 			do
 			{
-				int i = 0;
 				Interface::clearScreen(true);
 				Interface::displayDeleteMenu();
 				Interface::promptOption();
 				inputSubMenu = Input::getInt(1, 4);
+
 				switch (inputSubMenu)
 				{
 				case 1:
@@ -145,6 +145,36 @@ int main()
 			break;
 		case 5:
 		{
+			do
+			{
+				Interface::displaKeyMenu();
+				Interface::promptOption();
+				inputSubMenu = Input::getInt(1, 4);
+				switch (inputSubMenu)
+				{
+				case 1:
+				{
+
+				}
+				Interface::clearScreen(true);
+					break;
+				case 2:
+				{
+
+				}
+				Interface::clearScreen(true);
+					break;
+				case 3:
+				{
+
+				}
+				Interface::clearScreen(true);
+					break;
+				default:
+					break;
+				}
+			} while (inputSubMenu != 4);
+			
 
 		}
 		Interface::clearScreen(true);
@@ -170,8 +200,14 @@ int main()
 			Interface::clearScreen(true);
 			break;
 		case 7:
+		{
+
+		}
 			break;
 		case 8:
+		{
+
+		}
 			break;
 		default:
 			break;

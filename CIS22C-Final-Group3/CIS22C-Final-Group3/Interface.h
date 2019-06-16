@@ -1,8 +1,8 @@
 /********************************************************************************
 ********************************* Interface *************************************
 *********************************************************************************
-* Author: Olivier Chan - 75%
-* Author: Luis Guerrero - 25%
+* Author: Olivier Chan - 50%
+* Author: Luis Guerrero - 50%
 *
 * The purpose of this class is to display user interface.
 *****************
@@ -29,5 +29,6 @@ namespace Interface
 	void deleteByUid(List<Item>&);
 	void deleteByName(List<Item>&);
 	void deleteByUpc(List<Item>&);
+	void displaKeyMenu();
 	void displayTypeTrees();
 };

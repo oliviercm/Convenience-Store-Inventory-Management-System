@@ -234,6 +234,7 @@ namespace Interface
 		}
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
+		std::cout << std::endl;
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
 			while (itemList[i].name == newName)
@@ -246,18 +247,23 @@ namespace Interface
 
 		std::cout << "Enter the size of the item" << std::endl;
 		newSize = Input::getString();
+		std::cout << std::endl;
 
 		std::cout << "Enter the category of the item" << std::endl;
 		newCategory = Input::getInt(1, 6);
+		std::cout << std::endl;
 
 		std::cout << "Enter the whole-sale of the item" << std::endl;
 		newWholeSale = Input::getDouble(0.0, 100000.0);
+		std::cout << std::endl;
 
 		std::cout << "Enter the retail price of the item" << std::endl;
 		newRetail = Input::getDouble(0.0, 100000.0);
+		std::cout << std::endl;
 
 		std::cout << "Enter the quantity of the tem" << std::endl;
 		newQuantity = Input::getInt(1, 1000);
+		std::cout << std::endl;
 
 		Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
 
@@ -372,6 +378,30 @@ namespace Interface
 			std::cout << "ERROR: The UPC you entered does not exists" << std::endl;
 		}
 		pause();
+
+		return;
+	}
+	void displaKeyMenu()
+	{
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string sortText = "[ SORT ]";
+		const std::string byNameText = "[ 1 ] BY NAME";
+		const std::string byRetailText = "[ 2 ] BY RETAIL";
+		const std::string byQuantityText = "[ 3 ] BY QUANTITY";
+		const std::string backtext = "[ 4 ] BACK";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + sortText.length()) / 2;
+		const size_t optionMargin = titleMargin - sortText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << sortText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << std::setw(optionMargin + byNameText.length()) << byNameText << std::endl << std::endl
+			<< std::setw(optionMargin + byRetailText.length()) << byRetailText << std::endl << std::endl
+			<< std::setw(optionMargin + byQuantityText.length()) << byQuantityText << std::endl << std::endl
+			<< std::setw(optionMargin + backtext.length()) << backtext << std::endl << std::endl
+			<< bars << std::endl << std::endl;
 
 		return;
 	}
