@@ -60,7 +60,7 @@ int main()
 
 	for (int i = 0; i < itemList.getCount(); i++)
 	{
-		itemHashTable.add(itemList[i]);
+		itemHashTable.add(itemList[i].uid, itemList[i]);
 	}
 
 	int inputMainMenu;
