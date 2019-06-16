@@ -56,7 +56,7 @@ int main()
 	Interface::displayInventory(itemList);
 	Interface::pause();
 	
-	HashTable<Item> itemHashTable;
+	HashTable<int, Item> itemHashTable;
 
 	/*for (int i = 0; i < itemList.getCount(); i++)
 	{
