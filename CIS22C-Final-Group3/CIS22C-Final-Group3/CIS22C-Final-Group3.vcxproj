@@ -122,7 +122,10 @@
     <ClCompile Include="Input.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="BinaryTreeNode.h" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
