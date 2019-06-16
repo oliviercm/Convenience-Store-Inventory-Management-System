@@ -13,6 +13,7 @@
 
 #pragma once
 #include "Item.h"
+#include "List.h"
 
 namespace Interface
 {
@@ -22,8 +23,8 @@ namespace Interface
 	void printHeader();
 	void promptOption();
 	void displayMainMenu();
-	void displayInventory();
-	Item addNewItem();
+	void displayInventory(List<Item>&);
+	Item addNewItem(List<Item>&);
 	void displayDeleteMenu();
 	void displayTypeTrees();
 };

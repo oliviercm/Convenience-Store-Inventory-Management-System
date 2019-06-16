@@ -52,6 +52,10 @@ int main()
 
 	FileIO::saveListIntoFile(itemList, filepath);
 
+	Interface::displayInventory(itemList);
+
+	Interface::pause();
+
 	int inputMainMenu;
 	do
 	{
@@ -108,17 +112,19 @@ int main()
 				inputAgain = Input::getInt(1, 2);
 				Interface::clearScreen(true);
 				*/
-				Item newItem = Interface::addNewItem();
+				Item newItem = Interface::addNewItem(itemList);
 				itemList.insertLast(newItem);
+				Interface::displayInventory(itemList);
+				/*
 				for (int i = 0; i < itemList.getCount(); i++)
 				{
 					cout << itemList[i] << endl;
-				}
+				}*/
 				cout << endl;
 				cout << "Would you like to add another item? [1] Yes [2] No" << endl;
 				inputAgain = Input::getInt(1, 2);
 				Interface::clearScreen(true);
-			} while (!inputAgain == 2);
+			} while (inputAgain == 1);
 
 			break;
 		}
@@ -192,7 +198,7 @@ int main()
 				default:
 					break;
 				}
-			} while (!inputSubMenu == 4);
+			} while (inputSubMenu != 4);
 		}
 			break;
 		case 3:

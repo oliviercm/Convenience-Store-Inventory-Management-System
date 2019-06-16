@@ -126,14 +126,65 @@ namespace Interface
 		return;
 
 	}
-	void displayInventory()
+	void displayInventory(List<Item>& itemList)
 	{
+		const std::string uidText = "UID:";
+		const std::string upcText = "UPC:";
+		const std::string nameText = "NAME:";
+		const std::string sizeText = "SIZE:";
+		const std::string categoryText = "CATEGORY:";
+		const std::string wholesaleText = "WHOLESALE:";
+		const std::string retailText = "RETAIL:";
+		const std::string quantityText = "QUANTITY:";
+
+		const size_t columnSpacing = 3;
+		const size_t uidColumnLength = 3 + columnSpacing;
+		const size_t upcColumnLength = 13 + columnSpacing;
+		const size_t sizeColumnLength = 7 + columnSpacing;
+		const size_t categoryColumnLength = 9 + columnSpacing;
+		const size_t wholesaleColumnLength = wholesaleText.length() + columnSpacing;
+		const size_t retailColumnLength = retailText.length() + columnSpacing;
+		const size_t quantityColumnLength = quantityText.length() + columnSpacing;
+
+		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+
+
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+
+			std::cout << std::left;
+
+			//std::cout << std::endl << std::endl;
+
+			std::cout << std::setw(uidColumnLength) << uidText
+				<< std::setw(upcColumnLength) << upcText
+				<< std::setw(nameColumnLength) << nameText
+				<< std::setw(sizeColumnLength) << sizeText
+				<< std::setw(categoryColumnLength) << categoryText
+				<< std::setw(wholesaleColumnLength) << wholesaleText
+				<< std::setw(retailColumnLength) << retailText
+				<< std::setw(quantityColumnLength) << quantityText
+				<< std::endl;
+
+			std::cout << std::setw(uidColumnLength) << itemList[i].uid
+				<< std::setw(upcColumnLength) << itemList[i].upc
+				<< std::setw(nameColumnLength) << itemList[i].name.substr(0, 30)
+				<< std::setw(sizeColumnLength) << itemList[i].size
+				<< std::setw(categoryColumnLength) << itemList[i].category
+				<< std::setw(wholesaleColumnLength) << itemList[i].wholesale
+				<< std::setw(retailColumnLength) << itemList[i].retail
+				<< std::setw(quantityColumnLength) << itemList[i].quantity;
+
+			std::cout << std::endl << std::endl;
+		}
+
 	}
-	Item addNewItem()
+	Item addNewItem(List<Item>& itemList)
 	{
 		int newUid, newCategory, newQuantity, inputAgain;
 		std::string newUpc, newName, newSize;
 		double newWholeSale, newRetail;
+		bool found = false;
 
 		Interface::clearScreen(true);
 
@@ -152,7 +203,13 @@ namespace Interface
 			newUid = Input::getInt(1, 5999);
 			temp = std::to_string(newUid);
 		}
-
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+			if (itemList[i].uid == newUid)
+			{
+				std::cout << "ERROR: The UID you enter already exists" << std::endl;
+			}
+		}
 		std::cout << "Enter the UPC of the item" << std::endl;
 		newUpc = Input::getString();
 		while (newUpc.length() != 13)

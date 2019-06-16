@@ -29,7 +29,26 @@ std::ostream& operator<<(std::ostream& os, const Item& item)
 	os << "UID:       " << item.uid << std::endl;
 	os << "NAME:      " << item.name << std::endl;
 	os << "SIZE:      " << item.size << std::endl;
-	os << "CATEGORY:  " << item.category << std::endl;
+	if (item.category == 1)
+	{
+		os << "CATEGORY:  " << "snack" << std::endl;
+	}
+	else if (item.category == 2)
+	{
+		os << "CATEGORY:  " << "drink" << std::endl;
+	}
+	else if (item.category == 3)
+	{
+		os << "CATEGORY:  " << "tobacco" << std::endl;
+	}
+	else if (item.category == 4)
+	{
+		os << "CATEGORY:  " << "lotto" << std::endl;
+	}
+	else if (item.category == 5)
+	{
+		os << "CATEGORY:  " << "misc" << std::endl;
+	}
 	os << "WHOLESALE: " << item.wholesale << std::endl;
 	os << "RETAIL:    " << item.retail << std::endl;
 	os << "QUANTITY:  " << item.quantity << std::endl;
