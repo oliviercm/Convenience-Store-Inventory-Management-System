@@ -2,7 +2,12 @@
 #ifndef BINARYSEARCHTREE
 #define BINARYSEARCHTREE
 
+#include <iostream>
+#include <iomanip>
+
 #include "BinaryTreeNode.h"
+#include "Stack.h"
+#include "Trunk.h"
 
 template <typename T>
 class BinarySearchTree
@@ -20,8 +25,10 @@ protected:
 	void postorder_traverse_r(BinaryTreeNode<T> *, void visit(T &));
 	void breath_first_traverse_r(BinaryTreeNode<T> *, void visit(T &));
 	void clear_r(BinaryTreeNode<T> *);
-	BinaryTreeNode<T> * remove_add_r(BinaryTreeNode<T> *, BinaryTreeNode<T> *, const T &);
-	BinaryTreeNode<T> * leftmost_leaf(BinaryTreeNode<T> *);
+	BinaryTreeNode<T> * remove_addr_r(BinaryTreeNode<T> *, BinaryTreeNode<T> *, const T &);
+	BinaryTreeNode<T> * leftmost_leaf_parent(BinaryTreeNode<T> *);
+	void show_trunks(Trunk *);
+	void print_tree_r(BinaryTreeNode<T> *, Trunk *, bool);
 public:
 	BinarySearchTree();
 
@@ -90,6 +97,8 @@ public:
 	Post: None.
 	*/
 	void breath_first_traverse(void visit(T &));
+
+	void print_tree();
 };
 
 template <typename T>
@@ -132,7 +141,7 @@ void BinarySearchTree<T>::add_r(BinaryTreeNode<T> * r_ptr, BinaryTreeNode<T> * i
 			add_r(r_ptr, i_ptr);
 		}
 	}
-	else // r_ptr->datum <= i_ptr->datum
+	else
 	{
 		if (r_ptr->right_ptr == nullptr)
 		{
@@ -157,7 +166,7 @@ void BinarySearchTree<T>::add(const T & i_item)
 }
 
 template <typename T>
-BinaryTreeNode<T> * BinarySearchTree<T>::remove_add_r(BinaryTreeNode<T> * rp_ptr, BinaryTreeNode<T> * r_ptr, const T & i_item)
+BinaryTreeNode<T> * BinarySearchTree<T>::remove_addr_r(BinaryTreeNode<T> * rp_ptr, BinaryTreeNode<T> * r_ptr, const T & i_item)
 {
 	while (r_ptr->datum != i_item)
 	{
@@ -190,117 +199,148 @@ BinaryTreeNode<T> * BinarySearchTree<T>::remove_add_r(BinaryTreeNode<T> * rp_ptr
 }
 
 template <typename T>
-BinaryTreeNode<T> * BinarySearchTree<T>::leftmost_leaf(BinaryTreeNode<T> * r_ptr)
+BinaryTreeNode<T> * BinarySearchTree<T>::leftmost_leaf_parent(BinaryTreeNode<T> * dele_ptr)
 {
- 	if (r_ptr->left_ptr == nullptr)
+	Stack<BinaryTreeNode<T> *> addr_stack;
+	addr_stack.push(dele_ptr);
+	dele_ptr = dele_ptr->right_ptr;
+	while (dele_ptr->left_ptr != nullptr)
 	{
-		return r_ptr;
+		addr_stack.push(dele_ptr);
+		dele_ptr = dele_ptr->left_ptr;
 	}
-	else // r_ptr->left != nullptr
-	{
-		leftmost_leaf(r_ptr->left_ptr);
-	}
+	return addr_stack.peek();
 }
 
 template <typename T>
 bool BinarySearchTree<T>::remove(const T & i_item)
 {
 	// get address of parent node of the deleting node
-	BinaryTreeNode<T> * dele_add_parent = remove_add_r(root_ptr, root_ptr, i_item), * dele_add = nullptr,  * lml = nullptr;
+	BinaryTreeNode<T> * dele_addr_parent = remove_addr_r(root_ptr, root_ptr, i_item), *dele_addr = nullptr, *lmlp = nullptr;
 	// get address of the deleting node
-	if (dele_add_parent == nullptr)
+	if (dele_addr_parent == nullptr)
 	{
 		return false;
 	}
-	else if (dele_add_parent == root_ptr && dele_add_parent->datum == i_item)
+	else if (dele_addr_parent == root_ptr && dele_addr_parent->datum == i_item)
 	{
-		dele_add = dele_add_parent;
+		dele_addr = dele_addr_parent;
 	}
 	else
 	{
-		if (dele_add_parent->datum > i_item)
+		if (dele_addr_parent->datum > i_item)
 		{
-			dele_add = dele_add_parent->left_ptr;
+			dele_addr = dele_addr_parent->left_ptr;
 		}
-		else // dele_add_paretn->dataum <= i_item
+		else
 		{
-			dele_add = dele_add_parent->right_ptr;
+			dele_addr = dele_addr_parent->right_ptr;
 		}
 	}
 	// eliminate deleting node
-	if (dele_add == root_ptr)
+	if (dele_addr == root_ptr)
 	{
-		if (dele_add->left_ptr == nullptr && dele_add->right_ptr == nullptr)
+    	if (dele_addr->left_ptr == nullptr && dele_addr->right_ptr == nullptr)
 		{
+			delete root_ptr;
 			root_ptr = nullptr;
 		}
-		else if (dele_add->left_ptr != nullptr && dele_add->right_ptr != nullptr)
+    	else if (dele_addr->left_ptr != nullptr && dele_addr->right_ptr != nullptr)
 		{
-			lml = leftmost_leaf(dele_add->right_ptr);
-			lml->left_ptr = dele_add->left_ptr;
-			root_ptr = dele_add->right_ptr;
+			lmlp = leftmost_leaf_parent(dele_addr);
+			if (lmlp == dele_addr)
+			{
+				BinaryTreeNode<T> * temp = dele_addr->right_ptr;
+				dele_addr->datum = dele_addr->right_ptr->datum;
+				dele_addr->right_ptr = dele_addr->right_ptr->right_ptr;
+				delete temp;
+				temp = nullptr; 
+			}
+			else
+			{
+				BinaryTreeNode<T> * temp = lmlp->left_ptr;
+				dele_addr->datum = lmlp->left_ptr->datum;
+				lmlp->left_ptr = lmlp->left_ptr->right_ptr;
+				delete temp;
+				temp = nullptr;
+			}
 		}
-		else if (dele_add->right_ptr != nullptr)
+  	    else if (dele_addr->right_ptr != nullptr)
 		{
-			root_ptr = dele_add->right_ptr;
+			root_ptr = dele_addr->right_ptr;
+			delete dele_addr;
 		}
-		else // dele_add->left_ptr != nullptr
+ 	    else
 		{
-			root_ptr = dele_add->left_ptr;
+			root_ptr = dele_addr->left_ptr;
+			delete dele_addr;
 		}
 	}
-	else // dele_add != root_ptr
+	else
 	{
-		if (dele_add->left_ptr == nullptr && dele_add->right_ptr == nullptr)
+ 	    if (dele_addr->left_ptr == nullptr && dele_addr->right_ptr == nullptr)
 		{
-			if (dele_add_parent->left_ptr == dele_add)
+			if (dele_addr_parent->left_ptr == dele_addr)
 			{
-				dele_add_parent->left_ptr = nullptr;
+				delete dele_addr_parent->left_ptr;
+				dele_addr_parent->left_ptr = nullptr;
 			}
-			else // dele_add_parent->right_ptr == dele_add
+			else
 			{
-				dele_add_parent->right_ptr = nullptr;
+				delete dele_addr_parent->right_ptr;
+				dele_addr_parent->right_ptr = nullptr;
 			}
 		}
-		else if (dele_add->left_ptr != nullptr && dele_add->right_ptr != nullptr)
+ 	    else if (dele_addr->left_ptr != nullptr && dele_addr->right_ptr != nullptr)
 		{
-			lml = leftmost_leaf(dele_add->right_ptr);
-			lml->left_ptr = dele_add->left_ptr;
-			if (dele_add_parent->right_ptr != nullptr && dele_add_parent->right_ptr == dele_add)
+			lmlp = leftmost_leaf_parent(dele_addr);
+			if (lmlp == dele_addr)
 			{
-				dele_add_parent->right_ptr = dele_add->right_ptr;
+				BinaryTreeNode<T> * temp = lmlp->right_ptr;
+				dele_addr->datum = dele_addr->right_ptr->datum;
+				dele_addr->right_ptr = dele_addr->right_ptr->right_ptr;
+				delete temp;
+				temp = nullptr;
 			}
-			else // dele_add_parent->left_ptr != nullptr && dele_add_parent->left_ptr == dele_add
+			else
 			{
-				dele_add_parent->left_ptr = dele_add->right_ptr;
+				BinaryTreeNode<T> * temp = lmlp->left_ptr;
+				dele_addr->datum = lmlp->left_ptr->datum;
+				lmlp->left_ptr = lmlp->left_ptr->right_ptr;
+				delete temp;
+				temp = nullptr;
 			}
 		}
-		else if (dele_add->right_ptr != nullptr)
+   	    else if (dele_addr->right_ptr != nullptr)
 		{
-			if (dele_add_parent->left_ptr == dele_add)
+			if (dele_addr_parent->left_ptr == dele_addr)
 			{
-				dele_add_parent->left_ptr = dele_add->right_ptr;;
+				dele_addr_parent->left_ptr = dele_addr->right_ptr;
+				delete dele_addr;
 			}
-			else // dele_add_parent->right_ptr == dele_add
+			else
 			{
-				dele_add_parent->right_ptr = dele_add->right_ptr;
+				dele_addr_parent->right_ptr = dele_addr->right_ptr;
+				delete dele_addr;
 			}
 		}
-		else // dele_add->left_ptr != nullptr
+   	    else
 		{
-			if (dele_add_parent->left_ptr == dele_add)
+			if (dele_addr_parent->left_ptr == dele_addr)
 			{
-				dele_add_parent->left_ptr = dele_add->left_ptr;
+				dele_addr_parent->left_ptr = dele_addr->left_ptr;
+				delete dele_addr;
 			}
-			else // dele_add_parent->right_ptr == dele_add
+			else
 			{
-				dele_add_parent->right_ptr = dele_add->left_ptr;
+				dele_addr_parent->right_ptr = dele_addr->left_ptr;
+				delete dele_addr;
 			}
 		}
 	}
-	dele_add_parent = nullptr;
-	dele_add = nullptr;
-	lml = nullptr;
+	dele_addr_parent = nullptr;
+	dele_addr = nullptr;
+	lmlp = nullptr;
 	nodes_num -= 1;
 	return true;
 }
@@ -544,6 +584,69 @@ void BinarySearchTree<T>::breath_first_traverse(void visit(T &))
 		breath_first_traverse_r(root_ptr, visit);
 		return;
 	}
+}
+
+template <typename T>
+void BinarySearchTree<T>::show_trunks(Trunk * prev)
+{
+	if (prev == nullptr)
+	{
+		return;
+	}
+	else // prev != nullptr
+	{
+		show_trunks(prev->prev);
+		std::cout << prev->str;
+	}
+}
+
+template <typename T>
+void BinarySearchTree<T>::print_tree_r(BinaryTreeNode<T> * r_ptr, Trunk * prev, bool is_left)
+{
+	if (r_ptr == nullptr)
+	{
+		return;
+	}
+	else
+	{
+		std::string prev_str = "       ";
+		Trunk * trunk = new Trunk(prev, prev_str);
+
+		print_tree_r(r_ptr->left_ptr, trunk, true);
+
+		if (!prev)
+		{
+			trunk->str = "------";
+		}
+		else if (is_left)
+		{
+			trunk->str = ".------";
+			prev_str = "      |";
+		}
+		else
+		{
+			trunk->str = "`------";
+			prev->str = prev_str;
+		}
+
+		show_trunks(trunk); // pay attention to the show_trunks function
+		std::cout << r_ptr->datum << std::endl;
+
+		if (prev != nullptr)
+		{
+			prev->str = prev_str;
+		}
+		trunk->str = "      |";
+
+		print_tree_r(r_ptr->right_ptr, trunk, false);
+	}
+}
+
+template <typename T>
+void BinarySearchTree<T>::print_tree()
+{
+	print_tree_r(root_ptr, nullptr, false);
+	return;
 }
 
 #endif
