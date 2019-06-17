@@ -26,6 +26,7 @@ public:
 	Node(const T&, Node<T>*);
 	Node(T&&);
 	Node(T&&, Node<T>*);
+    Node();
 };
 
 template <typename T>
