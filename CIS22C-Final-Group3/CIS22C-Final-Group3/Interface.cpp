@@ -404,6 +404,10 @@ namespace Interface
 
 		return;
 	}
+	void searchByName(List<Item>& itemList, AVLTree<std::string>& byName)
+	{
+
+	}
 	void displayTypeTrees()
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);

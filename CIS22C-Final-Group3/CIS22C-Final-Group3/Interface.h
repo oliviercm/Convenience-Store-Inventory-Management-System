@@ -14,6 +14,8 @@
 #pragma once
 #include "Item.h"
 #include "List.h"
+#include "AVLTree.h"
+#include "HashTable.h"
 
 namespace Interface
 {
@@ -30,5 +32,6 @@ namespace Interface
 	void deleteByName(List<Item>&);
 	void deleteByUpc(List<Item>&);
 	void displaSearchMenu();
+	void searchByName(List<Item>&, AVLTree<std::string>&);
 	void displayTypeTrees();
 };
