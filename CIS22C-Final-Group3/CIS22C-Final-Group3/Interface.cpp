@@ -96,7 +96,7 @@ namespace Interface
 		const std::string mainMenuText = "[ MAIN MENU ]";
 		const std::string addNewDataText = "[ 1 ] ADD NEW DATA";
 		const std::string deleteDataText = "[ 2 ] DELETE DATA";
-		const std::string findDataRecordText = "[ 3 ] FIND DATA RECORD";
+		const std::string searchText = "[ 3 ] SEARCH";
 		const std::string listDataHashText = "[ 4 ] LIST DATA IN HASH TABLE SEQUENCE";
 		const std::string listDataKeyText = "[ 5 ] LIST DATA IN KEY SEQUENCE";
 		const std::string printTreeText = "[ 6 ] PRINT TREE";
@@ -114,7 +114,7 @@ namespace Interface
 
 		std::cout << std::setw(optionMargin + addNewDataText.length()) << addNewDataText << std::endl << std::endl
 			<< std::setw(optionMargin + deleteDataText.length()) << deleteDataText << std::endl << std::endl
-			<< std::setw(optionMargin + findDataRecordText.length()) << findDataRecordText << std::endl << std::endl
+			<< std::setw(optionMargin + searchText.length()) << searchText << std::endl << std::endl
 			<< std::setw(optionMargin + listDataHashText.length()) << listDataHashText << std::endl << std::endl
 			<< std::setw(optionMargin + listDataKeyText.length()) << listDataKeyText << std::endl << std::endl
 			<< std::setw(optionMargin + printTreeText.length()) << printTreeText << std::endl << std::endl
@@ -381,14 +381,14 @@ namespace Interface
 
 		return;
 	}
-	void displaKeyMenu()
+	void displaSearchMenu()
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string sortText = "[ SORT ]";
 		const std::string byNameText = "[ 1 ] BY NAME";
-		const std::string byRetailText = "[ 2 ] BY RETAIL";
-		const std::string byQuantityText = "[ 3 ] BY QUANTITY";
-		const std::string backtext = "[ 4 ] BACK";
+		const std::string byRetailText = "[ 2 ] BY UPC";
+		//const std::string byQuantityText = "[ 3 ] BY QUANTITY";
+		const std::string backtext = "[ 3 ] BACK";
 
 		const size_t titleMargin = (TERMINAL_WIDTH + sortText.length()) / 2;
 		const size_t optionMargin = titleMargin - sortText.length();
@@ -399,7 +399,6 @@ namespace Interface
 
 		std::cout << std::setw(optionMargin + byNameText.length()) << byNameText << std::endl << std::endl
 			<< std::setw(optionMargin + byRetailText.length()) << byRetailText << std::endl << std::endl
-			<< std::setw(optionMargin + byQuantityText.length()) << byQuantityText << std::endl << std::endl
 			<< std::setw(optionMargin + backtext.length()) << backtext << std::endl << std::endl
 			<< bars << std::endl << std::endl;
 

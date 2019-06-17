@@ -19,6 +19,7 @@ Yue Pan
 #include "Stack.h"
 #include "Queue.h"
 #include "HashTable.h"
+#include "AVLTree.h"
 
 using namespace std;
 
@@ -56,12 +57,20 @@ int main()
 	Interface::displayInventory(itemList);
 	Interface::pause();
 	
-	//HashTable<int, Item> itemHashTable;
+	HashTable<int, Item> itemHashTable;
 
 	/*for (int i = 0; i < itemList.getCount(); i++)
 	{
 		itemHashTable.add(itemList[i].uid, itemList[i]);
 	}*/
+
+	AVLTree<string> avlStringTree;
+
+	for (int i = 0; i < itemList.getCount(); i++)
+	{
+		avlStringTree.add_avl(itemList[i].name);
+		avlStringTree.add_avl(itemList[i].upc);
+	}
 
 	int inputMainMenu;
 	do
@@ -133,7 +142,29 @@ int main()
 			break;
 		case 3:
 		{
+			do
+			{
+				Interface::displaSearchMenu();
+				Interface::promptOption();
+				inputSubMenu = Input::getInt(1, 4);
+				switch (inputSubMenu)
+				{
+				case 1:
+				{
 
+				}
+				Interface::clearScreen(true);
+				break;
+				case 2:
+				{
+
+				}
+				Interface::clearScreen(true);
+				break;
+				default:
+					break;
+				}
+			} while (inputSubMenu != 3);
 		}
 		Interface::clearScreen(true);
 			break;
@@ -145,37 +176,7 @@ int main()
 			break;
 		case 5:
 		{
-			do
-			{
-				Interface::displaKeyMenu();
-				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 4);
-				switch (inputSubMenu)
-				{
-				case 1:
-				{
-
-				}
-				Interface::clearScreen(true);
-					break;
-				case 2:
-				{
-
-				}
-				Interface::clearScreen(true);
-					break;
-				case 3:
-				{
-
-				}
-				Interface::clearScreen(true);
-					break;
-				default:
-					break;
-				}
-			} while (inputSubMenu != 4);
 			
-
 		}
 		Interface::clearScreen(true);
 			break;

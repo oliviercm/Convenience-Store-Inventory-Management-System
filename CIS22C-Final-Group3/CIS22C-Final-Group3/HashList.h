@@ -324,4 +324,3 @@ std::ostream& operator<<(std::ostream& os, HashList<U, V> & list)
     os << (List<V> &) list;
     return os;
 }
-

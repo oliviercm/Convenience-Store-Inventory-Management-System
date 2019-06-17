@@ -122,9 +122,12 @@
     <ClCompile Include="Input.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AVLTree.h" />
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BinaryTreeNode.h" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="HashList.h" />
+    <ClInclude Include="HashNode.h" />
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Item.h" />
@@ -133,6 +136,7 @@
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Trunk.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="items.txt" />

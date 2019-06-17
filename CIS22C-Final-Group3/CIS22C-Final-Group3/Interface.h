@@ -29,6 +29,6 @@ namespace Interface
 	void deleteByUid(List<Item>&);
 	void deleteByName(List<Item>&);
 	void deleteByUpc(List<Item>&);
-	void displaKeyMenu();
+	void displaSearchMenu();
 	void displayTypeTrees();
 };

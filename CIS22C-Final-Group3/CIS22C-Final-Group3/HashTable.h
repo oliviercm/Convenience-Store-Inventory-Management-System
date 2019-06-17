@@ -31,6 +31,7 @@
 #include <iostream>
 #include "List.h"
 #include "HashList.h"
+#include "Item.h"
 
 template<typename K, typename T>
 class HashTable
@@ -576,17 +577,3 @@ int HashTable<K, T>::getNextPrime()
 
 
 #endif //Hash_h
-
-
-
-
-
-
-
-
-
-
-
-
-
-
