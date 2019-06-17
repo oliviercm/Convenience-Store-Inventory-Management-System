@@ -56,13 +56,14 @@ int main()
 
 	Interface::displayInventory(itemList);
 	Interface::pause();
+	Interface::clearScreen(true);
 	
 	HashTable<int, Item> itemHashTable;
 
-	/*for (int i = 0; i < itemList.getCount(); i++)
+	for (int i = 0; i < itemList.getCount(); i++)
 	{
 		itemHashTable.add(itemList[i].uid, itemList[i]);
-	}*/
+	}
 
 	AVLTree<string> avlStringTree;
 
@@ -144,13 +145,19 @@ int main()
 		{
 			do
 			{
+				Interface::clearScreen(true);
 				Interface::displaSearchMenu();
 				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 4);
+				inputSubMenu = Input::getInt(1, 3);
 				switch (inputSubMenu)
 				{
 				case 1:
 				{
+					Item nameFound;
+					nameFound = Interface::searchByName(itemList, avlStringTree);
+					cout << endl;
+					cout << nameFound;
+					Interface::pause();
 
 				}
 				Interface::clearScreen(true);

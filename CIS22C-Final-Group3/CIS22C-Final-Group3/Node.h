@@ -52,3 +52,9 @@ Node<T>::Node(T&& d, Node<T>* n) : data(d), next(n)
 {
 
 }
+
+template<typename T>
+inline Node<T>::Node()
+{
+
+}

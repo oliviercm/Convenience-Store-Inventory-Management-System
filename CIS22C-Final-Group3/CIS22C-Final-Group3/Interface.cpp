@@ -404,9 +404,30 @@ namespace Interface
 
 		return;
 	}
-	void searchByName(List<Item>& itemList, AVLTree<std::string>& byName)
+	Item searchByName(List<Item>& itemList, AVLTree<std::string>& avlTree)
 	{
+		Interface::clearScreen(true);
 
+		std::string itemToSearch;
+		Item itemFound;
+		bool found = false;
+
+		std::cout << "Enter the name of the item you want to search:" << std::endl;
+		itemToSearch = Input::getString();
+
+		for (int i = 0; i < avlTree.get_nodes_num_avl(); i++)
+		{
+			if (avlTree.search_avl(itemToSearch) == true)
+			{
+				itemFound = itemList[i];
+				found = true;
+			}
+		}
+
+		if (found = true)
+		{
+			return itemFound;
+		}
 	}
 	void displayTypeTrees()
 	{
