@@ -20,7 +20,6 @@ struct Node
 {
 public:
 	T data;
-	T key;
 	Node<T>* next;
 
 	Node(const T&);

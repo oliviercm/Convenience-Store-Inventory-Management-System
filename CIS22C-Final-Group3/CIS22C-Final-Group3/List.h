@@ -75,24 +75,6 @@ public:
 	* returns: index of node in the table
 	*/
 	int getPos(T item);
-	/*
-	* getKey
-	*
-	* brief: Function that returns the key of a node within the linked list
-	*
-	* param: pos - location of node that contains a key within the linked list
-	*
-	* returns: key of node at provided location
-	*/
-	T& getKey(const int pos);
-	/*
-	* getFirstKey
-	*
-	* brief: Function that returns the key of the first node
-	*
-	* returns: key of first node
-	*/
-	T& getFirstKey();
 	T& operator[](const int);
 };
 
@@ -404,27 +386,7 @@ T& List<T>::getData(const int pos)
 	return currentNode->data;
 }
 
-template <typename T>
-T& List<T>::getKey(const int pos)
-{
-	if (head == nullptr) //The list is empty
-	{
-		throw std::out_of_range("List is empty.");
-	}
 
-	if (pos < 0 || pos > count - 1)
-	{
-		throw std::out_of_range("Index out of range.");
-	}
-
-	Node<T>* currentNode = head;
-	for (int i = 0; i < pos; i++)
-	{
-		currentNode = currentNode->next;
-	}
-
-	return currentNode->key;
-}
 
 /*
 Gets data from the first element.
@@ -439,11 +401,6 @@ T& List<T>::getFirstData()
 	return getData(0);
 }
 
-template <typename T>
-T& List<T>::getFirstKey()
-{
-	return getKey(0);
-}
 
 /*
 Gets data from the last element.
@@ -581,14 +538,12 @@ Node<T>* List<T>::insert(const T& newData, const int pos, const T& k)
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(newData);
-		head->key = k;
 		returnNode = head;
 	}
 	else if (pos == 0) //Replacing head
 	{
 		Node<T>* temp = head;
 		head = new Node<T>(newData, temp);
-		head->key = k;
 		returnNode = head;
 	}
 	else
@@ -601,7 +556,7 @@ Node<T>* List<T>::insert(const T& newData, const int pos, const T& k)
 
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(newData, temp);
-		currentNode->next->key = k;
+
 		returnNode = currentNode->next;
 	}
 
