@@ -16,6 +16,7 @@
 #include <iostream>
 
 #include "Node.h"
+#include  "Efficiency.h"
 
 template <typename U> class List;
 template <typename U>
@@ -42,8 +43,6 @@ public:
 	List(const List&) = delete;
 	List& operator=(const List&) = delete;
 
-	static int globalOperations;
-
 	virtual bool isEmpty() const;
 	virtual int getCount() const;
 	virtual Node<T>* insert(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
@@ -66,11 +65,10 @@ public:
 	virtual void setFirstData(T&&);
 	virtual void setLastData(T&&);
 
+	List<T> copy();
+
 	T& operator[](const int);
 };
-
-template <typename T>
-int List<T>::globalOperations = 0;
 
 template <typename T>
 List<T>::List() : count(0), head(nullptr)
@@ -134,7 +132,7 @@ Node<T>* List<T>::insert(const T& newData, const int pos)
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(newData);
-		globalOperations++;
+		Efficiency::globalListOperations++;
 
 		returnNode = head;
 	}
@@ -144,7 +142,7 @@ Node<T>* List<T>::insert(const T& newData, const int pos)
 		head = new Node<T>(newData, temp);
 
 		returnNode = head;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 	else
 	{
@@ -152,12 +150,12 @@ Node<T>* List<T>::insert(const T& newData, const int pos)
 		for (int i = 0; i < pos - 1; i++)
 		{
 			currentNode = currentNode->next;
-			globalOperations++;
+			Efficiency::globalListOperations++;
 		}
 
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(newData, temp);
-		globalOperations++;
+		Efficiency::globalListOperations++;
 
 		returnNode = currentNode->next;
 	}
@@ -178,7 +176,7 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(std::move(newData));
-		globalOperations++;
+		Efficiency::globalListOperations++;
 
 		returnNode = head;
 	}
@@ -186,7 +184,7 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 	{
 		Node<T>* temp = head;
 		head = new Node<T>(std::move(newData), temp);
-		globalOperations++;
+		Efficiency::globalListOperations++;
 
 		returnNode = head;
 	}
@@ -196,12 +194,12 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 		for (int i = 0; i < pos - 1; i++)
 		{
 			currentNode = currentNode->next;
-			globalOperations++;
+			Efficiency::globalListOperations++;
 		}
 
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(std::move(newData), temp);
-		globalOperations++;
+		Efficiency::globalListOperations++;
 
 		returnNode = currentNode->next;
 	}
@@ -271,7 +269,7 @@ void List<T>::remove(const int pos)
 
 		delete head;
 		head = nextNode;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 	else
 	{
@@ -281,18 +279,18 @@ void List<T>::remove(const int pos)
 		{
 			previousNode = currentNode;
 			currentNode = currentNode->next;
-			globalOperations++;
+			Efficiency::globalListOperations++;
 		}
 
 		if (currentNode->next != nullptr)
 		{
 			Node<T>* temp = currentNode->next;
 			previousNode->next = temp;
-			globalOperations++;
+			Efficiency::globalListOperations++;
 		}
 
 		delete currentNode;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 
 	count--;
@@ -346,11 +344,11 @@ void List<T>::removeAll()
 			Node<T>* previousNode = currentNode;
 			currentNode = currentNode->next;
 			delete previousNode;
-			globalOperations++;
+			Efficiency::globalListOperations++;
 		}
 
 		delete currentNode;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 
 	count = 0;
@@ -383,10 +381,10 @@ T& List<T>::getData(const int pos)
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 
-	globalOperations++;
+	Efficiency::globalListOperations++;
 	return currentNode->data;
 }
 
@@ -442,11 +440,11 @@ void List<T>::setData(const T& newData, const int pos)
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 
 	currentNode->data = newData;
-	globalOperations++;
+	Efficiency::globalListOperations++;
 	return;
 }
 template <typename T>
@@ -466,11 +464,11 @@ void List<T>::setData(T&& newData, const int pos)
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
-		globalOperations++;
+		Efficiency::globalListOperations++;
 	}
 
 	currentNode->data = std::move(newData);
-	globalOperations++;
+	Efficiency::globalListOperations++;
 	return;
 }
 
@@ -516,4 +514,17 @@ template <typename T>
 T& List<T>::operator[](const int index)
 {
 	return getData(index);
+}
+
+template <typename T>
+List<T> List<T>::copy()
+{
+	List<T> copyList;
+
+	for (int i = 0; i < getCount(); i++)
+	{
+		copyList.insertLast(this[i]);
+	}
+
+	return copyList;
 }

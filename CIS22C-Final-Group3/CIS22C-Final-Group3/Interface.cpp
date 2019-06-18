@@ -445,6 +445,7 @@ namespace Interface
 				return itemList[i];
 			}
 		}
+<<<<<<< HEAD
 	}
 	Item searchByUpc(List<Item>& itemList)
 	{
@@ -503,6 +504,8 @@ namespace Interface
 			<< std::setw(retailColumnLength) << retailText
 			<< std::setw(quantityColumnLength) << quantityText
 			<< std::endl << std::endl;
+=======
+>>>>>>> 5a97486225e112803029a3405a9727725a5b0510
 
 		for (int i = 0; i < itemList.getCount(); i++)
 		{

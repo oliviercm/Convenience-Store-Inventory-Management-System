@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Efficiency.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="AVLTree.h" />
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BinaryTreeNode.h" />
+    <ClInclude Include="Efficiency.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="HashList.h" />
     <ClInclude Include="HashNode.h" />
