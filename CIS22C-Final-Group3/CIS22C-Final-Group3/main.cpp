@@ -158,25 +158,24 @@ int main()
 				{
 				case 1:
 				{
-<<<<<<< HEAD
 					do
 					{
-						size_t nameIndex;
-						nameIndex = Interface::searchByName(itemList);
-						cout << endl;
-						cout << itemList[nameIndex] << endl;
-						Interface::pause();
+						Item foundItem = Interface::searchByName(itemList);
+						//Item wasn't found
+						if (foundItem == Item())
+						{
+							cout << "Item not found." << endl;
+						}
+						//Item was found
+						else
+						{
+							cout << foundItem << endl;
+						}
 						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
 						inputAgain = Input::getInt(1, 2);
-
+						Interface::clearScreen();
+						Interface::displaySearchMenu();
 					} while (inputAgain == 1);
-
-=======
-					Item nameFound;
-					cout << endl;
-					cout << nameFound;
-					Interface::pause();
->>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
 				}
 				Interface::clearScreen(true);
 				break;

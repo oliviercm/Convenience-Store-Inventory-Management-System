@@ -404,43 +404,21 @@ namespace Interface
 
 		return;
 	}
-	size_t searchByName(List<Item>& itemList)
+	Item searchByName(List<Item>& itemList)
 	{
-		Interface::clearScreen(true);
-
-		std::string userInputName;
-		size_t found = 0;
-
 		std::cout << "Enter the name of the item you want to search:" << std::endl;
-		userInputName = Input::getString();
+		const std::string userInputName = Input::getString();
+
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			found = itemList[i].name.find(userInputName);
-		}
-		if (found != std::string::npos)
-		{
-			return found;
-		}
-
-		/*for (int i = 0; i < avlTree.get_nodes_num_avl(); i++)
-		{
-			if (avlTree.search_avl(itemToSearch) == true)
+			if (itemList[i].name.find(userInputName) != std::string::npos)
 			{
-				itemFound = itemList[i];
-				found = true;
+				return itemList[i];
 			}
-		}*/
-
-<<<<<<< HEAD
-=======
-		if (found = true)
-		{
-			return itemFound;
 		}
 
-		//REPLACE THIS!
+		//Item wasn't found
 		return Item();
->>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
 	}
 	void displayTypeTrees()
 	{
