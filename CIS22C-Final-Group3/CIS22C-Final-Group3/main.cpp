@@ -217,8 +217,6 @@ int main()
 		{
 			Interface::displayHashTable(itemHashTable);
 
-			//cout << itemHashTable;
-
 			Interface::pause();
 		}
 		Interface::clearScreen(true);
@@ -250,12 +248,16 @@ int main()
 				{
 				case 1:
 				{
-					
+					avlWholesaleTree.print_tree_avl();
+					cout << endl;
+					Interface::pause();
 				}
 					break;
 				case 2: 
 				{
 					avlRetailTree.print_tree_avl();
+					cout << endl;
+					Interface::pause();
 				}
 					break;
 				default:

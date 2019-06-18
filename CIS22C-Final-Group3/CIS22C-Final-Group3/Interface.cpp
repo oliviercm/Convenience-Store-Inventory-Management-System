@@ -519,19 +519,47 @@ namespace Interface
 				Item& item = list->getData(i);
 
 				//Print the item out
-				std::cout << "The next item in the hash table is: " << item.uid << "  " << item.upc << std::endl;
+				std::cout << std::setw(uidColumnLength) << item.uid
+					<< std::setw(upcColumnLength) << item.upc
+					<< std::setw(nameColumnLength) << item.name.substr(0, 30)
+					<< std::setw(sizeColumnLength) << item.size;
+				if (item.category == 1)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Snack";
+				}
+				else if (item.category == 2)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Drink";
+				}
+				else if (item.category == 3)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Tabacco";
+				}
+				else if (item.category == 4)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Lotto";
+				}
+				else if (item.category == 5)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Misc";
+				}
+				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << item.wholesale
+					<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << item.retail
+					<< std::setw(quantityColumnLength) << item.quantity;
+
+				std::cout << std::endl << std::endl;
 			}
 		}
 		pause();
 		clearScreen(true);
-		Interface::pause();
+		pause();
 	}
 	void displayTypeTrees()
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string typeTreesText = "[ TYPE OF TREES ]";
-		const std::string bstText = "[ 1 ] BINARY SEARCH TREE";
-		const std::string avlTreeText = "[ 2 ] AVL Tree";
+		const std::string bstText = "[ 1 ] AVL Tree WholeSale";
+		const std::string avlTreeText = "[ 2 ] AVL Tree Retail";
 		const std::string backtext = "[ 3 ] BACK";
 
 		const size_t titleMargin = (TERMINAL_WIDTH + typeTreesText.length()) / 2;
