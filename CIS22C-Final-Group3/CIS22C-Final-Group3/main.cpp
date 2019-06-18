@@ -74,6 +74,7 @@ int main()
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
+	Interface::displayInventory(itemList);
 	Interface::pause();
 	Interface::clearScreen();
 
@@ -183,7 +184,24 @@ int main()
 				break;
 				case 2://searchByUpc
 				{
-
+					do
+					{
+						Item foundItem = Interface::searchByUpc(itemList);
+						//Item wasn't found
+						if (foundItem == Item())
+						{
+							cout << "Item not found." << endl;
+						}
+						//Item was found
+						else
+						{
+							cout << foundItem << endl;
+						}
+						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
+						inputAgain = Input::getInt(1, 2);
+						Interface::clearScreen();
+						Interface::displaySearchMenu();
+					} while (inputAgain == 1);
 				}
 				Interface::clearScreen(true);
 				break;
@@ -196,11 +214,10 @@ int main()
 			break;
 		case 4: //List data in Hash Table Sequence
 		{
-			Interface::clearScreen(true);
-			for (int i = 0; i < itemHashTable.getCount(); i++)
-			{
-				itemHashTable.getItems(itemList[i].uid);
-			}
+			Interface::displayHashTable(itemList, itemHashTable);
+
+			//cout << itemHashTable;
+
 			Interface::pause();
 		}
 		Interface::clearScreen(true);

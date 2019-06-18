@@ -168,9 +168,28 @@ namespace Interface
 			std::cout << std::setw(uidColumnLength) << itemList[i].uid
 				<< std::setw(upcColumnLength) << itemList[i].upc
 				<< std::setw(nameColumnLength) << itemList[i].name.substr(0, 30)
-				<< std::setw(sizeColumnLength) << itemList[i].size
-				<< std::setw(categoryColumnLength) << itemList[i].category
-				<< std::setw(wholesaleColumnLength) << itemList[i].wholesale
+				<< std::setw(sizeColumnLength) << itemList[i].size;
+				if (itemList[i].category == 1)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Snack";
+				}
+				else if (itemList[i].category == 2)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Drink";
+				}
+				else if (itemList[i].category == 3)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Tabacco";
+				}
+				else if (itemList[i].category == 4)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Lotto";
+				}
+				else if (itemList[i].category == 5)
+				{
+					std::cout << std::setw(categoryColumnLength) << "Misc";
+				}
+				std::cout << std::setw(wholesaleColumnLength) << itemList[i].wholesale
 				<< std::setw(retailColumnLength) << itemList[i].retail
 				<< std::setw(quantityColumnLength) << itemList[i].quantity;
 
@@ -384,10 +403,9 @@ namespace Interface
 	void displaySearchMenu()
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
-		const std::string sortText = "[ SORT ]";
+		const std::string sortText = "[ SEARCH ]";
 		const std::string byNameText = "[ 1 ] BY NAME";
 		const std::string byRetailText = "[ 2 ] BY UPC";
-		//const std::string byQuantityText = "[ 3 ] BY QUANTITY";
 		const std::string backtext = "[ 3 ] BACK";
 
 		const size_t titleMargin = (TERMINAL_WIDTH + sortText.length()) / 2;
@@ -406,7 +424,18 @@ namespace Interface
 	}
 	Item searchByName(List<Item>& itemList)
 	{
-		std::cout << "Enter the name of the item you want to search:" << std::endl;
+		clearScreen(true);
+
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string searchByNameText = "[ SEARCH NAME ]";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + searchByNameText.length()) / 2;
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << searchByNameText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << "Enter the name of the item you want to search:" << std::endl << std::endl;
 		const std::string userInputName = Input::getString();
 
 		for (int i = 0; i < itemList.getCount(); i++)
@@ -415,8 +444,85 @@ namespace Interface
 			{
 				return itemList[i];
 			}
+		}
+	}
+	Item searchByUpc(List<Item>& itemList)
+	{
+		clearScreen(true);
 
-		return Item();
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string searchByUpcText = "[ SEARCH UPC ]";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + searchByUpcText.length()) / 2;
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << searchByUpcText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << "Enter the UPC of the item you want to search:" << std::endl << std::endl;
+		const std::string userInputUpc = Input::getString();
+
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+			if (itemList[i].upc.find(userInputUpc) != std::string::npos)
+			{
+				return itemList[i];
+			}
+		}
+	} 
+	void displayHashTable(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
+	{
+		const std::string uidText = "UID:";
+		const std::string upcText = "UPC:";
+		const std::string nameText = "NAME:";
+		const std::string sizeText = "SIZE:";
+		const std::string categoryText = "CATEGORY:";
+		const std::string wholesaleText = "WHOLESALE:";
+		const std::string retailText = "RETAIL:";
+		const std::string quantityText = "QUANTITY:";
+
+		const size_t columnSpacing = 3;
+		const size_t uidColumnLength = 3 + columnSpacing;
+		const size_t upcColumnLength = 13 + columnSpacing;
+		const size_t sizeColumnLength = 7 + columnSpacing;
+		const size_t categoryColumnLength = 9 + columnSpacing;
+		const size_t wholesaleColumnLength = wholesaleText.length() + columnSpacing;
+		const size_t retailColumnLength = retailText.length() + columnSpacing;
+		const size_t quantityColumnLength = quantityText.length() + columnSpacing;
+
+		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+
+		std::cout << std::left;
+
+		std::cout << std::setw(uidColumnLength) << uidText
+			<< std::setw(upcColumnLength) << upcText
+			<< std::setw(nameColumnLength) << nameText
+			<< std::setw(sizeColumnLength) << sizeText
+			<< std::setw(categoryColumnLength) << categoryText
+			<< std::setw(wholesaleColumnLength) << wholesaleText
+			<< std::setw(retailColumnLength) << retailText
+			<< std::setw(quantityColumnLength) << quantityText
+			<< std::endl << std::endl;
+
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+			std::cout << std::setw(uidColumnLength) << *itemHashTable.getItems(itemList[i].uid)
+				//<< std::setw(upcColumnLength) << *itemHashTable.getItems(stoi(itemList[i].upc))
+				//<< std::setw(nameColumnLength) << *itemHashTable.getItems(stoi(itemList[i].name))
+				//<< std::setw(sizeColumnLength) << *itemHashTable.getItems(stoi(itemList[i].size))
+				<< std::setw(categoryColumnLength) << *itemHashTable.getItems(itemList[i].category)
+				<< std::setw(wholesaleColumnLength) << *itemHashTable.getItems(itemList[i].wholesale)
+				<< std::setw(retailColumnLength) << *itemHashTable.getItems(itemList[i].retail)
+				<< std::setw(quantityColumnLength) << *itemHashTable.getItems(itemList[i].quantity);
+
+			std::cout << std::endl << std::endl;
+		}
+		Interface::clearScreen(true);
+		/*for (int i = 0; i < itemHashTable.getCount(); i++)
+		{
+			std::cout << *itemHashTable.getItems(itemList[i].uid);
+		}
+		Interface::pause();*/
 	}
 	void displayTypeTrees()
 	{

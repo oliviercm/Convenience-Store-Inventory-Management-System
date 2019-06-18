@@ -38,27 +38,28 @@ bool Item::operator==(const Item& item) const
 std::ostream& operator<<(std::ostream& os, const Item& item)
 {
 	os << "UID:       " << item.uid << std::endl;
+	os << "UPC:       " << item.upc << std::endl;
 	os << "NAME:      " << item.name << std::endl;
 	os << "SIZE:      " << item.size << std::endl;
 	if (item.category == 1)
 	{
-		os << "CATEGORY:  " << "snack" << std::endl;
+		os << "CATEGORY:  " << "Snack" << std::endl;
 	}
 	else if (item.category == 2)
 	{
-		os << "CATEGORY:  " << "drink" << std::endl;
+		os << "CATEGORY:  " << "Drink" << std::endl;
 	}
 	else if (item.category == 3)
 	{
-		os << "CATEGORY:  " << "tobacco" << std::endl;
+		os << "CATEGORY:  " << "Tobacco" << std::endl;
 	}
 	else if (item.category == 4)
 	{
-		os << "CATEGORY:  " << "lotto" << std::endl;
+		os << "CATEGORY:  " << "Lotto" << std::endl;
 	}
 	else if (item.category == 5)
 	{
-		os << "CATEGORY:  " << "misc" << std::endl;
+		os << "CATEGORY:  " << "Misc" << std::endl;
 	}
 	os << "WHOLESALE: " << item.wholesale << std::endl;
 	os << "RETAIL:    " << item.retail << std::endl;

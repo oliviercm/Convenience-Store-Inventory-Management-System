@@ -33,5 +33,7 @@ namespace Interface
 	void deleteByUpc(List<Item>&);
 	void displaySearchMenu();
 	Item searchByName(List<Item>&);
+	Item searchByUpc(List<Item>&);
+	void displayHashTable(List<Item>&, HashTable<int, Item>&);
 	void displayTypeTrees();
 };
