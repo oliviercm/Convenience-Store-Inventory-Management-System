@@ -97,6 +97,7 @@ int main()
 				Interface::addNewItem(itemList);
 				Interface::displayInventory(itemList);
 				cout << endl;
+
 				cout << "Would you like to add another item? [1] Yes [2] No" << endl;
 				inputAgain = Input::getInt(1, 2);
 				Interface::clearScreen(true);
@@ -115,7 +116,7 @@ int main()
 
 				switch (inputSubMenu)
 				{
-				case 1:
+				case 1://deleteByUid
 				{
 					Interface::deleteByUid(itemList);
 					Interface::displayInventory(itemList);
@@ -123,7 +124,7 @@ int main()
 				}
 				Interface::clearScreen(true);
 				break;
-				case 2:
+				case 2://deleteByName
 				{
 					Interface::deleteByName(itemList);
 					Interface::displayInventory(itemList);
@@ -131,7 +132,7 @@ int main()
 				}
 				Interface::clearScreen(true);
 				break;
-				case 3:
+				case 3://deleteByUpc
 				{
 					Interface::deleteByUpc(itemList);
 					Interface::displayInventory(itemList);
@@ -154,11 +155,11 @@ int main()
 				Interface::displaySearchMenu();
 				Interface::promptOption();
 				inputSubMenu = Input::getInt(1, 3);
+
 				switch (inputSubMenu)
 				{
-				case 1:
+				case 1://searchByName
 				{
-<<<<<<< HEAD
 					do
 					{
 						size_t nameIndex;
@@ -166,21 +167,16 @@ int main()
 						cout << endl;
 						cout << itemList[nameIndex] << endl;
 						Interface::pause();
+
 						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
 						inputAgain = Input::getInt(1, 2);
 
 					} while (inputAgain == 1);
 
-=======
-					Item nameFound;
-					cout << endl;
-					cout << nameFound;
-					Interface::pause();
->>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
 				}
 				Interface::clearScreen(true);
 				break;
-				case 2:
+				case 2://searchByUpc
 				{
 
 				}
@@ -195,7 +191,12 @@ int main()
 			break;
 		case 4: //List data in Hash Table Sequence
 		{
-
+			Interface::clearScreen(true);
+			for (int i = 0; i < itemHashTable.getCount(); i++)
+			{
+				itemHashTable.getItems(itemList[i].uid);
+			}
+			Interface::pause();
 		}
 		Interface::clearScreen(true);
 			break;
@@ -216,8 +217,14 @@ int main()
 				switch (inputSubMenu)
 				{
 				case 1:
+				{
+					
+				}
 					break;
-				case 2:
+				case 2: 
+				{
+					avlRetailTree.print_tree_avl();
+				}
 					break;
 				default:
 					break;

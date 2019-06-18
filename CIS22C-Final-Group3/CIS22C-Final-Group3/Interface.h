@@ -31,12 +31,8 @@ namespace Interface
 	void deleteByUid(List<Item>&);
 	void deleteByName(List<Item>&);
 	void deleteByUpc(List<Item>&);
-<<<<<<< HEAD
-	void displaSearchMenu();
-	size_t searchByName(List<Item>&);
-=======
 	void displaySearchMenu();
-	Item searchByName(List<Item>&, AVLTree<std::string>&);
->>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
+	size_t searchByName(List<Item>&);
+	//Item searchByName(List<Item>&, AVLTree<std::string>&);
 	void displayTypeTrees();
 };

@@ -431,16 +431,13 @@ namespace Interface
 			}
 		}*/
 
-<<<<<<< HEAD
-=======
-		if (found = true)
+		/*if (found = true)
 		{
 			return itemFound;
 		}
 
 		//REPLACE THIS!
-		return Item();
->>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
+		return Item();*/
 	}
 	void displayTypeTrees()
 	{
