@@ -445,6 +445,8 @@ namespace Interface
 				return itemList[i];
 			}
 		}
+
+		return Item();
 	}
 	Item searchByUpc(List<Item>& itemList)
 	{
@@ -469,6 +471,8 @@ namespace Interface
 				return itemList[i];
 			}
 		}
+
+		return Item();
 	} 
 	void displayHashTable(HashTable<int, Item>& itemHashTable)
 	{
