@@ -550,9 +550,6 @@ namespace Interface
 				std::cout << std::endl << std::endl;
 			}
 		}
-		pause();
-		clearScreen(true);
-		pause();
 	}
 	void displayTypeTrees()
 	{

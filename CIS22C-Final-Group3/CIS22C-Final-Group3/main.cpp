@@ -81,6 +81,7 @@ int main()
 	int inputMainMenu;
 	do
 	{
+		Interface::clearScreen();
 		Interface::displayMainMenu();
 		Interface::promptOption();
 		inputMainMenu = Input::getInt(1, 9);
@@ -89,195 +90,189 @@ int main()
 
 		switch (inputMainMenu)
 		{
-		case 1: //Add new data
-		{
-			do
+			case 1: //Add new data
 			{
-				Item newItem;
-				Interface::addNewItem(itemList);
-				Interface::displayInventory(itemList);
-				cout << endl;
-
-				cout << "Would you like to add another item? [1] Yes [2] No" << endl;
-				inputAgain = Input::getInt(1, 2);
-				Interface::clearScreen(true);
-			} while (inputAgain == 1);
-
-			break;
-		}
-		case 2: //Delete data
-		{
-			do
-			{
-				Interface::clearScreen(true);
-				Interface::displayDeleteMenu();
-				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 4);
-
-				switch (inputSubMenu)
+				do
 				{
-				case 1://deleteByUid
-				{
-					Interface::deleteByUid(itemList);
+					Item newItem;
+					Interface::addNewItem(itemList);
 					Interface::displayInventory(itemList);
-					Interface::pause();
-				}
-				Interface::clearScreen(true);
-				break;
-				case 2://deleteByName
-				{
-					Interface::deleteByName(itemList);
-					Interface::displayInventory(itemList);
-					Interface::pause();
-				}
-				Interface::clearScreen(true);
-				break;
-				case 3://deleteByUpc
-				{
-					Interface::deleteByUpc(itemList);
-					Interface::displayInventory(itemList);
-					Interface::pause();
-				}
-				Interface::clearScreen(true);
-				break;
-				default:
-					break;
-				}
-			} while (inputSubMenu != 4);
-		}
-		Interface::clearScreen(true);
-			break;
-		case 3: //Search
-		{
-			do
-			{
-				Interface::clearScreen(true);
-				Interface::displaySearchMenu();
-				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 3);
+					cout << endl;
 
-				switch (inputSubMenu)
-				{
-				case 1://searchByName
-				{
-					do
-					{
-						int beginningListOperations = Efficiency::globalListOperations;
-						Item foundItem = Interface::searchByName(itemList);
-						//Item wasn't found
-						if (foundItem == Item())
-						{
-							cout << "Item not found." << endl;
-						}
-						//Item was found
-						else
-						{
-							cout << foundItem << endl;
-						}
-						cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
-						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
-						inputAgain = Input::getInt(1, 2);
-						Interface::clearScreen();
-						Interface::displaySearchMenu();
-					} while (inputAgain == 1);
-				}
-				Interface::clearScreen(true);
+					cout << "Would you like to add another item? [1] Yes [2] No" << endl;
+					inputAgain = Input::getInt(1, 2);
+					Interface::clearScreen();
+				} while (inputAgain == 1);
 				break;
-				case 2://searchByUpc
-				{
-					do
-					{
-						Item foundItem = Interface::searchByUpc(itemList);
-						//Item wasn't found
-						if (foundItem == Item())
-						{
-							cout << "Item not found." << endl;
-						}
-						//Item was found
-						else
-						{
-							cout << foundItem << endl;
-						}
-						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
-						inputAgain = Input::getInt(1, 2);
-						Interface::clearScreen();
-						Interface::displaySearchMenu();
-					} while (inputAgain == 1);
-				}
-				Interface::clearScreen(true);
-				break;
-				default:
-					break;
-				}
-			} while (inputSubMenu != 3);
-		}
-		Interface::clearScreen(true);
-			break;
-		case 4: //List data in Hash Table Sequence
-		{
-			Interface::displayHashTable(itemHashTable);
-
-			Interface::pause();
-		}
-		Interface::clearScreen(true);
-			break;
-		case 5: //List data in Key Sequence
-		{
-			int beginningListOperations = Efficiency::globalListOperations;
-			//Merge sort itemList
-			SortList::mergeSortItemList(itemList);
-			for (int i = 0; i < itemList.getCount(); i++)
-			{
-				//Print out each item
-				cout << itemList[i] << endl;
 			}
-			cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
-			Interface::pause();
-		}
-		Interface::clearScreen(true);
-			break;
-		case 6: //Print Tree
-			do
+			case 2: //Delete data
 			{
-				Interface::clearScreen(true);
-				Interface::displayTypeTrees();
-				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 3);
-
-				switch (inputSubMenu)
+				do
 				{
-				case 1:
-				{
-					avlWholesaleTree.print_tree_avl();
-					cout << endl;
-					Interface::pause();
-				}
-					break;
-				case 2: 
-				{
-					avlRetailTree.print_tree_avl();
-					cout << endl;
-					Interface::pause();
-				}
-					break;
-				default:
-					break;
-				}
-			} while (inputSubMenu != 3);
-			Interface::clearScreen(true);
-			break;
-		case 7: //Efficiency
-		{
+					Interface::clearScreen();
+					Interface::displayDeleteMenu();
+					Interface::promptOption();
+					inputSubMenu = Input::getInt(1, 4);
 
-		}
-			break;
-		case 8: //Margins and profitability
-		{
+					switch (inputSubMenu)
+					{
+					case 1://deleteByUid
+						Interface::deleteByUid(itemList);
+						Interface::displayInventory(itemList);
+						Interface::pause();
+						Interface::clearScreen();
+						break;
+					case 2://deleteByName
+						Interface::deleteByName(itemList);
+						Interface::displayInventory(itemList);
+						Interface::pause();
+						Interface::clearScreen();
+						break;
+					case 3://deleteByUpc
+						Interface::deleteByUpc(itemList);
+						Interface::displayInventory(itemList);
+						Interface::pause();
+						Interface::clearScreen();
+						break;
+					default:
+						break;
+					}
+				} while (inputSubMenu != 4);
+				Interface::clearScreen();
+				break;
+			}
+			case 3: //Search
+			{
+				do
+				{
+					Interface::clearScreen();
+					Interface::displaySearchMenu();
+					Interface::promptOption();
+					inputSubMenu = Input::getInt(1, 3);
 
-		}
-			break;
-		default:
-			break;
+					switch (inputSubMenu)
+					{
+					case 1://searchByName
+						do
+						{
+							int beginningListOperations = Efficiency::globalListOperations;
+							Item foundItem = Interface::searchByName(itemList);
+							//Item wasn't found
+							if (foundItem == Item())
+							{
+								cout << "Item not found." << endl;
+							}
+							//Item was found
+							else
+							{
+								cout << foundItem << endl;
+							}
+							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+							cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
+							inputAgain = Input::getInt(1, 2);
+							Interface::clearScreen();
+							Interface::displaySearchMenu();
+						} while (inputAgain == 1);
+						Interface::clearScreen();
+						break;
+					case 2://searchByUpc
+						do
+						{
+							int beginningListOperations = Efficiency::globalListOperations;
+							Item foundItem = Interface::searchByUpc(itemList);
+							//Item wasn't found
+							if (foundItem == Item())
+							{
+								cout << "Item not found." << endl;
+							}
+							//Item was found
+							else
+							{
+								cout << foundItem << endl;
+							}
+							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+							cout << "Would you like to search for another item UPC? [1]YES [2]NO" << endl;
+							inputAgain = Input::getInt(1, 2);
+							Interface::clearScreen();
+							Interface::displaySearchMenu();
+						} while (inputAgain == 1);
+						Interface::clearScreen();
+						break;
+					default:
+						break;
+					}
+				} while (inputSubMenu != 3);
+				Interface::clearScreen();
+				break;
+			}
+			case 4: //List data in Hash Table Sequence
+			{
+				int beginningHashOperations = Efficiency::globalHashOperations;
+				Interface::displayHashTable(itemHashTable);
+				cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
+				Interface::pause();
+				Interface::clearScreen();
+				break;
+			}
+			case 5: //List data in Key Sequence
+			{
+				int beginningListOperations = Efficiency::globalListOperations;
+				//Merge sort itemList
+				SortList::mergeSortItemList(itemList);
+				for (int i = 0; i < itemList.getCount(); i++)
+				{
+					//Print out each item
+					cout << itemList[i] << endl;
+				}
+				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+				Interface::pause();
+				Interface::clearScreen();
+				break;
+			}
+			case 6: //Print Tree
+			{
+				do
+				{
+					Interface::clearScreen();
+					Interface::displayTypeTrees();
+					Interface::promptOption();
+					inputSubMenu = Input::getInt(1, 3);
+
+					switch (inputSubMenu)
+					{
+					case 1:
+						avlWholesaleTree.print_tree_avl();
+						cout << endl;
+						Interface::pause();
+						break;
+					case 2:
+						avlRetailTree.print_tree_avl();
+						cout << endl;
+						Interface::pause();
+						break;
+					default:
+						break;
+					}
+				} while (inputSubMenu != 3);
+				Interface::clearScreen();
+				break;
+			}
+			case 7: //Efficiency
+			{
+				Interface::clearScreen();
+				cout << "The total number of List operations since launch is: " << Efficiency::globalListOperations << "." << endl;
+				cout << "The total number of Hash operations since launch is: " << Efficiency::globalHashOperations << "." << endl;
+				Interface::pause();
+				break;
+			}
+			case 8: //Margins and profitability
+			{
+				break;
+			}
+			default:
+			{
+				break;
+			}
 		}
 	} while (inputMainMenu != 9); //Quit
 
