@@ -89,7 +89,7 @@ int main()
 
 		switch (inputMainMenu)
 		{
-		case 1:
+		case 1: //Add new data
 		{
 			do
 			{
@@ -104,7 +104,7 @@ int main()
 
 			break;
 		}
-		case 2:
+		case 2: //Delete data
 		{
 			do
 			{
@@ -146,7 +146,7 @@ int main()
 		}
 		Interface::clearScreen(true);
 			break;
-		case 3:
+		case 3: //Search
 		{
 			do
 			{
@@ -178,19 +178,19 @@ int main()
 		}
 		Interface::clearScreen(true);
 			break;
-		case 4:
+		case 4: //List data in Hash Table Sequence
 		{
 
 		}
 		Interface::clearScreen(true);
 			break;
-		case 5:
+		case 5: //List data in Key Sequence
 		{
 			
 		}
 		Interface::clearScreen(true);
 			break;
-		case 6:
+		case 6: //Print Tree
 			do
 			{
 				Interface::clearScreen(true);
@@ -210,12 +210,12 @@ int main()
 			} while (inputSubMenu != 3);
 			Interface::clearScreen(true);
 			break;
-		case 7:
+		case 7: //Efficiency
 		{
 
 		}
 			break;
-		case 8:
+		case 8: //Margins and profitability
 		{
 
 		}
@@ -223,7 +223,7 @@ int main()
 		default:
 			break;
 		}
-	} while (inputMainMenu != 9);
+	} while (inputMainMenu != 9); //Quit
 
 	Interface::pause();
 	return 0;
