@@ -153,11 +153,17 @@ int main()
 				{
 				case 1:
 				{
-					Item nameFound;
-					nameFound = Interface::searchByName(itemList, avlStringTree);
-					cout << endl;
-					cout << nameFound;
-					Interface::pause();
+					do
+					{
+						size_t nameIndex;
+						nameIndex = Interface::searchByName(itemList);
+						cout << endl;
+						cout << itemList[nameIndex] << endl;
+						Interface::pause();
+						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
+						inputAgain = Input::getInt(1, 2);
+
+					} while (inputAgain == 1);
 
 				}
 				Interface::clearScreen(true);
