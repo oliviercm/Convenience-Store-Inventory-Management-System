@@ -445,7 +445,6 @@ namespace Interface
 				return itemList[i];
 			}
 		}
-<<<<<<< HEAD
 	}
 	Item searchByUpc(List<Item>& itemList)
 	{
@@ -471,7 +470,7 @@ namespace Interface
 			}
 		}
 	} 
-	void displayHashTable(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
+	void displayHashTable(HashTable<int, Item>& itemHashTable)
 	{
 		const std::string uidText = "UID:";
 		const std::string upcText = "UPC:";
@@ -504,23 +503,23 @@ namespace Interface
 			<< std::setw(retailColumnLength) << retailText
 			<< std::setw(quantityColumnLength) << quantityText
 			<< std::endl << std::endl;
-=======
->>>>>>> 5a97486225e112803029a3405a9727725a5b0510
 
-		for (int i = 0; i < itemList.getCount(); i++)
+		//Loop through each linked list inside the hash table
+		for (int i = 0; i < itemHashTable.getSize(); i++)
 		{
-			std::cout << std::setw(uidColumnLength) << *itemHashTable.getItems(itemList[i].uid)
-				//<< std::setw(upcColumnLength) << *itemHashTable.getItems(stoi(itemList[i].upc))
-				//<< std::setw(nameColumnLength) << *itemHashTable.getItems(stoi(itemList[i].name))
-				//<< std::setw(sizeColumnLength) << *itemHashTable.getItems(stoi(itemList[i].size))
-				<< std::setw(categoryColumnLength) << *itemHashTable.getItems(itemList[i].category)
-				<< std::setw(wholesaleColumnLength) << *itemHashTable.getItems(itemList[i].wholesale)
-				<< std::setw(retailColumnLength) << *itemHashTable.getItems(itemList[i].retail)
-				<< std::setw(quantityColumnLength) << *itemHashTable.getItems(itemList[i].quantity);
+			//Get the linked list at hash table array position i
+			List<Item>* list = itemHashTable.getItems(i);
+			//Loop through each item inside the linked list
+			for (int i = 0; i < list->getCount(); i++)
+			{
+				Item& item = list->getData(i);
 
-			std::cout << std::endl << std::endl;
+				//Print the item out
+				std::cout << "The next item in the hash table is: " << item.uid << "  " << item.upc << std::endl;
+			}
 		}
-		Interface::clearScreen(true);
+		pause();
+		clearScreen(true);
 		/*for (int i = 0; i < itemHashTable.getCount(); i++)
 		{
 			std::cout << *itemHashTable.getItems(itemList[i].uid);

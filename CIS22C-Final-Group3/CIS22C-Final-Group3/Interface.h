@@ -34,6 +34,6 @@ namespace Interface
 	void displaySearchMenu();
 	Item searchByName(List<Item>&);
 	Item searchByUpc(List<Item>&);
-	void displayHashTable(List<Item>&, HashTable<int, Item>&);
+	void displayHashTable(HashTable<int, Item>&);
 	void displayTypeTrees();
 };
