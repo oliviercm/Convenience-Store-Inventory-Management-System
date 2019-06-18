@@ -25,6 +25,7 @@ using namespace std;
 
 int main()
 {
+	//Prompt user for filepath to data file
 	Interface::initialize();
 	Interface::printHeader();
 	
@@ -32,6 +33,7 @@ int main()
 	cout << "Enter path to data file: ";
 	filepath = Input::getString();
 
+	//Try loading the file into a list
 	List<Item> itemList;
 	try
 	{
@@ -52,12 +54,7 @@ int main()
 		return 0;
 	}
 
-	FileIO::saveListIntoFile(itemList, filepath);
-
-	Interface::displayInventory(itemList);
-	Interface::pause();
-	Interface::clearScreen(true);
-	
+	//Load the hash table from the list
 	HashTable<int, Item> itemHashTable;
 
 	for (int i = 0; i < itemList.getCount(); i++)
@@ -65,14 +62,22 @@ int main()
 		itemHashTable.add(itemList[i].uid, itemList[i]);
 	}
 
-	AVLTree<string> avlStringTree;
+	//Load the AVL tree from the list
+	AVLTree<double> avlRetailTree;
+	AVLTree<double> avlWholesaleTree;
 
 	for (int i = 0; i < itemList.getCount(); i++)
 	{
-		avlStringTree.add_avl(itemList[i].name);
-		avlStringTree.add_avl(itemList[i].upc);
+		avlRetailTree.add_avl(itemList[i].retail);
+		avlWholesaleTree.add_avl(itemList[i].wholesale);
 	}
 
+	//Signal that load was successful
+	cout << "Load successful." << endl;
+	Interface::pause();
+	Interface::clearScreen();
+
+	//Display the main menu
 	int inputMainMenu;
 	do
 	{
@@ -84,7 +89,7 @@ int main()
 
 		switch (inputMainMenu)
 		{
-		case 1:
+		case 1: //Add new data
 		{
 			do
 			{
@@ -99,7 +104,7 @@ int main()
 
 			break;
 		}
-		case 2:
+		case 2: //Delete data
 		{
 			do
 			{
@@ -141,18 +146,19 @@ int main()
 		}
 		Interface::clearScreen(true);
 			break;
-		case 3:
+		case 3: //Search
 		{
 			do
 			{
 				Interface::clearScreen(true);
-				Interface::displaSearchMenu();
+				Interface::displaySearchMenu();
 				Interface::promptOption();
 				inputSubMenu = Input::getInt(1, 3);
 				switch (inputSubMenu)
 				{
 				case 1:
 				{
+<<<<<<< HEAD
 					do
 					{
 						size_t nameIndex;
@@ -165,6 +171,12 @@ int main()
 
 					} while (inputAgain == 1);
 
+=======
+					Item nameFound;
+					cout << endl;
+					cout << nameFound;
+					Interface::pause();
+>>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
 				}
 				Interface::clearScreen(true);
 				break;
@@ -181,19 +193,19 @@ int main()
 		}
 		Interface::clearScreen(true);
 			break;
-		case 4:
+		case 4: //List data in Hash Table Sequence
 		{
 
 		}
 		Interface::clearScreen(true);
 			break;
-		case 5:
+		case 5: //List data in Key Sequence
 		{
 			
 		}
 		Interface::clearScreen(true);
 			break;
-		case 6:
+		case 6: //Print Tree
 			do
 			{
 				Interface::clearScreen(true);
@@ -213,12 +225,12 @@ int main()
 			} while (inputSubMenu != 3);
 			Interface::clearScreen(true);
 			break;
-		case 7:
+		case 7: //Efficiency
 		{
 
 		}
 			break;
-		case 8:
+		case 8: //Margins and profitability
 		{
 
 		}
@@ -226,7 +238,7 @@ int main()
 		default:
 			break;
 		}
-	} while (inputMainMenu != 9);
+	} while (inputMainMenu != 9); //Quit
 
 	Interface::pause();
 	return 0;

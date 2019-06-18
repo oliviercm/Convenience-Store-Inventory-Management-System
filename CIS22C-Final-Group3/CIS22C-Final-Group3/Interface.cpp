@@ -381,7 +381,7 @@ namespace Interface
 
 		return;
 	}
-	void displaSearchMenu()
+	void displaySearchMenu()
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string sortText = "[ SORT ]";
@@ -431,6 +431,16 @@ namespace Interface
 			}
 		}*/
 
+<<<<<<< HEAD
+=======
+		if (found = true)
+		{
+			return itemFound;
+		}
+
+		//REPLACE THIS!
+		return Item();
+>>>>>>> df477ad2409859a1b1397ce07b623ae618a56321
 	}
 	void displayTypeTrees()
 	{
