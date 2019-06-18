@@ -208,8 +208,10 @@ int main()
 			case 4: //List data in Hash Table Sequence
 			{
 				int beginningHashOperations = Efficiency::globalHashOperations;
+				int beginningListOperations = Efficiency::globalListOperations;
 				Interface::displayHashTable(itemHashTable);
 				cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
+				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 				Interface::pause();
 				Interface::clearScreen();
 				break;
