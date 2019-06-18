@@ -189,8 +189,8 @@ namespace Interface
 				{
 					std::cout << std::setw(categoryColumnLength) << "Misc";
 				}
-				std::cout << std::setw(wholesaleColumnLength) << itemList[i].wholesale
-				<< std::setw(retailColumnLength) << itemList[i].retail
+				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemList[i].wholesale
+				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemList[i].retail
 				<< std::setw(quantityColumnLength) << itemList[i].quantity;
 
 			std::cout << std::endl << std::endl;
@@ -524,11 +524,7 @@ namespace Interface
 		}
 		pause();
 		clearScreen(true);
-		/*for (int i = 0; i < itemHashTable.getCount(); i++)
-		{
-			std::cout << *itemHashTable.getItems(itemList[i].uid);
-		}
-		Interface::pause();*/
+		Interface::pause();
 	}
 	void displayTypeTrees()
 	{
