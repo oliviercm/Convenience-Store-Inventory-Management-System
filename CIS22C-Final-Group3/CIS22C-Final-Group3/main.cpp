@@ -216,7 +216,7 @@ int main()
 			break;
 		case 4: //List data in Hash Table Sequence
 		{
-			Interface::displayHashTable(itemList, itemHashTable);
+			Interface::displayHashTable(itemHashTable);
 
 			//cout << itemHashTable;
 
