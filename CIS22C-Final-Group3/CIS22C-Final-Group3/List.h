@@ -42,41 +42,35 @@ public:
 	List(const List&) = delete;
 	List& operator=(const List&) = delete;
 
+	static int globalOperations;
+
 	virtual bool isEmpty() const;
 	virtual int getCount() const;
-	Node<T>* insert(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	Node<T>* insert(const T& newData, const int pos, const T& k);
-	Node<T>* insertFirst(const T&);
-	Node<T>* insertFirst(const T&, const T&);
-	Node<T>* insertLast(const T&);
-	Node<T>* insert(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	Node<T>* insertFirst(T&&);
-	Node<T>* insertLast(T&&);
-	void remove(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	void removeFirst();
-	void removeLast();
-	void removeAll();
-	T& getData(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	T& getFirstData();
-	T& getLastData();
-	void setData(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	void setFirstData(const T&);
-	void setLastData(const T&);
-	void setData(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	void setFirstData(T&&);
-	void setLastData(T&&);
-	/*
-	* getPos
-	*
-	* brief: Function that returns the position of a node in the linked list
-	*
-	* param: item - value assumed to be present
-	*
-	* returns: index of node in the table
-	*/
-	int getPos(T item);
+	virtual Node<T>* insert(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual Node<T>* insertFirst(const T&);
+	virtual Node<T>* insertLast(const T&);
+	virtual Node<T>* insert(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual Node<T>* insertFirst(T&&);
+	virtual Node<T>* insertLast(T&&);
+	virtual void remove(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual void removeFirst();
+	virtual void removeLast();
+	virtual void removeAll();
+	virtual T& getData(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual T& getFirstData();
+	virtual T& getLastData();
+	virtual void setData(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual void setFirstData(const T&);
+	virtual void setLastData(const T&);
+	virtual void setData(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual void setFirstData(T&&);
+	virtual void setLastData(T&&);
+
 	T& operator[](const int);
 };
+
+template <typename T>
+int List<T>::globalOperations = 0;
 
 template <typename T>
 List<T>::List() : count(0), head(nullptr)
@@ -87,7 +81,7 @@ List<T>::List() : count(0), head(nullptr)
 template <typename T>
 List<T>::~List()
 {
-	removeAll();
+	List::removeAll();
 }
 
 /*
@@ -140,6 +134,7 @@ Node<T>* List<T>::insert(const T& newData, const int pos)
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(newData);
+		globalOperations++;
 
 		returnNode = head;
 	}
@@ -149,6 +144,7 @@ Node<T>* List<T>::insert(const T& newData, const int pos)
 		head = new Node<T>(newData, temp);
 
 		returnNode = head;
+		globalOperations++;
 	}
 	else
 	{
@@ -156,10 +152,12 @@ Node<T>* List<T>::insert(const T& newData, const int pos)
 		for (int i = 0; i < pos - 1; i++)
 		{
 			currentNode = currentNode->next;
+			globalOperations++;
 		}
 
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(newData, temp);
+		globalOperations++;
 
 		returnNode = currentNode->next;
 	}
@@ -172,7 +170,7 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 {
 	if (pos < 0 || pos > count)
 	{
-		//throw std::out_of_range("Index out of range.");
+		throw std::out_of_range("Index out of range.");
 	}
 
 	Node<T>* returnNode;
@@ -180,6 +178,7 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(std::move(newData));
+		globalOperations++;
 
 		returnNode = head;
 	}
@@ -187,6 +186,7 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 	{
 		Node<T>* temp = head;
 		head = new Node<T>(std::move(newData), temp);
+		globalOperations++;
 
 		returnNode = head;
 	}
@@ -196,10 +196,12 @@ Node<T>* List<T>::insert(T&& newData, const int pos)
 		for (int i = 0; i < pos - 1; i++)
 		{
 			currentNode = currentNode->next;
+			globalOperations++;
 		}
 
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(std::move(newData), temp);
+		globalOperations++;
 
 		returnNode = currentNode->next;
 	}
@@ -219,12 +221,6 @@ template <typename T>
 Node<T>* List<T>::insertFirst(const T& newData)
 {
 	return insert(newData, 0);
-}
-
-template <typename T>
-Node<T>* List<T>::insertFirst(const T& newData, const T& k)
-{
-	return insert(newData, 0, k);
 }
 
 template <typename T>
@@ -275,6 +271,7 @@ void List<T>::remove(const int pos)
 
 		delete head;
 		head = nextNode;
+		globalOperations++;
 	}
 	else
 	{
@@ -284,15 +281,18 @@ void List<T>::remove(const int pos)
 		{
 			previousNode = currentNode;
 			currentNode = currentNode->next;
+			globalOperations++;
 		}
 
 		if (currentNode->next != nullptr)
 		{
 			Node<T>* temp = currentNode->next;
 			previousNode->next = temp;
+			globalOperations++;
 		}
 
 		delete currentNode;
+		globalOperations++;
 	}
 
 	count--;
@@ -346,9 +346,11 @@ void List<T>::removeAll()
 			Node<T>* previousNode = currentNode;
 			currentNode = currentNode->next;
 			delete previousNode;
+			globalOperations++;
 		}
 
 		delete currentNode;
+		globalOperations++;
 	}
 
 	count = 0;
@@ -381,8 +383,10 @@ T& List<T>::getData(const int pos)
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
+		globalOperations++;
 	}
 
+	globalOperations++;
 	return currentNode->data;
 }
 
@@ -438,9 +442,11 @@ void List<T>::setData(const T& newData, const int pos)
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
+		globalOperations++;
 	}
 
 	currentNode->data = newData;
+	globalOperations++;
 	return;
 }
 template <typename T>
@@ -460,9 +466,11 @@ void List<T>::setData(T&& newData, const int pos)
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
+		globalOperations++;
 	}
 
 	currentNode->data = std::move(newData);
+	globalOperations++;
 	return;
 }
 
@@ -508,58 +516,4 @@ template <typename T>
 T& List<T>::operator[](const int index)
 {
 	return getData(index);
-}
-
-template<typename T>
-int List<T>::getPos(T item)
-{
-	int pos = 0;
-	Node<T> *current = head;
-	while (current != 0)
-	{
-		if (current->data == item)
-			return pos;
-		pos++;
-		current = current->next;
-	}
-	return -1;
-}
-
-template <typename T>
-Node<T>* List<T>::insert(const T& newData, const int pos, const T& k)
-{
-	if (pos < 0 || pos > count)
-	{
-		throw std::out_of_range("Index out of range.");
-	}
-
-	Node<T>* returnNode;
-
-	if (head == nullptr) //The list is empty
-	{
-		head = new Node<T>(newData);
-		returnNode = head;
-	}
-	else if (pos == 0) //Replacing head
-	{
-		Node<T>* temp = head;
-		head = new Node<T>(newData, temp);
-		returnNode = head;
-	}
-	else
-	{
-		Node<T>* currentNode = head;
-		for (int i = 0; i < pos - 1; i++)
-		{
-			currentNode = currentNode->next;
-		}
-
-		Node<T>* temp = currentNode->next;
-		currentNode->next = new Node<T>(newData, temp);
-
-		returnNode = currentNode->next;
-	}
-
-	count++;
-	return returnNode;
 }
