@@ -24,6 +24,17 @@ Item& Item::operator=(const Item& item)
 	return *this;
 }
 
+bool Item::operator==(const Item& item) const
+{
+	return (uid == item.uid &&
+		name == item.name &&
+		size == item.size &&
+		category == item.category &&
+		wholesale == item.wholesale &&
+		retail == item.retail &&
+		quantity == item.quantity);
+}
+
 std::ostream& operator<<(std::ostream& os, const Item& item)
 {
 	os << "UID:       " << item.uid << std::endl;

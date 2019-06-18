@@ -47,6 +47,7 @@ public:
 	Item(int&&, std::string&&, std::string&&, std::string&&, int&&, double&&, double&&, int&&); //Parameter order follows the same order as the declaration order in this header
 	
 	Item& operator=(const Item&);
+	bool operator==(const Item&) const;
 
 	friend std::ostream& operator<<(std::ostream& , const Item&);
 };
