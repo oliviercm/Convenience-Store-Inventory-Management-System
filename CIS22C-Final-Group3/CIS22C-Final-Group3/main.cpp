@@ -25,6 +25,7 @@ using namespace std;
 
 int main()
 {
+	//Prompt user for filepath to data file
 	Interface::initialize();
 	Interface::printHeader();
 	
@@ -32,6 +33,7 @@ int main()
 	cout << "Enter path to data file: ";
 	filepath = Input::getString();
 
+	//Try loading the file into a list
 	List<Item> itemList;
 	try
 	{
@@ -52,12 +54,7 @@ int main()
 		return 0;
 	}
 
-	FileIO::saveListIntoFile(itemList, filepath);
-
-	Interface::displayInventory(itemList);
-	Interface::pause();
-	Interface::clearScreen(true);
-	
+	//Load the hash table from the list
 	HashTable<int, Item> itemHashTable;
 
 	for (int i = 0; i < itemList.getCount(); i++)
@@ -65,14 +62,22 @@ int main()
 		itemHashTable.add(itemList[i].uid, itemList[i]);
 	}
 
-	AVLTree<string> avlStringTree;
+	//Load the AVL tree from the list
+	AVLTree<double> avlRetailTree;
+	AVLTree<double> avlWholesaleTree;
 
 	for (int i = 0; i < itemList.getCount(); i++)
 	{
-		avlStringTree.add_avl(itemList[i].name);
-		avlStringTree.add_avl(itemList[i].upc);
+		avlRetailTree.add_avl(itemList[i].retail);
+		avlWholesaleTree.add_avl(itemList[i].wholesale);
 	}
 
+	//Signal that load was successful
+	cout << "Load successful." << endl;
+	Interface::pause();
+	Interface::clearScreen();
+
+	//Display the main menu
 	int inputMainMenu;
 	do
 	{
@@ -146,7 +151,7 @@ int main()
 			do
 			{
 				Interface::clearScreen(true);
-				Interface::displaSearchMenu();
+				Interface::displaySearchMenu();
 				Interface::promptOption();
 				inputSubMenu = Input::getInt(1, 3);
 				switch (inputSubMenu)
@@ -154,11 +159,9 @@ int main()
 				case 1:
 				{
 					Item nameFound;
-					nameFound = Interface::searchByName(itemList, avlStringTree);
 					cout << endl;
 					cout << nameFound;
 					Interface::pause();
-
 				}
 				Interface::clearScreen(true);
 				break;

@@ -19,7 +19,7 @@
 
 namespace Interface
 {
-	void clearScreen(bool);
+	void clearScreen(const bool = true);
 	void pause();
 	void initialize();
 	void printHeader();
@@ -31,7 +31,7 @@ namespace Interface
 	void deleteByUid(List<Item>&);
 	void deleteByName(List<Item>&);
 	void deleteByUpc(List<Item>&);
-	void displaSearchMenu();
+	void displaySearchMenu();
 	Item searchByName(List<Item>&, AVLTree<std::string>&);
 	void displayTypeTrees();
 };
