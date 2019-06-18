@@ -189,8 +189,8 @@ namespace Interface
 				{
 					std::cout << std::setw(categoryColumnLength) << "Misc";
 				}
-				std::cout << std::setw(wholesaleColumnLength) << itemList[i].wholesale
-				<< std::setw(retailColumnLength) << itemList[i].retail
+				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemList[i].wholesale
+				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemList[i].retail
 				<< std::setw(quantityColumnLength) << itemList[i].quantity;
 
 			std::cout << std::endl << std::endl;
@@ -445,7 +445,6 @@ namespace Interface
 				return itemList[i];
 			}
 		}
-<<<<<<< HEAD
 	}
 	Item searchByUpc(List<Item>& itemList)
 	{
@@ -504,19 +503,17 @@ namespace Interface
 			<< std::setw(retailColumnLength) << retailText
 			<< std::setw(quantityColumnLength) << quantityText
 			<< std::endl << std::endl;
-=======
->>>>>>> 5a97486225e112803029a3405a9727725a5b0510
 
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			std::cout << std::setw(uidColumnLength) << *itemHashTable.getItems(itemList[i].uid)
+			std::cout << std::setw(uidColumnLength) << itemHashTable.getItems(itemList[i].uid)
 				//<< std::setw(upcColumnLength) << *itemHashTable.getItems(stoi(itemList[i].upc))
 				//<< std::setw(nameColumnLength) << *itemHashTable.getItems(stoi(itemList[i].name))
 				//<< std::setw(sizeColumnLength) << *itemHashTable.getItems(stoi(itemList[i].size))
-				<< std::setw(categoryColumnLength) << *itemHashTable.getItems(itemList[i].category)
-				<< std::setw(wholesaleColumnLength) << *itemHashTable.getItems(itemList[i].wholesale)
-				<< std::setw(retailColumnLength) << *itemHashTable.getItems(itemList[i].retail)
-				<< std::setw(quantityColumnLength) << *itemHashTable.getItems(itemList[i].quantity);
+				<< std::setw(categoryColumnLength) << itemHashTable.getItems(itemList[i].category)
+				<< std::setw(wholesaleColumnLength) << itemHashTable.getItems(itemList[i].wholesale)
+				<< std::setw(retailColumnLength) << itemHashTable.getItems(itemList[i].retail)
+				<< std::setw(quantityColumnLength) << itemHashTable.getItems(itemList[i].quantity);
 
 			std::cout << std::endl << std::endl;
 		}
