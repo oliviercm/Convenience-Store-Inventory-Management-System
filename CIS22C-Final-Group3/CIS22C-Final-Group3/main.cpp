@@ -16,10 +16,9 @@ Yue Pan
 #include "Item.h"
 #include "Input.h"
 #include "List.h"
-#include "Stack.h"
-#include "Queue.h"
 #include "HashTable.h"
 #include "AVLTree.h"
+#include "SortList.h"
 
 using namespace std;
 
@@ -226,7 +225,16 @@ int main()
 			break;
 		case 5: //List data in Key Sequence
 		{
-			
+			int beginningListOperations = Efficiency::globalListOperations;
+			//Merge sort itemList
+			SortList::mergeSortItemList(itemList);
+			for (int i = 0; i < itemList.getCount(); i++)
+			{
+				//Print out each item
+				cout << itemList[i] << endl;
+			}
+			cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+			Interface::pause();
 		}
 		Interface::clearScreen(true);
 			break;

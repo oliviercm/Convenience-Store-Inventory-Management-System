@@ -33,6 +33,9 @@
     <ClCompile Include="Efficiency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SortList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Efficiency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
