@@ -415,6 +415,7 @@ namespace Interface
 			{
 				return itemList[i];
 			}
+		}
 
 		return Item();
 	}

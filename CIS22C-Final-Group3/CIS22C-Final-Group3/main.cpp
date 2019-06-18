@@ -162,6 +162,7 @@ int main()
 				{
 					do
 					{
+						int beginningListOperations = Efficiency::globalListOperations;
 						Item foundItem = Interface::searchByName(itemList);
 						//Item wasn't found
 						if (foundItem == Item())
@@ -173,6 +174,7 @@ int main()
 						{
 							cout << foundItem << endl;
 						}
+						cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 						cout << "Would you like to search for another item name? [1]YES [2]NO" << endl;
 						inputAgain = Input::getInt(1, 2);
 						Interface::clearScreen();
