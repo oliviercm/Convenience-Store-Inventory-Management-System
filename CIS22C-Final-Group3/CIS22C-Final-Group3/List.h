@@ -65,6 +65,8 @@ public:
 	virtual void setFirstData(T&&);
 	virtual void setLastData(T&&);
 
+	List<T> copy();
+
 	T& operator[](const int);
 };
 
@@ -512,4 +514,17 @@ template <typename T>
 T& List<T>::operator[](const int index)
 {
 	return getData(index);
+}
+
+template <typename T>
+List<T> List<T>::copy()
+{
+	List<T> copyList;
+
+	for (int i = 0; i < getCount(); i++)
+	{
+		copyList.insertLast(this[i]);
+	}
+
+	return copyList;
 }
