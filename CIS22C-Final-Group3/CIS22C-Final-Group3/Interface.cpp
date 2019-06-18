@@ -558,8 +558,8 @@ namespace Interface
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string typeTreesText = "[ TYPE OF TREES ]";
-		const std::string bstText = "[ 1 ] BINARY SEARCH TREE";
-		const std::string avlTreeText = "[ 2 ] AVL Tree";
+		const std::string bstText = "[ 1 ] AVL Tree WholeSale";
+		const std::string avlTreeText = "[ 2 ] AVL Tree Retail";
 		const std::string backtext = "[ 3 ] BACK";
 
 		const size_t titleMargin = (TERMINAL_WIDTH + typeTreesText.length()) / 2;

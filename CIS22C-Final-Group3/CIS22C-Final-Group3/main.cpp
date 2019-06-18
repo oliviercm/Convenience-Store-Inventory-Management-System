@@ -240,7 +240,9 @@ int main()
 				{
 				case 1:
 				{
-					
+					avlWholesaleTree.print_tree_avl();
+					cout << endl;
+					Interface::pause();
 				}
 					break;
 				case 2: 
