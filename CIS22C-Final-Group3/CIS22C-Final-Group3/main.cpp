@@ -256,6 +256,10 @@ int main()
 		}
 	} while (inputMainMenu != 9); //Quit
 
+	//Save the list into file
+	cout << "Saving to file..." << endl;
+	//FileIO::saveListIntoFile(itemList, filepath);
+	cout << "Success." << endl;
 	Interface::pause();
 	return 0;
 }
