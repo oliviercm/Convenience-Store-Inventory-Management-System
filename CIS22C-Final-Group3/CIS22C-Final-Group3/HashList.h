@@ -315,7 +315,16 @@ K HashList<K, T>::getFirstKey()
 template<typename K, typename T>
 int HashList<K, T>::getPos(T item)
 {
-    return List<T>::getPos(item);
+	int pos = 0;
+	HashNode<K, T> *current = head;
+	while (current != 0)
+	{
+		if (current->data == item)
+			return pos;
+		pos++;
+		current = current->next;
+	}
+	return -1;
 }
 
 template <typename U, typename V>

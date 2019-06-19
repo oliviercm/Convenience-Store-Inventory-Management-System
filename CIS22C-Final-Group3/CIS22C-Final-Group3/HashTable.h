@@ -121,7 +121,7 @@ public:
      *
      * returns: boolean value to represent success/failure
      */
-    bool add(const T& item);
+    bool add(T& item);
     /*
      * add
      *
@@ -131,7 +131,7 @@ public:
      *
      * returns: boolean value to represent success/failure
      */
-    bool add(const K& key, const T& value);
+    bool add(K& key, T& value);
     /*
      * remove
      *
@@ -308,7 +308,7 @@ double HashTable<K, T>::calcLoadFactor()
 }
 
 template<typename K, typename T>
-bool HashTable<K, T>::add(const T& item)
+bool HashTable<K, T>::add(T& item)
 {
 	Efficiency::globalHashOperations++;
 	//Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
@@ -325,7 +325,7 @@ bool HashTable<K, T>::add(const T& item)
 }
 
 template<typename K, typename T>
-bool HashTable<K, T>::add(const K& k, const T& item)
+bool HashTable<K, T>::add(K& k, T& item)
 {
 	Efficiency::globalHashOperations++;
 	int index = getAddress(k);
@@ -549,6 +549,52 @@ List<T>* HashTable<K, T>::getItems(K key)
 template<typename U, typename V>
 std::ostream& operator<<(std::ostream& os, const HashTable<U, V> & table)
 {
+	/*const std::string uidText = "UID:";
+	const std::string upcText = "UPC:";
+	const std::string nameText = "NAME:";
+	const std::string sizeText = "SIZE:";
+	const std::string categoryText = "CATEGORY:";
+	const std::string wholesaleText = "WHOLESALE:";
+	const std::string retailText = "RETAIL:";
+	const std::string quantityText = "QUANTITY:";
+
+	const size_t columnSpacing = 3;
+	const size_t uidColumnLength = 3 + columnSpacing;
+	const size_t upcColumnLength = 13 + columnSpacing;
+	const size_t sizeColumnLength = 7 + columnSpacing;
+	const size_t categoryColumnLength = 9 + columnSpacing;
+	const size_t wholesaleColumnLength = wholesaleText.length() + columnSpacing;
+	const size_t retailColumnLength = retailText.length() + columnSpacing;
+	const size_t quantityColumnLength = quantityText.length() + columnSpacing;
+
+	const size_t nameColumnLength = ((120 - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+
+	os << std::left;
+
+	os << std::setw(uidColumnLength) << uidText
+		<< std::setw(upcColumnLength) << upcText
+		<< std::setw(nameColumnLength) << nameText
+		<< std::setw(sizeColumnLength) << sizeText
+		<< std::setw(categoryColumnLength) << categoryText
+		<< std::setw(wholesaleColumnLength) << wholesaleText
+		<< std::setw(retailColumnLength) << retailText
+		<< std::setw(quantityColumnLength) << quantityText
+		<< std::endl << std::endl;
+
+	for (int i = 0; i < table.size; i++)
+	{
+
+		os << std::setw(uidColumnLength) << table.arr
+			<< std::setw(upcColumnLength) << table[i].upc
+			<< std::setw(nameColumnLength) << table[i].name.substr(0, 30)
+			<< std::setw(sizeColumnLength) << table[i].size
+			<< std::setw(categoryColumnLength) << table[i].category
+			<< std::setw(wholesaleColumnLength) << table[i].wholesale
+			<< std::setw(retailColumnLength) << table[i].retail
+			<< std::setw(quantityColumnLength) << table[i].quantity;
+
+		std::cout << std::endl << std::endl;
+	}*/
     //Printing the table
     for (int i = 0; i < table.size; i++)
     {

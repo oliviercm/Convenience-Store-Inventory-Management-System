@@ -69,14 +69,15 @@ int main()
 		itemList.insertLast(itemArray[i]);
 	}
 
-	//Load the hash table from the list
+	//Load the hash table from the array
 	HashTable<int, Item> itemHashTable;
 	for (int i = 0; i < itemArray.getSize(); i++)
 	{
 		itemHashTable.add(itemArray[i].uid, itemArray[i]);
 	}
 
-	//Load the AVL tree from the list
+	//Load the AVL tree from the array
+	/*
 	AVLTree<double> avlRetailTree;
 	AVLTree<double> avlWholesaleTree;
 	AVLTree<int> avlUidTree;
@@ -87,6 +88,7 @@ int main()
 		avlWholesaleTree.add_avl(itemArray[i].wholesale);
 		avlUidTree.add_avl(itemArray[i].uid);
 	}
+	*/
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
@@ -243,6 +245,7 @@ int main()
 			break;
 			case 5: //List data in Key Sequence
 			{
+				/*
 				Item item;
 				int i = item.uid;
 				avlUidTree.inorder_traverse_avl(avlUidTree.myVisit);
@@ -251,6 +254,7 @@ int main()
 				int beginningListOperations = Efficiency::globalListOperations;
 				Interface::displayKeySequence(itemList);
 				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
+				*/
 				Interface::pause();
 				Interface::clearScreen(true);
 			}
@@ -268,12 +272,12 @@ int main()
 					switch (inputSubMenu)
 					{
 					case 1:
-						avlWholesaleTree.print_tree_avl();
+						//avlWholesaleTree.print_tree_avl();
 						cout << endl;
 						Interface::pause();
 						break;
 					case 2:
-						avlRetailTree.print_tree_avl();
+						//avlRetailTree.print_tree_avl();
 						cout << endl;
 						Interface::pause();
 						break;
