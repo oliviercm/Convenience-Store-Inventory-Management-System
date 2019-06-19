@@ -130,6 +130,7 @@ namespace Interface
 		return;
 
 	}
+	//display inventory in the array
 	void displayInventory(Array<Item>& itemArray)
 	{
 		const std::string uidText = "UID:";
@@ -153,8 +154,6 @@ namespace Interface
 		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
 
 		std::cout << std::left;
-
-		//std::cout << std::endl << std::endl;
 
 		std::cout << std::setw(uidColumnLength) << uidText
 			<< std::setw(upcColumnLength) << upcText
@@ -220,6 +219,7 @@ namespace Interface
 		newUid = Input::getInt(0, 9999);
 		std::cout << std::endl;
 		std::string temp = std::to_string(newUid);
+		//Checks if uid is 4-digits long
 		while (temp.length() != 4)
 		{
 			std::cout << "ERROR: UID must be a 4-digits long, try again:" << std::endl;
@@ -227,6 +227,7 @@ namespace Interface
 			std::cout << std::endl;
 			temp = std::to_string(newUid);
 		}
+		//Checks if the uid already exists
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
 			while (itemList[i].uid == newUid)
@@ -239,13 +240,14 @@ namespace Interface
 		std::cout << "Enter the UPC of the item" << std::endl;
 		newUpc = Input::getString();
 		std::cout << std::endl;
-		while (newUpc.length() != 13)
+		//Checks if the upc is 
+		while (newUpc.length() < 12)
 		{
-			std::cout << "ERROR: UPC must be 13-digits long, try again:" << std::endl;
+			std::cout << "ERROR: UPC must be at least 12-digits long, try again:" << std::endl;
 			newUpc = Input::getString();
 			std::cout << std::endl;
 		}
-
+		//Checks if the UPC already exists
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
 			while (itemList[i].upc == newUpc)
@@ -258,6 +260,7 @@ namespace Interface
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
 		std::cout << std::endl;
+		//Checks if the item already exists
 		for (int i = 0; i < itemList.getCount(); i++)
 		{
 			while (itemList[i].name == newName)
@@ -272,7 +275,7 @@ namespace Interface
 		newSize = Input::getString();
 		std::cout << std::endl;
 
-		std::cout << "Enter the category of the item" << std::endl;
+		std::cout << "Enter the category of the item: [1]Snack [2]Drink [3]Tobacco [4]Lotto [5]miscellaneous" << std::endl << std::endl;
 		newCategory = Input::getInt(1, 5);
 		std::cout << std::endl;
 
@@ -284,7 +287,7 @@ namespace Interface
 		newRetail = Input::getDouble();
 		std::cout << std::endl;
 
-		std::cout << "Enter the quantity of the tem" << std::endl;
+		std::cout << "Enter the quantity of the item" << std::endl;
 		newQuantity = Input::getInt();
 		std::cout << std::endl;
 
@@ -343,7 +346,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -379,7 +382,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -415,7 +418,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -534,7 +537,7 @@ namespace Interface
 		const size_t quantityColumnLength = quantityText.length() + columnSpacing;
 
 		const size_t titleMargin = (TERMINAL_WIDTH + titleText.length()) / 2;
-		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 25;
 
 		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
 
@@ -564,31 +567,31 @@ namespace Interface
 				//Print the item out
 				std::cout << std::setw(uidColumnLength) << item.uid
 					<< std::setw(upcColumnLength) << item.upc
-					<< std::setw(nameColumnLength) << item.name.substr(0, 30)
+					<< std::setw(nameColumnLength) << item.name.substr(0, 55)
 					<< std::setw(sizeColumnLength) << item.size;
 				if (item.category == 1)
 				{
-					std::cout << std::setw(categoryColumnLength) << "Snack";
+					std::cout << std::setw(categoryColumnLength) << " Snack";
 				}
 				else if (item.category == 2)
 				{
-					std::cout << std::setw(categoryColumnLength) << "Drink";
+					std::cout << std::setw(categoryColumnLength) << " Drink";
 				}
 				else if (item.category == 3)
 				{
-					std::cout << std::setw(categoryColumnLength) << "Tobacco";
+					std::cout << std::setw(categoryColumnLength) << " Tobacco";
 				}
 				else if (item.category == 4)
 				{
-					std::cout << std::setw(categoryColumnLength) << "Lotto";
+					std::cout << std::setw(categoryColumnLength) << " Lotto";
 				}
 				else if (item.category == 5)
 				{
-					std::cout << std::setw(categoryColumnLength) << "Misc";
+					std::cout << std::setw(categoryColumnLength) << " Misc";
 				}
 				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << item.wholesale
 					<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << item.retail
-					<< std::setw(quantityColumnLength) << item.quantity;
+					<< "  " << std::setw(quantityColumnLength) << item.quantity;
 
 				std::cout << std::endl;
 			}
@@ -614,14 +617,14 @@ namespace Interface
 		const size_t columnSpacing = 3;
 		const size_t uidColumnLength = 3 + columnSpacing;
 		const size_t upcColumnLength = 13 + columnSpacing;
-		const size_t sizeColumnLength = 7 + columnSpacing;
+		const size_t sizeColumnLength = 9 + columnSpacing;
 		const size_t categoryColumnLength = 9 + columnSpacing;
 		const size_t wholesaleColumnLength = wholesaleText.length() + columnSpacing;
 		const size_t retailColumnLength = retailText.length() + columnSpacing;
 		const size_t quantityColumnLength = quantityText.length() + columnSpacing;
 
 		const size_t titleMargin = (TERMINAL_WIDTH + titleText.length()) / 2;
-		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 25;
 
 		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
 
@@ -642,31 +645,31 @@ namespace Interface
 			//Print out each item
 			std::cout << std::setw(uidColumnLength) << itemArray[i].uid
 				<< std::setw(upcColumnLength) << itemArray[i].upc
-				<< std::setw(nameColumnLength) << itemArray[i].name.substr(0, 30)
+				<< std::setw(nameColumnLength) << itemArray[i].name.substr(0, 55)
 				<< std::setw(sizeColumnLength) << itemArray[i].size;
 			if (itemArray[i].category == 1)
 			{
-				std::cout << std::setw(categoryColumnLength) << "Snack";
+				std::cout << std::setw(categoryColumnLength) << " Snack";
 			}
 			else if (itemArray[i].category == 2)
 			{
-				std::cout << std::setw(categoryColumnLength) << "Drink";
+				std::cout << std::setw(categoryColumnLength) << " Drink";
 			}
 			else if (itemArray[i].category == 3)
 			{
-				std::cout << std::setw(categoryColumnLength) << "Tobacco";
+				std::cout << std::setw(categoryColumnLength) << " Tobacco";
 			}
 			else if (itemArray[i].category == 4)
 			{
-				std::cout << std::setw(categoryColumnLength) << "Lotto";
+				std::cout << std::setw(categoryColumnLength) << " Lotto";
 			}
 			else if (itemArray[i].category == 5)
 			{
-				std::cout << std::setw(categoryColumnLength) << "Misc";
+				std::cout << std::setw(categoryColumnLength) << " Misc";
 			}
-			std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].wholesale
+			std::cout  << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].wholesale
 				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].retail
-				<< std::setw(quantityColumnLength) << itemArray[i].quantity;
+				<< "   " << std::setw(quantityColumnLength) << itemArray[i].quantity;
 
 			std::cout << std::endl << std::endl;
 		}

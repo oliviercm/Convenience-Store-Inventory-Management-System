@@ -119,7 +119,7 @@ int main()
 					itemList.insertLast(itemArray.back());
 					itemHashTable.add(itemArray.back().uid, itemArray.back());
 					itemBinaryTree.add(itemArray.back());
-					cout << "Item added: " << endl;
+					cout << "Item added: " << endl << endl;
 					cout << itemArray.back() << endl;
 					cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
 					cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
@@ -199,6 +199,7 @@ int main()
 			}
 			case 4: //Print items sorted by UID
 			{
+				Interface::clearScreen();
 				const int beginningArrayOperations = Efficiency::globalArrayOperations;
 				const int beginningListOperations = Efficiency::globalListOperations;
 				Array<Item> copyItemArray = Array<Item>::buildArrayFromList(itemList);
