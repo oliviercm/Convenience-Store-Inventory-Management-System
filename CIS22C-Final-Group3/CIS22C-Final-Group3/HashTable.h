@@ -28,10 +28,20 @@
 #ifndef Hash_h
 #define Hash_h
 
-#include <iostream>
-#include "List.h"
 #include "HashList.h"
 #include "Item.h"
+
+template<typename K, typename T> class HashTable;
+template<typename K, typename T>
+std::ostream& operator<<(std::ostream& os, HashTable<K, T>& hashTable)
+{
+	for (int i = 0; i < hashTable.getSize(); i++)
+	{
+		os << *hashTable.getListAtKey(i) << std::endl;
+	}
+
+	return os;
+}
 
 template<typename K, typename T>
 class HashTable
@@ -39,8 +49,6 @@ class HashTable
 private:
     //Pointer to array of Hashed lists
     HashList<K, T>* arr;
-    //Pointer to a linked list that contain value of nodes within the array
-    List<T> *listPtr;
     //Size of table
     int size;
     //Num of items in the table
@@ -117,31 +125,11 @@ public:
      *
      * brief: Function that adds an item/key to the table at a specific hash address
      *
-     * param: item - value that will be stored in table
-     *
-     * returns: boolean value to represent success/failure
-     */
-    bool add(T& item);
-    /*
-     * add
-     *
-     * brief: Function that adds an item/key to the table at a specific hash address
-     *
      * param: key - key/value pair for better searching and handling of complex data types, item - value that will be stored in table
      *
      * returns: boolean value to represent success/failure
      */
-    bool add(K& key, T& value);
-    /*
-     * remove
-     *
-     * brief: Function that removes an item/key from the table at a specific hash address
-     *
-     * param: item - value that will be removed from the table
-     *
-     * returns: boolean value to represent success/failure
-     */
-    bool remove(const T& item);
+    bool add(K key, T& value);
     /*
      * remove
      *
@@ -151,7 +139,7 @@ public:
      *
      * returns: boolean value to represent success/failure
      */
-    bool remove(const K& k, const T& item);
+    bool remove(const K key, const T& value);
     /*
      * calcLoadFactor
      *
@@ -159,7 +147,7 @@ public:
      *
      * returns: loadFactor
      */
-    double calcLoadFactor();
+    double calcLoadFactor() const;
     /*
      * getAddress
      *
@@ -193,33 +181,13 @@ public:
      */
     int getCount() const;
     /*
-     * getOperations
-     *
-     * brief: Function that returns the number of traversals it takes to locate a passed item in the table.
-     *
-     * param: item - value within the table
-     *
-     * returns: number of traversals in a linked list
-     */
-    int getOperations(T item);
-    /*
-     * getOperations
-     *
-     * brief: Function that returns the number of traversals it takes to locate a passed item in the table.
-     *
-     * param: key - key/value pair for better searching and handling of complex data types, item - value within the table
-     *
-     * returns: number of traversals in a linked list
-     */
-    int getOperations(K key, T item);
-    /*
      * getNextPrime
      *
      * brief: Function that returns the next available primre number for hash function use.
      *
      * returns: prime number
      */
-    int getNextPrime();
+    int getNextPrime() const;
     /*
      * getOffTable
      *
@@ -229,61 +197,32 @@ public:
      */
     int getOffTable() const;
     /*
-     * getItems
+     * getListAtKey
      *
-     * brief: Function that returns a linked list of data values given based off the passed key.
+     * brief: Function that returns a linked list of data values given based off the hash of the passed key.
      *
      * param: key - key associated with a value...generates hash address
      *
      * returns: Pointer to a linked list of data
      */
-    List<T>* getItems(K key);
+    HashList<K, T>* getListAtKey(K key);
     /*
      * ~HashTable
      *
      * brief: Destructor that empties the array of linked lists and deletes the array
      */
     ~HashTable();
-    //Friend Overloaded Insertion Operator for printing
-    template <typename U, typename V>
-    friend std::ostream& operator<<(std::ostream& os, const HashTable<U, V>& table);
 };
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable()
 {
-    //Member Variables initialized, size set to prime number 101
-    size = 101;
+    //Member Variables initialized, size set to prime number
+    size = 101
+	;
     count = 0;
     arr = new HashList<K,T>[size];
-    listPtr = new List<T>();
     offTable = 0;
-}
-
-template<typename K, typename T>
-int HashTable<K, T>::getOperations(T item)
-{
-    //Finding index of item on table
-    int index = getAddress(item);
-    //Counts number of traversals at that index to find item
-    int op = (arr + index)->getPos(item);
-    if (op == -1)
-        return -1;
-    //Increments operations by one as the list begins at the 0th index
-    return op + 1;
-}
-
-template<typename K, typename T>
-int HashTable<K, T>::getOperations(K k, T item)
-{
-    //Finding index of item on table
-    int index = getAddress(k);
-    //Counts number of traversals at that index to find item
-    int op = (arr + index)->getPos(item);
-    if (op == -1)
-        return -1;
-    //Increments operations by one as the list begins at the 0th index
-    return op + 1;
 }
 
 template<typename K, typename T>
@@ -301,75 +240,38 @@ int HashTable<K, T>::getCount() const
 }
 
 template<typename K, typename T>
-double HashTable<K, T>::calcLoadFactor()
+double HashTable<K, T>::calcLoadFactor() const
 {
     //Load Factor = table items / table size
     return ((double)count / size);
 }
 
 template<typename K, typename T>
-bool HashTable<K, T>::add(T& item)
+bool HashTable<K, T>::add(K key, T& item)
 {
 	Efficiency::globalHashOperations++;
-	//Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
-    if (!(arr + getAddress(item))->isEmpty())
-        offTable++;
-    //Calls hash function and stores at beginning of the list at computed index
-    (arr + getAddress(item))->insertFirst(item, item);
-    //Increments number of nodes
-    count++;
-    //If load factor becomes greater than 2/3
-    if (calcLoadFactor() > (2.0/3.0))
-        reHash(); //Rehashing
-    return true;
-}
-
-template<typename K, typename T>
-bool HashTable<K, T>::add(K& k, T& item)
-{
-	Efficiency::globalHashOperations++;
-	int index = getAddress(k);
+	int index = getAddress(key);
     //Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
-    if (!(arr + index)->isEmpty())
-        offTable++;
+	if (!(arr + index)->isEmpty())
+		offTable++;
     //Calls hash function and stores at beginning of the list at computed index
-    (arr + index)->insertFirst(k, item);
+    (arr + index)->insertFirst(key, item);
     //Increments number of nodes
     count++;
-    //If load factor becomes greater than 2/3
-    if (calcLoadFactor() > (2.0 / 3.0))
+    //If load factor becomes greater than 75%
+    if (calcLoadFactor() > 0.75)
         reHash(); //Rehashing
     return true;
 }
 
-
 template<typename K, typename T>
-bool HashTable<K, T>::remove(const T& item)
+bool HashTable<K, T>::remove(const K key, const T& value)
 {
 	Efficiency::globalHashOperations++;
 	//Get hash address
-    int index = getAddress(item);
+    int index = getAddress(key);
     //Finds specific item's location in the list
-    int position = (arr + index)->getPos(item);
-    if (position == -1)
-        return false;
-    //Removes it from list
-    (arr + index)->remove(position);
-    if ((arr + index)->getCount() >= 1)
-        offTable--;
-    //Decrement Count
-    count--;
-    return true;
-}
-
-template<typename K, typename T>
-bool HashTable<K, T>::remove(const K& k, const T& item)
-{
-	Efficiency::globalHashOperations++;
-	//Get hash address
-    int index = getAddress(k);
-    //Finds specific item's location in the list
-    int position = (arr + index)->getPos(item);
+    int position = (arr + index)->getPos(value);
     if (position == -1)
         return false;
     //Removes it from list
@@ -436,31 +338,18 @@ template<typename K, typename T>
 void HashTable<K, T>::reHash()
 {
 	Efficiency::globalHashOperations++;
-	//Temporary array with count > size of table
-    const int prevCount = count;
-    //Pointer to an array to hold data values of array that needs resizing
-    T* dataHolder = new T[prevCount];
-    //Pointer to an array to hold key values of array that needs resizing
-    K* keyHolder = new K[prevCount];
-    //Iterates from 0 to count
-    int j = 0;
-    //Iterates through all linked lists in the table
+	//Temporary array with size of table
+    const int prevSize = size;
+	HashList<K, T>* prevArr = new HashList<K, T>[size];
+    //Stores all linked lists in a temporary copy
     for (int i = 0; i < size; i++)
     {
         while (!(arr + i)->isEmpty())
         {
-            T data;
-            K key;
             //Storing data and keys into their respective arrays
-            data = (arr + i)->getFirstData();
-            key = (arr + i)->getFirstKey();
-            dataHolder[j] = data;
-            keyHolder[j] = key;
-            j++;
+			(prevArr + i)->insertFirst((arr + i)->getFirstKey(), (arr + i)->getFirstData());
             //Removing processed node from the linked list
             (arr + i)->removeFirst();
-            if (!(arr + i)->isEmpty())
-                j++;
         }
     }
     //Multiplying size by 2
@@ -473,20 +362,19 @@ void HashTable<K, T>::reHash()
     //deleting array
     delete[] arr;
     //Redeclaring arr as a new pointer to an array of linked lists with updated size
-    arr = new HashList<K,T>[size];
+    arr = new HashList<K, T>[size];
     //Reinserting all nodes back into the updated array
-    for (int i = 0; i < prevCount; i++)
-    {
-        T data;
-        K key;
-        data = dataHolder[i];
-        key = keyHolder[i];
-    	add(key, data);
-		Efficiency::globalHashOperations++;
-    }
-    //deleting the holder arrays
-    delete[] dataHolder;
-    delete[] keyHolder;
+	for (int i = 0; i < prevSize; i++)
+	{
+		while (!(prevArr + i)->isEmpty())
+		{
+			add(prevArr[i].getFirstKey(), prevArr[i].getFirstData());
+			//Removing processed node from the linked list
+			(prevArr + i)->removeFirst();
+		}
+	}
+    //deleting the temporary array
+    delete[] prevArr;
 }
 
 template<typename K, typename T>
@@ -518,32 +406,14 @@ HashTable<K, T>::~HashTable()
     //Delete the array
     arr = 0;
     delete[] arr;
-    listPtr = 0;
-    delete listPtr;
 }
 
 template<typename K, typename T>
-List<T>* HashTable<K, T>::getItems(K key)
+HashList<K, T>* HashTable<K, T>::getListAtKey(K key)
 {
-    delete listPtr;
-    listPtr = new List<T>();
-    int counter = 0, i = 0;
-    int index = getAddress(key);
-    //Number of nodes in the list at the hashed index
-    counter = (arr + index)->getCount();
-    //Increments for all nodes in the list
-    while ( i < counter)
-    {
-        T data;
-        //Retrieving node data
-        data = (arr + index)->getData(i);
-        //Inserting it into the linked list of data
-        listPtr->insertFirst(data);
-        i++;
-    }
 	Efficiency::globalHashOperations++;
-    //Returning pointer to linked list of data
-    return listPtr;
+	int index = getAddress(key);
+    return arr + index;
 }
 
 template<typename U, typename V>
@@ -609,7 +479,7 @@ std::ostream& operator<<(std::ostream& os, const HashTable<U, V> & table)
 
 //Returning the next available prime number
 template<typename K, typename T>
-int HashTable<K, T>::getNextPrime()
+int HashTable<K, T>::getNextPrime() const
 {
     bool flag = true;
     int n = size + 1;
@@ -627,6 +497,5 @@ int HashTable<K, T>::getNextPrime()
     }
     return n;
 }
-
 
 #endif //Hash_h

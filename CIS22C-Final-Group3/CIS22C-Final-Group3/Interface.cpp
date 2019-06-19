@@ -529,7 +529,8 @@ namespace Interface
 		for (int i = 0; i < itemHashTable.getSize(); i++)
 		{
 			//Get the linked list at hash table array position i
-			List<Item>* list = itemHashTable.getItems(i);
+			HashList<int, Item>* list = itemHashTable.getListAtKey(i);
+			std::cout << "Hash array position: " << i << std::endl;
 			//Loop through each item inside the linked list
 			for (int i = 0; i < list->getCount(); i++)
 			{

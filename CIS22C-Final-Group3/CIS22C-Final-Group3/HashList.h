@@ -22,15 +22,25 @@
  * isEmpty
  *********************************************************************************/
 
-
 #include "List.h"
 #include "HashNode.h"
-#include <iostream>
+
+template <typename U, typename V> class HashList;
+template <typename U, typename V>
+std::ostream& operator<<(std::ostream& os, HashList<U, V>& hashList)
+{
+	for (int i = 0; i < hashList.getCount(); i++)
+	{
+		os << hashList.getData(i) << std::endl;
+	}
+
+	return os;
+}
 
 template<typename K, typename T>
 class HashList : protected List<T>
 {
-private:
+protected:
     //Pointer to a hash node
     HashNode<K, T>* head;
     /*
@@ -42,7 +52,7 @@ private:
      *
      * returns: Pointer to the inserted Hash Node
      */
-    virtual HashNode<K, T>* insert(T& newData, const int pos, const K& k);
+    virtual HashNode<K, T>* insert(K k, T& newData, const int pos);
 public:
     /*
      * HashList
@@ -56,22 +66,22 @@ public:
      * brief: Destructor that empties the list and frees memory
      */
     virtual ~HashList();
-    /*
-     * isEmpty
-     *
-     * brief: Function that returns if the HashList has any values
-     *
-     * returns: bool value representing if there are any values in the list
-     */
-    bool isEmpty() const;
-    /*
-     * getCount
-     *
-     * brief: Function that returns the number of nodes present in the table.
-     *
-     * returns: count
-     */
-    int getCount() const;
+	/*
+	 * isEmpty
+	 *
+	 * brief: Function that returns if the HashList has any values
+	 *
+	 * returns: bool value representing if there are any values in the list
+	 */
+	bool isEmpty() const override;
+	/*
+	 * getCount
+	 *
+	 * brief: Function that returns the number of nodes present in the table.
+	 *
+	 * returns: count
+	 */
+	int getCount() const override;
     /*
      * insertFirst
      *
@@ -81,7 +91,7 @@ public:
      *
      * returns: Pointer to the inserted Hash Node
      */
-    HashNode<K, T>* insertFirst(K&, T&);
+    HashNode<K, T>* insertFirst(K, T&);
     /*
      * remove
      *
@@ -89,13 +99,13 @@ public:
      *
      * param: pos - location in list
      */
-    void remove(const int pos);
+    void remove(const int pos) override;
     /*
      * removeFirst
      *
      * brief: Function that removes a hash node from the beginning of the list
      */
-    void removeFirst();
+    void removeFirst() override;
     /*
      * remove
      *
@@ -103,7 +113,7 @@ public:
      *
      * param: pos - location in list
      */
-    void removeAll();
+    void removeAll() override;
     /*
      * getData
      *
@@ -113,7 +123,7 @@ public:
      *
      * returns: Hash Node data
      */
-    T& getData(const int pos);
+    T& getData(const int pos) override;
     /*
      * getFirstData
      *
@@ -121,7 +131,7 @@ public:
      *
      * returns: First Hash Node's data
      */
-    T& getFirstData();
+    T& getFirstData() override;
     /*
      * getFirstKey
      *
@@ -139,7 +149,7 @@ public:
      *
      * returns: index of where the node that containns the passe value is located
      */
-    int getPos(T item);
+    int getPos(const T& item);
     /*
      * getKey
      *
@@ -151,76 +161,107 @@ public:
 };
 
 template<typename K, typename T>
-HashList<K, T>::HashList()
+HashList<K, T>::HashList() : head(nullptr)
 {
-    //Initializing head
-    head = 0;
+
 }
 
 template<typename K, typename T>
 HashList<K, T>::~HashList()
 {
-    //Emptying the lists
-    List<T>::~List();
-    removeAll();
-    delete head;
+    HashList::removeAll();
 }
 
 template <typename K, typename T>
 bool HashList<K, T>::isEmpty() const
 {
-    return List<T>::isEmpty();
+	if (List<T>::count == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 template <typename K, typename T>
 int HashList<K, T>::getCount() const
 {
-    return List<T>::getCount();
+	return List<T>::getCount();
 }
 
 template <typename K, typename T>
-HashNode<K, T>* HashList<K, T>::insert(T& data, const int pos, const K& k)
+HashNode<K, T>* HashList<K, T>::insert(K k, T& newData, const int pos)
 {
-    Node<T>* holder = List<T>::insert(data, pos);
-    HashNode<K, T> *newHnode = new HashNode<K,T>(data);
-    newHnode->data = holder->data;
-    newHnode->key = k;
-    if (head == nullptr || pos == 0) //The list is empty
+	if (pos < 0 || pos > List<T>::count)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	HashNode<K, T>* returnNode;
+	
+    if (head == nullptr) //The list is empty
     {
-        head = newHnode;
-        head->HashNode<K,T>::next = 0;
+        head = new HashNode<K, T>(k, newData);
+		Efficiency::globalListOperations++;
+
+		returnNode = head;
     }
+	else if (pos == 0) //Replacing head
+	{
+		HashNode<K, T>* temp = head;
+		head = new HashNode<K, T>(k, newData, temp);
+
+		returnNode = head;
+		Efficiency::globalListOperations++;
+	}
     else
     {
         HashNode<K, T>* currentNode = head;
         for (int i = 0; i < pos - 1; i++)
         {
-            currentNode = currentNode->HashNode<K,T>::next;
+            currentNode = currentNode->next;
+			Efficiency::globalListOperations++;
         }
+
         HashNode<K, T>* temp = currentNode->next;
-        currentNode->next = newHnode;
+        currentNode->next = new HashNode<K, T>(k, newData, temp);
+		Efficiency::globalListOperations++;
+
+		returnNode = currentNode->next;
     }
-    return newHnode;
+
+	List<T>::count++;
+    return returnNode;
 }
 
 template<typename K, typename T>
-HashNode<K, T>* HashList<K, T>::insertFirst(K& k, T& newData)
+HashNode<K, T>* HashList<K, T>::insertFirst(K k, T& newData)
 {
-    return insert(newData, 0, k);
+    return insert(k, newData, 0);
 }
 
 template <typename K, typename T>
 void HashList<K, T>::remove(const int pos)
 {
-    if (List<T>::count == 0)
-        return;
+	if (head == nullptr) //The list is empty
+	{
+		throw std::out_of_range("HashList is empty.");
+	}
+
+	if (pos < 0 || pos > List<T>::count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
     if (pos == 0)
     {
-        
         HashNode<K, T>* nextNode = head->next;
         
         delete head;
         head = nextNode;
+		Efficiency::globalListOperations++;
     }
     else
     {
@@ -230,22 +271,27 @@ void HashList<K, T>::remove(const int pos)
         {
             previousNode = currentNode;
             currentNode = currentNode->next;
+			Efficiency::globalListOperations++;
         }
         
         if (currentNode->next != nullptr)
         {
             HashNode<K, T>* temp = currentNode->next;
             previousNode->next = temp;
+			Efficiency::globalListOperations++;
         }
         
         delete currentNode;
+		Efficiency::globalListOperations++;
     }
+
+	List<T>::count--;
+	return;
 }
 
 template <typename K, typename T>
 void HashList<K, T>::removeFirst()
 {
-    List<T>::remove(0);
     remove(0);
     return;
 }
@@ -253,9 +299,10 @@ void HashList<K, T>::removeFirst()
 template <typename K, typename T>
 void HashList<K, T>::removeAll()
 {
-    List<T>::removeAll();
-    if (head == nullptr) //The list is empty
-        return;
+	if (head == nullptr) //The list is empty
+	{
+		return;
+	}
     else
     {
         HashNode<K, T>* currentNode = head;
@@ -264,18 +311,40 @@ void HashList<K, T>::removeAll()
             HashNode<K, T>* previousNode = currentNode;
             currentNode = currentNode->next;
             delete previousNode;
+			Efficiency::globalListOperations++;
         }
         
         delete currentNode;
+		Efficiency::globalListOperations++;
     }
+	List<T>::count = 0;
     head = nullptr;
+
     return;
 }
 
 template <typename K, typename T>
 T& HashList<K, T>::getData(const int pos)
 {
-    return List<T>::getData(pos);
+	if (head == nullptr) //The list is empty
+	{
+		throw std::out_of_range("List is empty.");
+	}
+
+	if (pos < 0 || pos > List<T>::count - 1)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	HashNode<K, T>* currentNode = head;
+	for (int i = 0; i < pos; i++)
+	{
+		currentNode = currentNode->next;
+		Efficiency::globalListOperations++;
+	}
+
+	Efficiency::globalListOperations++;
+	return currentNode->data;
 }
 
 template <typename K, typename T>
@@ -313,7 +382,7 @@ K HashList<K, T>::getFirstKey()
 }
 
 template<typename K, typename T>
-int HashList<K, T>::getPos(T item)
+int HashList<K, T>::getPos(const T& item)
 {
 	int pos = 0;
 	HashNode<K, T> *current = head;
@@ -325,11 +394,4 @@ int HashList<K, T>::getPos(T item)
 		current = current->next;
 	}
 	return -1;
-}
-
-template <typename U, typename V>
-std::ostream& operator<<(std::ostream& os, HashList<U, V> & list)
-{
-    os << (List<V> &) list;
-    return os;
 }

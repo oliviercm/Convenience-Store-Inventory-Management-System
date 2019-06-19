@@ -55,13 +55,6 @@ int main()
 		return 0;
 	}
 
-	cout << itemArray.getSize();
-	for (int i = 0; i < itemArray.getSize(); i++)
-	{
-		cout << itemArray[i] << endl;
-	}
-
-
 	//Load the linked list from the array
 	List<Item> itemList;
 	for (int i = 0; i < itemArray.getSize(); i++)
@@ -92,7 +85,7 @@ int main()
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
-	Interface::displayInventory(itemList);
+	//Interface::displayInventory(itemList);
 	Interface::pause();
 	Interface::clearScreen();
 
@@ -293,6 +286,12 @@ int main()
 				Interface::clearScreen();
 				cout << "The total number of List operations since launch is: " << Efficiency::globalListOperations << "." << endl;
 				cout << "The total number of Hash operations since launch is: " << Efficiency::globalHashOperations << "." << endl;
+				cout << endl;
+				cout << "There are currently " << itemHashTable.getOffTable() << " hash collisions." << endl;
+				cout << "The size of the hash table is " << itemHashTable.getSize() << "." << endl;
+				cout << "The number of elements stored in the hash table is " << itemHashTable.getCount() << "." << endl;
+				cout << "The load factor of the hash table is " << itemHashTable.calcLoadFactor() << "." << endl;
+				cout << endl;
 				Interface::pause();
 				break;
 			}

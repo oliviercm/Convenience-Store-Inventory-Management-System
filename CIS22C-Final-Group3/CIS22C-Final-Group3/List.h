@@ -41,7 +41,7 @@ public:
 	virtual ~List();
 
 	List(const List&) = delete;
-	List& operator=(const List&) = delete;
+	virtual List& operator=(const List&) = delete;
 
 	virtual bool isEmpty() const;
 	virtual int getCount() const;
@@ -62,7 +62,7 @@ public:
 	virtual void setFirstData(T&&);
 	virtual void setLastData(T&&);
 
-	T& operator[](const int);
+	virtual T& operator[](const int);
 };
 
 template <typename T>

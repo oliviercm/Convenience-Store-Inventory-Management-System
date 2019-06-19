@@ -1,4 +1,3 @@
-#pragma once
 /********************************************************************************
  ************************************ HashList ***************************************
  *********************************************************************************
@@ -14,28 +13,32 @@
  * Instantiate this struct and set the variables
  * Manipulate the data and allow for use in the List ADTs
  *********************************************************************************/
+
+#pragma once
+
 #include "Node.h"
+
 template <typename K, typename T>
 struct HashNode : Node<T>
 {
     //Key
     K key;
     //Next pointer
-    HashNode<K, T>* next = nullptr;
+    HashNode<K, T>* next;
     //Constructors
-    HashNode(T&);
-    HashNode();
+    HashNode(K, T&);
+    HashNode(K, T&, HashNode<K, T>*);
 };
 
 template <typename K, typename T>
-HashNode<K,T>::HashNode(T& dt) : Node<T>(dt)
+HashNode<K, T>::HashNode(K k, T& d) : Node<T>(d), key(k), next(nullptr)
 {
     
 }
 
 template <typename K, typename T>
-HashNode<K, T>::HashNode()
+HashNode<K, T>::HashNode(K k, T& d, HashNode<K, T>* n) : Node<T>(d), key(k), next(n)
 {
-    next = nullptr;
+    
 }
 
