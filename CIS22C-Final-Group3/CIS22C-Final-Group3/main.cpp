@@ -11,13 +11,18 @@ Yue Pan
 #include <iostream>
 #include <string>
 
+//Utility
 #include "FileIO.h"
 #include "Interface.h"
-#include "Item.h"
 #include "Input.h"
+
+//ADTs
+#include "Array.h"
 #include "List.h"
 #include "HashTable.h"
 #include "BinarySearchTree.h"
+
+#include "Item.h"
 
 using namespace std;
 
@@ -26,10 +31,9 @@ int main()
 	//Prompt user for filepath to data file
 	Interface::initialize();
 	Interface::printHeader();
-	
-	std::string filepath;
+
 	cout << "Enter path to data file: ";
-	filepath = Input::getString();
+	const std::string filepath = Input::getString();
 
 	//Try loading the file into an array
 	Array<Item> itemArray;
@@ -37,7 +41,7 @@ int main()
 	{
 		FileIO::loadFileIntoArray(itemArray, filepath);
 	}
-	catch(std::invalid_argument e)
+	catch(std::invalid_argument& e)
 	{
 		cerr << e.what() << endl;
 		cout << "Quitting..." << endl;
@@ -66,25 +70,19 @@ int main()
 		itemHashTable.add(itemArray[i].uid, itemArray[i]);
 	}
 
-	//Load the AVL tree from the array
-	/*
-	AVLTree<double> avlRetailTree;
-	AVLTree<double> avlWholesaleTree;
-	AVLTree<int> avlUidTree;
-
+	//Load the binary tree from the array
+	BinarySearchTree<Item> itemBinaryTree;
 	for (int i = 0; i < itemArray.getSize(); i++)
 	{
-		avlRetailTree.add_avl(itemArray[i].retail);
-		avlWholesaleTree.add_avl(itemArray[i].wholesale);
-		avlUidTree.add_avl(itemArray[i].uid);
+		itemBinaryTree.add(itemArray[i]);
 	}
-	*/
 
 	//Signal that load was successful
-	cout << "Load successful." << endl;
+	cout << "Load successful." << endl << endl;
 	cout << "There were " << Efficiency::globalArrayOperations << " Array operations." << endl;
 	cout << "There were " << Efficiency::globalListOperations << " List operations." << endl;
 	cout << "There were " << Efficiency::globalHashOperations << " Hash operations." << endl;
+	cout << "There were " << Efficiency::globalBinaryTreeOperations << " BST operations." << endl << endl;
 	Interface::pause();
 	Interface::clearScreen();
 
@@ -109,14 +107,17 @@ int main()
 					const int beginningArrayOperations = Efficiency::globalArrayOperations;
 					const int beginningListOperations = Efficiency::globalListOperations;
 					const int beginningHashOperations = Efficiency::globalHashOperations;
+					const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
 					itemArray.append(Interface::addNewItem(itemList));
 					itemList.insertLast(itemArray.back());
 					itemHashTable.add(itemArray.back().uid, itemArray.back());
+					itemBinaryTree.add(itemArray.back());
 					cout << "Item added: " << endl;
 					cout << itemArray.back() << endl;
 					cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
 					cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
-					cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+					cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
+					cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 					cout << "Would you like to add another item? [1] Yes [2] No" << endl;
 					inputAgain = Input::getInt(1, 2);
 				} while (inputAgain == 1);
@@ -137,9 +138,11 @@ int main()
 						{
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
-							Interface::deleteByUid(itemList, itemHashTable);
+							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
+							Interface::deleteByUid(itemList, itemHashTable, itemBinaryTree);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
-							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
+							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 							Interface::pause();
 							break;
 						}
@@ -147,9 +150,11 @@ int main()
 						{
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
-							Interface::deleteByName(itemList, itemHashTable);
+							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
+							Interface::deleteByName(itemList, itemHashTable, itemBinaryTree);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
-							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
+							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 							Interface::pause();
 							break;
 						}
@@ -157,9 +162,11 @@ int main()
 						{
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
-							Interface::deleteByUpc(itemList, itemHashTable);
+							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
+							Interface::deleteByUpc(itemList, itemHashTable, itemBinaryTree);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
-							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
+							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 							Interface::pause();
 							break;
 						}
@@ -208,6 +215,7 @@ int main()
 			}
 			case 6: //Print Tree
 			{
+				itemBinaryTree.print_tree();
 				Interface::pause();
 				break;
 			}
@@ -219,6 +227,7 @@ int main()
 				cout << "The total number of Array operations since launch is: " << Efficiency::globalArrayOperations << "." << endl;
 				cout << "The total number of List operations since launch is: " << Efficiency::globalListOperations << "." << endl;
 				cout << "The total number of Hash operations since launch is: " << Efficiency::globalHashOperations << "." << endl;
+				cout << "The total number of BST operations since launch is: " << Efficiency::globalBinaryTreeOperations << "." << endl;
 				cout << endl;
 				cout << "The size of the hash table is " << itemHashTable.getSize() << "." << endl;
 				cout << "The load factor of the hash table is " << itemHashTable.calcLoadFactor() << "." << endl;
@@ -229,6 +238,7 @@ int main()
 			}
 			case 8: //Margins and profitability
 			{
+				Interface::pause();
 				break;
 			}
 			default:

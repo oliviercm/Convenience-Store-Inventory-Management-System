@@ -3,37 +3,21 @@
 #define BINARYTREENODE
 
 template <typename T>
-class BinaryTreeNode
+struct BinaryTreeNode
 {
 public:
-	T datum;
+	T& datum;
 	BinaryTreeNode<T> * left_ptr;
 	BinaryTreeNode<T> * right_ptr;
-	BinaryTreeNode(const T &);
-	BinaryTreeNode();
-	~BinaryTreeNode();
+
+	BinaryTreeNode(T &);
+	virtual ~BinaryTreeNode() = default;
 };
 
 template <typename T>
-BinaryTreeNode<T>::BinaryTreeNode()
+BinaryTreeNode<T>::BinaryTreeNode(T & d) : datum(d), left_ptr(nullptr), right_ptr(nullptr)
 {
-	left_ptr = nullptr;
-	right_ptr = nullptr;
-}
 
-template <typename T>
-BinaryTreeNode<T>::BinaryTreeNode(const T & i_item)
-{
-	datum = i_item;
-	left_ptr = nullptr;
-	right_ptr = nullptr;
-}
-
-template <typename T>
-BinaryTreeNode<T>::~BinaryTreeNode()
-{
-	left_ptr = nullptr;
-	right_ptr = nullptr;
 }
 
 #endif

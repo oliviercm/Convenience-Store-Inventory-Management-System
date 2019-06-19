@@ -35,7 +35,7 @@ public:
 	virtual ~BinarySearchTree();
 
 	BinaryTreeNode<T> * get_root_add();
-	void add(const T &);
+	void add(T &);
 	bool remove(const T &);
 	/*
 	Task: Tests whether this binary tree is empty.
@@ -126,6 +126,7 @@ void BinarySearchTree<T>::add_r(BinaryTreeNode<T> * r_ptr, BinaryTreeNode<T> * i
 	if (r_ptr == nullptr)
 	{
 		this->root_ptr = i_ptr;
+		Efficiency::globalBinaryTreeOperations++;
 		return;
 	}
 	else if (r_ptr->datum > i_ptr->datum)
@@ -133,11 +134,13 @@ void BinarySearchTree<T>::add_r(BinaryTreeNode<T> * r_ptr, BinaryTreeNode<T> * i
 		if (r_ptr->left_ptr == nullptr)
 		{
 			r_ptr->left_ptr = i_ptr;
+			Efficiency::globalBinaryTreeOperations++;
 			return;
 		}
 		else
 		{
 			r_ptr = r_ptr->left_ptr;
+			Efficiency::globalBinaryTreeOperations++;
 			add_r(r_ptr, i_ptr);
 		}
 	}
@@ -146,20 +149,23 @@ void BinarySearchTree<T>::add_r(BinaryTreeNode<T> * r_ptr, BinaryTreeNode<T> * i
 		if (r_ptr->right_ptr == nullptr)
 		{
 			r_ptr->right_ptr = i_ptr;
+			Efficiency::globalBinaryTreeOperations++;
 			return;
 		}
 		else
 		{
 			r_ptr = r_ptr->right_ptr;
+			Efficiency::globalBinaryTreeOperations++;
 			add_r(r_ptr, i_ptr);
 		}
 	}
 }
 
 template <typename T>
-void BinarySearchTree<T>::add(const T & i_item)
+void BinarySearchTree<T>::add(T & i_item)
 {
 	BinaryTreeNode<T> * new_ptr = new BinaryTreeNode<T>(i_item);
+	Efficiency::globalBinaryTreeOperations++;
 	add_r(root_ptr, new_ptr);
 	nodes_num += 1;
 	new_ptr = nullptr;
@@ -180,6 +186,7 @@ BinaryTreeNode<T> * BinarySearchTree<T>::remove_addr_r(BinaryTreeNode<T> * rp_pt
 			{
 				rp_ptr = r_ptr;
 				r_ptr = r_ptr->left_ptr;
+				Efficiency::globalBinaryTreeOperations++;
 			}
 		}
 		else // r_ptr->datum < i_item
@@ -192,6 +199,7 @@ BinaryTreeNode<T> * BinarySearchTree<T>::remove_addr_r(BinaryTreeNode<T> * rp_pt
 			{
 				rp_ptr = r_ptr;
 				r_ptr = r_ptr->right_ptr;
+				Efficiency::globalBinaryTreeOperations++;
 			}
 		}
 	}
@@ -203,11 +211,13 @@ BinaryTreeNode<T> * BinarySearchTree<T>::leftmost_leaf_parent(BinaryTreeNode<T> 
 {
 	Stack<BinaryTreeNode<T> *> addr_stack;
 	addr_stack.push(dele_ptr);
+	Efficiency::globalBinaryTreeOperations++;
 	dele_ptr = dele_ptr->right_ptr;
 	while (dele_ptr->left_ptr != nullptr)
 	{
 		addr_stack.push(dele_ptr);
 		dele_ptr = dele_ptr->left_ptr;
+		Efficiency::globalBinaryTreeOperations++;
 	}
 	return addr_stack.peek();
 }
@@ -243,6 +253,7 @@ bool BinarySearchTree<T>::remove(const T & i_item)
     	if (dele_addr->left_ptr == nullptr && dele_addr->right_ptr == nullptr)
 		{
 			delete root_ptr;
+			Efficiency::globalBinaryTreeOperations++;
 			root_ptr = nullptr;
 		}
     	else if (dele_addr->left_ptr != nullptr && dele_addr->right_ptr != nullptr)
@@ -254,6 +265,7 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 				dele_addr->datum = dele_addr->right_ptr->datum;
 				dele_addr->right_ptr = dele_addr->right_ptr->right_ptr;
 				delete temp;
+				Efficiency::globalBinaryTreeOperations++;
 				temp = nullptr; 
 			}
 			else
@@ -262,6 +274,7 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 				dele_addr->datum = lmlp->left_ptr->datum;
 				lmlp->left_ptr = lmlp->left_ptr->right_ptr;
 				delete temp;
+				Efficiency::globalBinaryTreeOperations++;
 				temp = nullptr;
 			}
 		}
@@ -269,11 +282,13 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 		{
 			root_ptr = dele_addr->right_ptr;
 			delete dele_addr;
+			Efficiency::globalBinaryTreeOperations++;
 		}
  	    else
 		{
 			root_ptr = dele_addr->left_ptr;
 			delete dele_addr;
+			Efficiency::globalBinaryTreeOperations++;
 		}
 	}
 	else
@@ -283,11 +298,13 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 			if (dele_addr_parent->left_ptr == dele_addr)
 			{
 				delete dele_addr_parent->left_ptr;
+				Efficiency::globalBinaryTreeOperations++;
 				dele_addr_parent->left_ptr = nullptr;
 			}
 			else
 			{
 				delete dele_addr_parent->right_ptr;
+				Efficiency::globalBinaryTreeOperations++;
 				dele_addr_parent->right_ptr = nullptr;
 			}
 		}
@@ -300,6 +317,7 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 				dele_addr->datum = dele_addr->right_ptr->datum;
 				dele_addr->right_ptr = dele_addr->right_ptr->right_ptr;
 				delete temp;
+				Efficiency::globalBinaryTreeOperations++;
 				temp = nullptr;
 			}
 			else
@@ -308,6 +326,7 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 				dele_addr->datum = lmlp->left_ptr->datum;
 				lmlp->left_ptr = lmlp->left_ptr->right_ptr;
 				delete temp;
+				Efficiency::globalBinaryTreeOperations++;
 				temp = nullptr;
 			}
 		}
@@ -317,11 +336,13 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 			{
 				dele_addr_parent->left_ptr = dele_addr->right_ptr;
 				delete dele_addr;
+				Efficiency::globalBinaryTreeOperations++;
 			}
 			else
 			{
 				dele_addr_parent->right_ptr = dele_addr->right_ptr;
 				delete dele_addr;
+				Efficiency::globalBinaryTreeOperations++;
 			}
 		}
    	    else
@@ -330,11 +351,13 @@ bool BinarySearchTree<T>::remove(const T & i_item)
 			{
 				dele_addr_parent->left_ptr = dele_addr->left_ptr;
 				delete dele_addr;
+				Efficiency::globalBinaryTreeOperations++;
 			}
 			else
 			{
 				dele_addr_parent->right_ptr = dele_addr->left_ptr;
 				delete dele_addr;
+				Efficiency::globalBinaryTreeOperations++;
 			}
 		}
 	}
@@ -380,6 +403,7 @@ int BinarySearchTree<T>::get_height_r(BinaryTreeNode<T> * r_ptr)
 	}
 	else
 	{
+		Efficiency::globalBinaryTreeOperations++;
 		return 1 + max(get_height_r(r_ptr->left_ptr), get_height_r(r_ptr->right_ptr));
 	}
 }
@@ -412,12 +436,14 @@ void BinarySearchTree<T>::clear_r(BinaryTreeNode<T> * r_ptr)
 	else if (r_ptr->left_ptr == nullptr && r_ptr->right_ptr == nullptr)
 	{
 		delete r_ptr;
+		Efficiency::globalBinaryTreeOperations++;
 	}
 	else
 	{
 		clear_r(r_ptr->left_ptr);
 		clear_r(r_ptr->right_ptr);
 		delete r_ptr;
+		Efficiency::globalBinaryTreeOperations++;
 	}
 }
 
@@ -458,6 +484,7 @@ template <typename T>
 bool BinarySearchTree<T>::search(const T & i_item)
 {
 	BinaryTreeNode<T> * new_ptr = new BinaryTreeNode<T>(i_item);
+	Efficiency::globalBinaryTreeOperations++;
 	return search_r(root_ptr, new_ptr);
 }
 
@@ -471,11 +498,13 @@ void BinarySearchTree<T>::preorder_traverse_r(BinaryTreeNode<T> * r_ptr, void vi
 	else if (r_ptr->left_ptr == nullptr && r_ptr->right_ptr == nullptr)
 	{
 		visit(r_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		return;
 	}
 	else
 	{
 		visit(r_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		preorder_traverse_r(r_ptr->left_ptr, visit);
 		preorder_traverse_r(r_ptr->right_ptr, visit);
 		return;
@@ -499,12 +528,14 @@ void BinarySearchTree<T>::inorder_traverse_r(BinaryTreeNode<T> * r_ptr, void vis
 	else if (r_ptr->left_ptr == nullptr && r_ptr->right_ptr == nullptr)
 	{
 		visit(r_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		return;
 	}
 	else
 	{
 		inorder_traverse_r(r_ptr->left_ptr, visit);
 		visit(r_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		inorder_traverse_r(r_ptr->right_ptr, visit);
 		return;
 	}
@@ -527,6 +558,7 @@ void BinarySearchTree<T>::postorder_traverse_r(BinaryTreeNode<T> * r_ptr, void v
 	else if (r_ptr->left_ptr == nullptr && r_ptr->right_ptr == nullptr)
 	{
 		visit(r_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		return;
 	}
 	else
@@ -534,6 +566,7 @@ void BinarySearchTree<T>::postorder_traverse_r(BinaryTreeNode<T> * r_ptr, void v
 		postorder_traverse_r(r_ptr->left_ptr, visit);
 		postorder_traverse_r(r_ptr->right_ptr, visit);
 		visit(r_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		return;
 	}
 }
@@ -555,17 +588,21 @@ void BinarySearchTree<T>::breath_first_traverse_r(BinaryTreeNode<T> * r_ptr, voi
 	else if (r_ptr->left_ptr == nullptr)
 	{
 		visit(r_ptr->right_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		breath_first_traverse_r(r_ptr->right_ptr, visit);
 	}
 	else if (r_ptr->right_ptr == nullptr)
 	{
 		visit(r_ptr->left_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		breath_first_traverse_r(r_ptr->left_ptr, visit);
 	}
 	else
 	{
 		visit(r_ptr->left_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		visit(r_ptr->right_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		breath_first_traverse_r(r_ptr->left_ptr, visit);
 		breath_first_traverse_r(r_ptr->right_ptr, visit);
 	}
@@ -581,6 +618,7 @@ void BinarySearchTree<T>::breath_first_traverse(void visit(T &))
 	else
 	{
 		visit(root_ptr->datum);
+		Efficiency::globalBinaryTreeOperations++;
 		breath_first_traverse_r(root_ptr, visit);
 		return;
 	}
@@ -644,6 +682,55 @@ void BinarySearchTree<T>::print_tree_r(BinaryTreeNode<T> * r_ptr, Trunk * prev, 
 
 template <typename T>
 void BinarySearchTree<T>::print_tree()
+{
+	print_tree_r(root_ptr, nullptr, false);
+	return;
+}
+
+template <>
+inline void BinarySearchTree<Item>::print_tree_r(BinaryTreeNode<Item> * r_ptr, Trunk * prev, bool is_left)
+{
+	if (r_ptr == nullptr)
+	{
+		return;
+	}
+	else
+	{
+		std::string prev_str = "       ";
+		Trunk * trunk = new Trunk(prev, prev_str);
+
+		print_tree_r(r_ptr->left_ptr, trunk, true);
+
+		if (!prev)
+		{
+			trunk->str = "------";
+		}
+		else if (is_left)
+		{
+			trunk->str = ".------";
+			prev_str = "      |";
+		}
+		else
+		{
+			trunk->str = "`------";
+			prev->str = prev_str;
+		}
+
+		show_trunks(trunk); // pay attention to the show_trunks function
+		std::cout << r_ptr->datum.getMargin() << std::endl;
+
+		if (prev != nullptr)
+		{
+			prev->str = prev_str;
+		}
+		trunk->str = "      |";
+
+		print_tree_r(r_ptr->right_ptr, trunk, false);
+	}
+}
+
+template <>
+inline void BinarySearchTree<Item>::print_tree()
 {
 	print_tree_r(root_ptr, nullptr, false);
 	return;

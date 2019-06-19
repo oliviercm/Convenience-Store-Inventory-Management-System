@@ -137,7 +137,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Queue.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="Input.h" />

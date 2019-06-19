@@ -46,9 +46,21 @@ public:
 
 	Item(const int&, const std::string&, const std::string&, const std::string&, const int&, const double&, const double&, const int&); //Parameter order follows the same order as the declaration order in this header
 	Item(int&&, std::string&&, std::string&&, std::string&&, int&&, double&&, double&&, int&&); //Parameter order follows the same order as the declaration order in this header
+
+	double getMargin() const;
 	
 	Item& operator=(const Item&) = default;
+	
+
+	//Compares equality of all attributes
 	bool operator==(const Item&) const;
+	bool operator!=(const Item&) const;
+
+	//Compares profit margins (margin = wholesale / retail)
+	bool operator<(const Item&) const;
+	bool operator<=(const Item&) const;
+	bool operator>(const Item&) const;
+	bool operator>=(const Item&) const;
 
 	friend std::ostream& operator<<(std::ostream& , const Item&);
 };

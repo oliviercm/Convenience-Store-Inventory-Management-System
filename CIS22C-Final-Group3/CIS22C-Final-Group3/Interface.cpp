@@ -1,11 +1,12 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+
 #include "Interface.h"
 #include "Input.h"
 #include "Item.h"
 #include "HashTable.h"
-
-#include <iostream>
-#include <iomanip>
-#include <string>
+#include "Sort.h"
 
 namespace Interface
 {
@@ -315,7 +316,7 @@ namespace Interface
 
 		return;
 	}
-	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
+	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree)
 	{
 		clearScreen();
 
@@ -340,6 +341,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -350,7 +352,7 @@ namespace Interface
 		//The item doesn't exist
 		std::cout << "ERROR: The UID you entered does not exist." << std::endl << std::endl;
 	}
-	void deleteByName(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
+	void deleteByName(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree)
 	{
 		clearScreen();
 
@@ -375,6 +377,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -385,7 +388,7 @@ namespace Interface
 		//The item doesn't exist
 		std::cout << "ERROR: The name you entered does not exist." << std::endl << std::endl;
 	}
-	void deleteByUpc(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
+	void deleteByUpc(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree)
 	{
 		clearScreen();
 
@@ -410,6 +413,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -686,9 +690,5 @@ namespace Interface
 			<< bars << std::endl << std::endl;
 
 		return;
-	}
-	void calculateProfit(AVLTree<double>& avlRetail, AVLTree<double>& avlWholesale)
-	{
-		
 	}
 }

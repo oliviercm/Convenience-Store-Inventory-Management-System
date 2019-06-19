@@ -28,8 +28,7 @@ public:
 	Stack(const Stack&) = delete;
 	Stack& operator=(const Stack&) = delete;
 	
-	void push(const T&);
-	void push(T&&);
+	void push(T&);
 	T pop();
 	T& peek();
 	void empty();
@@ -48,14 +47,9 @@ Puts data into stack.
 */
 
 template <typename T>
-void Stack<T>::push(const T& newData)
+void Stack<T>::push(T& newData)
 {
 	List<T>::insertFirst(newData);
-}
-template <typename T>
-void Stack<T>::push(T&& newData)
-{
-	List<T>::insertFirst(std::move(newData));
 }
 
 /*

@@ -11,6 +11,12 @@ Item::Item(int&& ui, std::string&& up, std::string&& na, std::string&& si, int&&
 
 }
 
+double Item::getMargin() const
+{
+	return wholesale / retail;
+}
+
+
 bool Item::operator==(const Item& item) const
 {
 	return (uid == item.uid &&
@@ -21,6 +27,35 @@ bool Item::operator==(const Item& item) const
 		wholesale == item.wholesale &&
 		retail == item.retail &&
 		quantity == item.quantity);
+}
+
+bool Item::operator!=(const Item& item) const
+{
+	return (uid != item.uid ||
+		upc != item.upc ||
+		name != item.name ||
+		size != item.size ||
+		category != item.category ||
+		wholesale != item.wholesale ||
+		retail != item.retail ||
+		quantity != item.quantity);
+}
+
+bool Item::operator<(const Item& item) const
+{
+	return getMargin() < item.getMargin();
+}
+bool Item::operator<=(const Item& item) const
+{
+	return getMargin() <= item.getMargin();
+}
+bool Item::operator>(const Item& item) const
+{
+	return getMargin() > item.getMargin();
+}
+bool Item::operator>=(const Item& item) const
+{
+	return getMargin() >= item.getMargin();
 }
 
 std::ostream& operator<<(std::ostream& os, const Item& item)
