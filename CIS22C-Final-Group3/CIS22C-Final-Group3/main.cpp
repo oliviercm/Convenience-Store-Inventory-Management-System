@@ -100,7 +100,7 @@ int main()
 		Interface::clearScreen();
 		Interface::displayMainMenu();
 		Interface::promptOption();
-		inputMainMenu = Input::getInt(1, 9);
+		inputMainMenu = Input::getInt(0, 9);
 
 		//variables to get user input
 		int inputSubMenu, inputAgain;
@@ -249,18 +249,22 @@ int main()
 				Interface::pause();
 				break;
 			}
+			case 9: //Save to file
+			{
+				//Save the list into file
+				cout << "Saving to file..." << endl;
+				FileIO::saveListIntoFile(itemList, filepath);
+				cout << "Success." << endl;
+				Interface::pause();
+				break;
+			}
 			default:
 			{
 				break;
 			}
 		}
-	} while (inputMainMenu != 9); //Quit
+	} while (inputMainMenu != 0); //Quit
 
-	//Save the list into file
-	cout << "Saving to file..." << endl;
-	//FileIO::saveListIntoFile(itemList, filepath);
-	cout << "Success." << endl;
-	Interface::pause();
 	Interface::displayGoodbye();
 	Interface::pause();
 	return 0;

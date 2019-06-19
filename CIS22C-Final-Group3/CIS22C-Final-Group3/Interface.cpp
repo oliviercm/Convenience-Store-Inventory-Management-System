@@ -104,7 +104,8 @@ namespace Interface
 		const std::string printTreeText = "[ 6 ] PRINT BINARY TREE";
 		const std::string efficiencyText = "[ 7 ] EFFICIENCY";
 		const std::string teamOptionText = "[ 8 ] MARGINS AND PROFITABILITY";
-		const std::string quitText = "[ 9 ] QUIT";
+		const std::string saveText = "[ 9 ] SAVE DATA TO FILE";
+		const std::string quitText = "[ 0 ] QUIT";
 
 		
 		const size_t titleMargin = (TERMINAL_WIDTH + mainMenuText.length()) / 2;
@@ -122,6 +123,7 @@ namespace Interface
 			<< std::setw(optionMargin + printTreeText.length()) << printTreeText << std::endl << std::endl
 			<< std::setw(optionMargin + efficiencyText.length()) << efficiencyText << std::endl << std::endl
 			<< std::setw(optionMargin + teamOptionText.length()) << teamOptionText << std::endl << std::endl
+			<< std::setw(optionMargin + saveText.length()) << saveText << std::endl << std::endl
 			<< std::setw(optionMargin + quitText.length()) << quitText << std::endl << std::endl
 			<< bars << std::endl << std::endl;
 
