@@ -197,7 +197,7 @@ namespace Interface
 		}
 
 	}
-	void addNewItem(List<Item>& itemList)
+	Item addNewItem(List<Item>& itemList)
 	{
 		int newUid, newCategory, newQuantity;
 		std::string newUpc, newName, newSize;
@@ -288,7 +288,7 @@ namespace Interface
 
 		itemList.insertLast(newItem);
 
-		return;
+		return newItem;
 	}
 	void displayDeleteMenu()
 	{
@@ -314,10 +314,12 @@ namespace Interface
 
 		return;
 	}
-	void deleteByUid(List<Item>& itemList)
+	Item deleteByUid(List<Item>& itemList)
 	{
 		int intItemToDelete, i = 0, positionOfItem = 0;
 		bool found = false;
+		Item itemDeleted;
+
 		Interface::clearScreen(true);
 		std::cout << "Enter the UID of the item you want to delete:" << std::endl << std::endl;
 		intItemToDelete = Input::getInt(1, 5999);
@@ -332,6 +334,7 @@ namespace Interface
 		}
 		if (found == true)
 		{
+			itemDeleted = itemList.getData(positionOfItem);
 			itemList.remove(positionOfItem);
 			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
@@ -341,13 +344,15 @@ namespace Interface
 		}
 		pause();
 
-		return;
+		return itemDeleted;
 	}
-	void deleteByName(List<Item>& itemList)
+	Item deleteByName(List<Item>& itemList)
 	{
 		int i = 0, positionOfItem = 0;
 		std::string strItemToDelete;
 		bool found = false;
+		Item itemDeleted;
+
 		Interface::clearScreen(true);
 		std::cout << "Enter the name of the item you want to delete:" << std::endl << std::endl;
 		strItemToDelete = Input::getString();
@@ -362,6 +367,7 @@ namespace Interface
 		}
 		if (found == true)
 		{
+			itemDeleted = itemList.getData(positionOfItem);
 			itemList.remove(positionOfItem);
 			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
@@ -371,13 +377,15 @@ namespace Interface
 		}
 		pause();
 
-		return;
+		return itemDeleted;
 	}
-	void deleteByUpc(List<Item>& itemList)
+	Item deleteByUpc(List<Item>& itemList)
 	{
 		int i = 0, positionOfItem = 0;
 		std::string strItemToDelete;
 		bool found = false;
+		Item itemDeleted;
+
 		Interface::clearScreen(true);
 		std::cout << "Enter the UPC of the item you want to delete:" << std::endl << std::endl;
 		strItemToDelete = Input::getString();
@@ -392,6 +400,7 @@ namespace Interface
 		}
 		if (found == true)
 		{
+			itemDeleted = itemList.getData(positionOfItem);
 			itemList.remove(positionOfItem);
 			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
@@ -401,7 +410,7 @@ namespace Interface
 		}
 		pause();
 
-		return;
+		return itemDeleted;
 	}
 	void displaySearchMenu()
 	{

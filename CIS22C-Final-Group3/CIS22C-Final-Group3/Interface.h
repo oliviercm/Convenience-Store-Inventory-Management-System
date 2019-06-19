@@ -28,11 +28,11 @@ namespace Interface
 	void promptOption();
 	void displayMainMenu();
 	void displayInventory(List<Item>&);
-	void addNewItem(List<Item>&);
+	Item addNewItem(List<Item>&);
 	void displayDeleteMenu();
-	void deleteByUid(List<Item>&);
-	void deleteByName(List<Item>&);
-	void deleteByUpc(List<Item>&);
+	Item deleteByUid(List<Item>&);
+	Item deleteByName(List<Item>&);
+	Item deleteByUpc(List<Item>&);
 	void displaySearchMenu();
 	Item searchByName(List<Item>&);
 	Item searchByUpc(List<Item>&);
