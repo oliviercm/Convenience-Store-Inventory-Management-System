@@ -16,6 +16,8 @@
 #include "List.h"
 #include "AVLTree.h"
 #include "HashTable.h"
+#include "SortList.h"
+
 
 namespace Interface
 {
@@ -35,5 +37,7 @@ namespace Interface
 	Item searchByName(List<Item>&);
 	Item searchByUpc(List<Item>&);
 	void displayHashTable(HashTable<int, Item>&);
+	void displayKeySequence(List<Item>&);
 	void displayTypeTrees();
+	void calculateProfit(AVLTree<double>&, AVLTree<double>&);
 };

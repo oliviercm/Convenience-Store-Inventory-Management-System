@@ -35,7 +35,7 @@ public:
 	void add_avl(const T &);
 	bool remove_avl(const T &);
 	void print_tree_avl();
-
+	void myVisit(List<Item>&);
 
 	void check_balanced_r(BinaryTreeNode<T> *);
 	void check_balanced();
@@ -525,6 +525,12 @@ template <typename T>
 void AVLTree<T>::print_tree_avl()
 {
 	BinarySearchTree<T>::print_tree();
+}
+
+template<typename T>
+void AVLTree<T>::myVisit(List<Item>& itemList)
+{
+	
 }
 
 #endif

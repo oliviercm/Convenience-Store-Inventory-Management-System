@@ -319,7 +319,7 @@ namespace Interface
 		int intItemToDelete, i = 0, positionOfItem = 0;
 		bool found = false;
 		Interface::clearScreen(true);
-		std::cout << "Enter the UID of the item you want to delete:" << std::endl;
+		std::cout << "Enter the UID of the item you want to delete:" << std::endl << std::endl;
 		intItemToDelete = Input::getInt(1, 5999);
 		for (i = 0; i < itemList.getCount(); i++)
 		{
@@ -333,6 +333,7 @@ namespace Interface
 		if (found == true)
 		{
 			itemList.remove(positionOfItem);
+			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
 		else
 		{
@@ -348,7 +349,7 @@ namespace Interface
 		std::string strItemToDelete;
 		bool found = false;
 		Interface::clearScreen(true);
-		std::cout << "Enter the name of the item you want to delete:" << std::endl;
+		std::cout << "Enter the name of the item you want to delete:" << std::endl << std::endl;
 		strItemToDelete = Input::getString();
 		for (i = 0; i < itemList.getCount(); i++)
 		{
@@ -362,6 +363,7 @@ namespace Interface
 		if (found == true)
 		{
 			itemList.remove(positionOfItem);
+			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
 		else
 		{
@@ -377,7 +379,7 @@ namespace Interface
 		std::string strItemToDelete;
 		bool found = false;
 		Interface::clearScreen(true);
-		std::cout << "Enter the UPC of the item you want to delete:" << std::endl;
+		std::cout << "Enter the UPC of the item you want to delete:" << std::endl << std::endl;
 		strItemToDelete = Input::getString();
 		for (i = 0; i < itemList.getCount(); i++)
 		{
@@ -391,6 +393,7 @@ namespace Interface
 		if (found == true)
 		{
 			itemList.remove(positionOfItem);
+			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
 		else
 		{
@@ -476,6 +479,8 @@ namespace Interface
 	} 
 	void displayHashTable(HashTable<int, Item>& itemHashTable)
 	{
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string titleText = "[DISPLAYED HASH TABLE]";
 		const std::string uidText = "UID:";
 		const std::string upcText = "UPC:";
 		const std::string nameText = "NAME:";
@@ -494,7 +499,10 @@ namespace Interface
 		const size_t retailColumnLength = retailText.length() + columnSpacing;
 		const size_t quantityColumnLength = quantityText.length() + columnSpacing;
 
+		const size_t titleMargin = (TERMINAL_WIDTH + titleText.length()) / 2;
 		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+
+		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
 
 		std::cout << std::left;
 
@@ -552,7 +560,82 @@ namespace Interface
 		}
 		pause();
 		clearScreen(true);
-		pause();
+	}
+	void displayKeySequence(List<Item>& itemList)
+	{
+		//Merge sort itemList
+		SortList::mergeSortItemList(itemList);
+
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string titleText = "[DISPLAYED KEY SEQUENCE]";
+		const std::string uidText = "UID:";
+		const std::string upcText = "UPC:";
+		const std::string nameText = "NAME:";
+		const std::string sizeText = "SIZE:";
+		const std::string categoryText = "CATEGORY:";
+		const std::string wholesaleText = "WHOLESALE:";
+		const std::string retailText = "RETAIL:";
+		const std::string quantityText = "QUANTITY:";
+
+		const size_t columnSpacing = 3;
+		const size_t uidColumnLength = 3 + columnSpacing;
+		const size_t upcColumnLength = 13 + columnSpacing;
+		const size_t sizeColumnLength = 7 + columnSpacing;
+		const size_t categoryColumnLength = 9 + columnSpacing;
+		const size_t wholesaleColumnLength = wholesaleText.length() + columnSpacing;
+		const size_t retailColumnLength = retailText.length() + columnSpacing;
+		const size_t quantityColumnLength = quantityText.length() + columnSpacing;
+
+		const size_t titleMargin = (TERMINAL_WIDTH + titleText.length()) / 2;
+		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
+
+		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << std::left;
+
+		std::cout << std::setw(uidColumnLength) << uidText
+			<< std::setw(upcColumnLength) << upcText
+			<< std::setw(nameColumnLength) << nameText
+			<< std::setw(sizeColumnLength) << sizeText
+			<< std::setw(categoryColumnLength) << categoryText
+			<< std::setw(wholesaleColumnLength) << wholesaleText
+			<< std::setw(retailColumnLength) << retailText
+			<< std::setw(quantityColumnLength) << quantityText
+			<< std::endl << std::endl;
+
+		for (int i = 0; i < itemList.getCount(); i++)
+		{
+			//Print out each item
+			std::cout << std::setw(uidColumnLength) << itemList[i].uid
+				<< std::setw(upcColumnLength) << itemList[i].upc
+				<< std::setw(nameColumnLength) << itemList[i].name.substr(0, 30)
+				<< std::setw(sizeColumnLength) << itemList[i].size;
+			if (itemList[i].category == 1)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Snack";
+			}
+			else if (itemList[i].category == 2)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Drink";
+			}
+			else if (itemList[i].category == 3)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Tabacco";
+			}
+			else if (itemList[i].category == 4)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Lotto";
+			}
+			else if (itemList[i].category == 5)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Misc";
+			}
+			std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemList[i].wholesale
+				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemList[i].retail
+				<< std::setw(quantityColumnLength) << itemList[i].quantity;
+
+			std::cout << std::endl << std::endl;
+		}
 	}
 	void displayTypeTrees()
 	{
@@ -575,5 +658,9 @@ namespace Interface
 			<< bars << std::endl << std::endl;
 
 		return;
+	}
+	void calculateProfit(AVLTree<double>& avlRetail, AVLTree<double>& avlWholesale)
+	{
+		
 	}
 }
