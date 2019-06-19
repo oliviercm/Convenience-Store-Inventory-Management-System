@@ -310,7 +310,8 @@ double HashTable<K, T>::calcLoadFactor()
 template<typename K, typename T>
 bool HashTable<K, T>::add(const T& item)
 {
-    //Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
+	Efficiency::globalHashOperations++;
+	//Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
     if (!(arr + getAddress(item))->isEmpty())
         offTable++;
     //Calls hash function and stores at beginning of the list at computed index
@@ -326,7 +327,8 @@ bool HashTable<K, T>::add(const T& item)
 template<typename K, typename T>
 bool HashTable<K, T>::add(const K& k, const T& item)
 {
-    int index = getAddress(k);
+	Efficiency::globalHashOperations++;
+	int index = getAddress(k);
     //Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
     if (!(arr + index)->isEmpty())
         offTable++;
@@ -344,7 +346,8 @@ bool HashTable<K, T>::add(const K& k, const T& item)
 template<typename K, typename T>
 bool HashTable<K, T>::remove(const T& item)
 {
-    //Get hash address
+	Efficiency::globalHashOperations++;
+	//Get hash address
     int index = getAddress(item);
     //Finds specific item's location in the list
     int position = (arr + index)->getPos(item);
@@ -362,7 +365,8 @@ bool HashTable<K, T>::remove(const T& item)
 template<typename K, typename T>
 bool HashTable<K, T>::remove(const K& k, const T& item)
 {
-    //Get hash address
+	Efficiency::globalHashOperations++;
+	//Get hash address
     int index = getAddress(k);
     //Finds specific item's location in the list
     int position = (arr + index)->getPos(item);
@@ -431,7 +435,8 @@ int HashTable<K, T>::getOffTable() const
 template<typename K, typename T>
 void HashTable<K, T>::reHash()
 {
-    //Temporary array with count > size of table
+	Efficiency::globalHashOperations++;
+	//Temporary array with count > size of table
     const int prevCount = count;
     //Pointer to an array to hold data values of array that needs resizing
     T* dataHolder = new T[prevCount];
@@ -476,7 +481,8 @@ void HashTable<K, T>::reHash()
         K key;
         data = dataHolder[i];
         key = keyHolder[i];
-        add(key, data);
+    	add(key, data);
+		Efficiency::globalHashOperations++;
     }
     //deleting the holder arrays
     delete[] dataHolder;
@@ -535,6 +541,7 @@ List<T>* HashTable<K, T>::getItems(K key)
         listPtr->insertFirst(data);
         i++;
     }
+	Efficiency::globalHashOperations++;
     //Returning pointer to linked list of data
     return listPtr;
 }
