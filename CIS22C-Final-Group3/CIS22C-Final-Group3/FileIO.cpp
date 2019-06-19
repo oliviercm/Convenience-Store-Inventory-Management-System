@@ -169,11 +169,11 @@ namespace FileIO
 		}
 	}
 	
-	void loadFileIntoList(List<Item>& list, const std::string& filePath)
+	void loadFileIntoArray(Array<Item>& arr, const std::string& filePath)
 	{
-		if (list.getCount() > 0)
+		if (arr.getSize() > 0)
 		{
-			throw std::invalid_argument("ERROR: List is not empty.");
+			throw std::invalid_argument("ERROR: Array is not empty.");
 		}
 
 		const std::string itemsString = fileToString(filePath);
@@ -283,18 +283,18 @@ namespace FileIO
 				}
 			}
 
-			list.insertLast(
-				Item(std::move(uid), std::move(upc), std::move(name), std::move(size), std::move(category), std::move(wholesale), std::move(retail), std::move(quantity))
-			);
+			Item item = Item(std::move(uid), std::move(upc), std::move(name), std::move(size), std::move(category), std::move(wholesale), std::move(retail), std::move(quantity));
+
+			arr.append(std::move(item));
 		}
 	}
-	void saveListIntoFile(List<Item>& list, const std::string& filePath)
+	void saveArrayIntoFile(Array<Item>& arr, const std::string& filePath)
 	{
 		std::string itemsString = std::string();
 
-		for (int i = 0; i < list.getCount(); i++)
+		for (int i = 0; i < arr.getSize(); i++)
 		{
-			itemsString.append(itemToString(list[i]));
+			itemsString.append(itemToString(arr[i]));
 		}
 
 		std::ofstream os;

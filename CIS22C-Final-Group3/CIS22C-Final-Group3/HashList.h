@@ -42,7 +42,7 @@ private:
      *
      * returns: Pointer to the inserted Hash Node
      */
-    virtual HashNode<K, T>* insert(const T& newData, const int pos, const K& k);
+    virtual HashNode<K, T>* insert(T& newData, const int pos, const K& k);
 public:
     /*
      * HashList
@@ -81,7 +81,7 @@ public:
      *
      * returns: Pointer to the inserted Hash Node
      */
-    HashNode<K, T>* insertFirst(const K&, const T&);
+    HashNode<K, T>* insertFirst(K&, T&);
     /*
      * remove
      *
@@ -179,7 +179,7 @@ int HashList<K, T>::getCount() const
 }
 
 template <typename K, typename T>
-HashNode<K, T>* HashList<K, T>::insert(const T& data, const int pos, const K& k)
+HashNode<K, T>* HashList<K, T>::insert(T& data, const int pos, const K& k)
 {
     Node<T>* holder = List<T>::insert(data, pos);
     HashNode<K, T> *newHnode = new HashNode<K,T>(data);
@@ -204,7 +204,7 @@ HashNode<K, T>* HashList<K, T>::insert(const T& data, const int pos, const K& k)
 }
 
 template<typename K, typename T>
-HashNode<K, T>* HashList<K, T>::insertFirst(const K& k, const T& newData)
+HashNode<K, T>* HashList<K, T>::insertFirst(K& k, T& newData)
 {
     return insert(newData, 0, k);
 }

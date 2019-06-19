@@ -15,12 +15,13 @@ Yue Pan
 #include "Interface.h"
 #include "Item.h"
 #include "Input.h"
+#include "Array.h"
 #include "List.h"
 #include "HashTable.h"
-#include "AVLTree.h"
+//#include "AVLTree.h"
 #include "SortList.h"
-#include "BinarySearchTree.h"
-#include "BinaryTreeNode.h"
+//#include "BinarySearchTree.h"
+//#include "BinaryTreeNode.h"
 
 using namespace std;
 
@@ -34,13 +35,13 @@ int main()
 	cout << "Enter path to data file: ";
 	filepath = Input::getString();
 
-	//Try loading the file into a list
-	List<Item> itemList;
+	//Try loading the file into an array
+	Array<Item> itemArray;
 	try
 	{
-		FileIO::loadFileIntoList(itemList, filepath);
+		FileIO::loadFileIntoArray(itemArray, filepath);
 	}
-	catch(std::invalid_argument e)
+	catch (std::invalid_argument e)
 	{
 		cerr << e.what() << endl;
 		cout << "Quitting..." << endl;
@@ -55,29 +56,45 @@ int main()
 		return 0;
 	}
 
-	//Load the hash table from the list
-	HashTable<int, Item> itemHashTable;
+	cout << itemArray.getSize();
 
-	for (int i = 0; i < itemList.getCount(); i++)
+
+	for (int i = 1; i < itemArray.getSize(); i++)
 	{
-		itemHashTable.add(itemList[i].uid, itemList[i]);
+		cout << itemArray[i] << endl;
 	}
 
-	//Load the AVL tree from the list
-	AVLTree<double> avlRetailTree;
-	AVLTree<double> avlWholesaleTree;
-	AVLTree<int> avlUidTree;
+	//Load the linked list from the array
+	List<Item> itemList;
 
-	for (int i = 0; i < itemList.getCount(); i++)
+	for (int i = 0; i < itemArray.getSize(); i++)
 	{
-		avlRetailTree.add_avl(itemList[i].retail);
-		avlWholesaleTree.add_avl(itemList[i].wholesale);
-		avlUidTree.add_avl(itemList[i].uid);
+		itemList.insertLast(itemArray[i]);
+	}
+
+	//Load the hash table from the array
+	HashTable<int, Item> itemHashTable;
+
+	for (int i = 0; i < itemArray.getSize(); i++)
+	{
+		itemHashTable.add(itemArray[i].uid, itemArray[i]);
+	}
+
+	//Load the AVL tree from the array
+	//AVLTree<double> avlRetailTree;
+	//AVLTree<double> avlWholesaleTree;
+	//AVLTree<int> avlUidTree;
+
+	for (int i = 0; i < itemArray.getSize(); i++)
+	{
+		//avlRetailTree.add_avl(itemArray[i].retail);
+		//avlWholesaleTree.add_avl(itemArray[i].wholesale);
+		//avlUidTree.add_avl(itemArray[i].uid);
 	}
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
-	//Interface::displayInventory(itemList);
+	Interface::displayInventory(itemList);
 	Interface::pause();
 	Interface::clearScreen();
 
@@ -101,94 +118,74 @@ int main()
 				{
 					Item newItem;
 					Interface::addNewItem(itemList);
-					FileIO::saveListIntoFile(itemList, filepath);
+					FileIO::saveArrayIntoFile(itemArray, filepath);
 					Interface::displayInventory(itemList);
 					cout << endl;
 
 					cout << "Would you like to add another item? [1] Yes [2] No" << endl;
 					inputAgain = Input::getInt(1, 2);
-					Interface::clearScreen(true);
 				} while (inputAgain == 1);
 			}
+			Interface::clearScreen(true);
 			break;
-		case 2: //Delete data
-		{
-			do
+			case 2: //Delete data
 			{
-				Interface::clearScreen(true);
-				Interface::displayDeleteMenu();
-				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 4);
+				do
+				{
+					Interface::clearScreen(true);
+					Interface::displayDeleteMenu();
+					Interface::promptOption();
+					inputSubMenu = Input::getInt(1, 4);
 
-				switch (inputSubMenu)
-				{
-				case 1://deleteByUid
-				{
-					Interface::deleteByUid(itemList);
-					FileIO::saveListIntoFile(itemList, filepath);
-					cout << endl;
-					Interface::displayInventory(itemList);
-					Interface::pause();
-				}
-				Interface::clearScreen(true);
-				break;
-				case 2://deleteByName
-				{
-					Interface::deleteByName(itemList);
-					FileIO::saveListIntoFile(itemList, filepath);
-					cout << endl;
-					Interface::displayInventory(itemList);
-					Interface::pause();
-				}
-				Interface::clearScreen(true);
-				break;
-				case 3://deleteByUpc
-				{
-					Interface::deleteByUpc(itemList);
-					FileIO::saveListIntoFile(itemList, filepath);
-					cout << endl;
-					Interface::displayInventory(itemList);
-					Interface::pause();
-				}
-				Interface::clearScreen(true);
-				break;
-				default:
+					switch (inputSubMenu)
+					{
+					case 1://deleteByUid
+					{
+						Interface::deleteByUid(itemList);
+						FileIO::saveArrayIntoFile(itemArray, filepath);
+						cout << endl;
+						Interface::displayInventory(itemList);
+						Interface::pause();
+					}
+					Interface::clearScreen(true);
 					break;
-			while (inputSubMenu != 4);
-		case 3: //Search
-		{
-			do
-			{
-				int beginningListOperations = Efficiency::globalListOperations;
-				Item foundItem = Interface::searchByName(itemList);
-				//Item wasn't found
-				if (foundItem == Item())
-				{
-					cout << "Item not found." << endl;
-				}
-				//Item was found
-				else
-				{
-					cout << foundItem << endl;
-				}
-					cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
-					Interface::pause();
-				}
-			while (inputSubMenu != 4);
-				Interface::clearScreen();
-				break;
+					case 2://deleteByName
+					{
+						Interface::deleteByName(itemList);
+						FileIO::saveArrayIntoFile(itemArray, filepath);
+						cout << endl;
+						Interface::displayInventory(itemList);
+						Interface::pause();
+					}
+					Interface::clearScreen(true);
+					break;
+					case 3://deleteByUpc
+					{
+						Interface::deleteByUpc(itemList);
+						FileIO::saveArrayIntoFile(itemArray, filepath);
+						cout << endl;
+						Interface::displayInventory(itemList);
+						Interface::pause();
+					}
+					Interface::clearScreen(true);
+					break;
+					default:
+						break;
+					}
+				} while (inputSubMenu != 4);
 			}
 			case 3: //Search
 			{
-				Interface::clearScreen();
-				Interface::displaySearchMenu();
-				Interface::promptOption();
-				inputSubMenu = Input::getInt(1, 3);
-
-				switch (inputSubMenu)
+				do
 				{
-					do
+					Interface::clearScreen();
+					Interface::displaySearchMenu();
+					Interface::promptOption();
+					inputSubMenu = Input::getInt(1, 3);
+
+					switch (inputSubMenu)
 					{
+
 					case 1://searchByName
 					{
 						int beginningListOperations = Efficiency::globalListOperations;
@@ -206,6 +203,8 @@ int main()
 						cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
 						Interface::pause();
 					}
+					Interface::clearScreen(true);
+					break;
 					case 2://searchByUpc
 					{
 						int beginningListOperations = Efficiency::globalListOperations;
@@ -223,9 +222,13 @@ int main()
 						cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
 						Interface::pause();
 					}
-					} while (inputSubMenu != 3);
-					Interface::clearScreen(true);
+					default:
 						break;
+						Interface::clearScreen(true);
+						break;
+					}
+				}while (inputSubMenu != 4);
+			}
 			case 4: //List data in Hash Table Sequence
 			{
 				Interface::clearScreen(true);
@@ -255,12 +258,12 @@ int main()
 					switch (inputSubMenu)
 					{
 					case 1:
-						avlWholesaleTree.print_tree_avl();
+						//avlWholesaleTree.print_tree_avl();
 						cout << endl;
 						Interface::pause();
 						break;
 					case 2:
-						avlRetailTree.print_tree_avl();
+						//avlRetailTree.print_tree_avl();
 						cout << endl;
 						Interface::pause();
 						break;

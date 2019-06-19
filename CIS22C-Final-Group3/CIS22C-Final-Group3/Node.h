@@ -19,42 +19,20 @@ template <typename T>
 struct Node
 {
 public:
-	T data;
+	T& data;
 	Node<T>* next;
 
-	Node(const T&);
-	Node(const T&, Node<T>*);
-	Node(T&&);
-	Node(T&&, Node<T>*);
-    Node();
+	Node(T&);
+	Node(T&, Node<T>*);
 };
 
 template <typename T>
-Node<T>::Node(const T& d) : data(d), next(nullptr)
+Node<T>::Node(T& d) : data(d), next(nullptr)
 {
 
 }
-
 template <typename T>
-Node<T>::Node(T&& d) : data(d), next(nullptr)
-{
-
-}
-
-template <typename T>
-Node<T>::Node(const T& d, Node<T>* n) : data(d), next(n)
-{
-
-}
-
-template <typename T>
-Node<T>::Node(T&& d, Node<T>* n) : data(d), next(n)
-{
-
-}
-
-template<typename T>
-inline Node<T>::Node()
+Node<T>::Node(T& d, Node<T>* n) : data(d), next(n)
 {
 
 }

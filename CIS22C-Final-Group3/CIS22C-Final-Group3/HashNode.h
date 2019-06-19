@@ -23,14 +23,14 @@ struct HashNode : Node<T>
     //Next pointer
     HashNode<K, T>* next = nullptr;
     //Constructors
-    HashNode(const T&);
+    HashNode(T&);
     HashNode();
 };
 
 template <typename K, typename T>
-HashNode<K,T>::HashNode(const T& d)
+HashNode<K,T>::HashNode(T& dt) : Node<T>(dt)
 {
-    Node<T>(data);
+    
 }
 
 template <typename K, typename T>
