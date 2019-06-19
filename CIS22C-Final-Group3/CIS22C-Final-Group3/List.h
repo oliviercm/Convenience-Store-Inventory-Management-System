@@ -45,9 +45,12 @@ public:
 
 	virtual bool isEmpty() const;
 	virtual int getCount() const;
-	virtual Node<T>* insert(T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	virtual Node<T>* insertFirst(T&);
-	virtual Node<T>* insertLast(T&);
+	virtual Node<T>* insert(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual Node<T>* insertFirst(const T&);
+	virtual Node<T>* insertLast(const T&);
+	virtual Node<T>* insert(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual Node<T>* insertFirst(T&&);
+	virtual Node<T>* insertLast(T&&);
 	virtual void remove(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	virtual void removeFirst();
 	virtual void removeLast();
@@ -55,12 +58,14 @@ public:
 	virtual T& getData(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	virtual T& getFirstData();
 	virtual T& getLastData();
-	virtual void setData(T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
-	virtual void setFirstData(T&);
-	virtual void setLastData(T&);
+	virtual void setData(const T&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual void setFirstData(const T&);
+	virtual void setLastData(const T&);
 	virtual void setData(T&&, const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
 	virtual void setFirstData(T&&);
 	virtual void setLastData(T&&);
+	int getPos(T item);
+	List<T> copy();
 
 	T& operator[](const int);
 };
@@ -115,7 +120,7 @@ Insert data into the list
 @return N/A.
 */
 template <typename T>
-Node<T>* List<T>::insert(T& newData, const int pos)
+Node<T>* List<T>::insert(const T& newData, const int pos)
 {
 	if (pos < 0 || pos > count)
 	{
@@ -158,6 +163,51 @@ Node<T>* List<T>::insert(T& newData, const int pos)
 	count++;
 	return returnNode;
 }
+template <typename T>
+Node<T>* List<T>::insert(T&& newData, const int pos)
+{
+	if (pos < 0 || pos > count)
+	{
+		throw std::out_of_range("Index out of range.");
+	}
+
+	Node<T>* returnNode;
+
+	if (head == nullptr) //The list is empty
+	{
+		head = new Node<T>(std::move(newData));
+		Efficiency::globalListOperations++;
+
+		returnNode = head;
+	}
+	else if (pos == 0) //Replacing head
+	{
+		Node<T>* temp = head;
+		head = new Node<T>(std::move(newData), temp);
+		Efficiency::globalListOperations++;
+
+		returnNode = head;
+	}
+	else
+	{
+		Node<T>* currentNode = head;
+		for (int i = 0; i < pos - 1; i++)
+		{
+			currentNode = currentNode->next;
+			Efficiency::globalListOperations++;
+		}
+
+		Node<T>* temp = currentNode->next;
+		currentNode->next = new Node<T>(std::move(newData), temp);
+		Efficiency::globalListOperations++;
+
+		returnNode = currentNode->next;
+	}
+
+	count++;
+
+	return returnNode;
+}
 
 /*
 Inserts data in the first position of the list
@@ -166,9 +216,15 @@ Inserts data in the first position of the list
 @return.
 */
 template <typename T>
-Node<T>* List<T>::insertFirst(T& newData)
+Node<T>* List<T>::insertFirst(const T& newData)
 {
 	return insert(newData, 0);
+}
+
+template <typename T>
+Node<T>* List<T>::insertFirst(T&& newData)
+{
+	return insert(std::move(newData), 0);
 }
 
 /*
@@ -178,9 +234,14 @@ Inserts data at the last position of the list
 @return.
 */
 template <typename T>
-Node<T>* List<T>::insertLast(T& newData)
+Node<T>* List<T>::insertLast(const T& newData)
 {
 	return insert(newData, count);
+}
+template <typename T>
+Node<T>* List<T>::insertLast(T&& newData)
+{
+	return insert(std::move(newData), count);
 }
 
 /*
@@ -327,6 +388,8 @@ T& List<T>::getData(const int pos)
 	return currentNode->data;
 }
 
+
+
 /*
 Gets data from the first element.
 @pre None.
@@ -339,6 +402,7 @@ T& List<T>::getFirstData()
 {
 	return getData(0);
 }
+
 
 /*
 Gets data from the last element.
@@ -360,7 +424,7 @@ Sets data in the list.
 @return.
 */
 template <typename T>
-void List<T>::setData(T& newData, const int pos)
+void List<T>::setData(const T& newData, const int pos)
 {
 	if (head == nullptr) //The list is empty
 	{
@@ -415,7 +479,7 @@ Sets data of the first element.
 @return.
 */
 template <typename T>
-void List<T>::setFirstData(T& newData)
+void List<T>::setFirstData(const T& newData)
 {
 	setData(newData, 0);
 	return;
@@ -434,12 +498,11 @@ Sets data of the last element.
 @return.
 */
 template <typename T>
-void List<T>::setLastData(T& newData)
+void List<T>::setLastData(const T& newData)
 {
 	setData(newData, count - 1);
 	return;
 }
-
 template <typename T>
 void List<T>::setLastData(T&& newData)
 {
@@ -447,8 +510,36 @@ void List<T>::setLastData(T&& newData)
 	return;
 }
 
+template<typename T>
+int List<T>::getPos(T item)
+{
+	int pos = 0;
+	Node<T> *current = head;
+	while (current != 0)
+	{
+		if (current->data == item)
+			return pos;
+		pos++;
+		current = current->next;
+	}
+	return -1;
+}
+
 template <typename T>
 T& List<T>::operator[](const int index)
 {
 	return getData(index);
+}
+
+template <typename T>
+List<T> List<T>::copy()
+{
+	List<T> copyList;
+
+	for (int i = 0; i < getCount(); i++)
+	{
+		copyList.insertLast(this[i]);
+	}
+
+	return copyList;
 }

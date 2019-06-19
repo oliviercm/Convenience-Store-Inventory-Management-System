@@ -121,7 +121,7 @@ public:
      *
      * returns: boolean value to represent success/failure
      */
-    bool add(T& item);
+    bool add(const T& item);
     /*
      * add
      *
@@ -131,7 +131,7 @@ public:
      *
      * returns: boolean value to represent success/failure
      */
-    bool add(K& key, T& value);
+    bool add(const K& key, const T& value);
     /*
      * remove
      *
@@ -308,7 +308,7 @@ double HashTable<K, T>::calcLoadFactor()
 }
 
 template<typename K, typename T>
-bool HashTable<K, T>::add(T& item)
+bool HashTable<K, T>::add(const T& item)
 {
 	Efficiency::globalHashOperations++;
 	//Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
@@ -325,7 +325,7 @@ bool HashTable<K, T>::add(T& item)
 }
 
 template<typename K, typename T>
-bool HashTable<K, T>::add(K& k, T& item)
+bool HashTable<K, T>::add(const K& k, const T& item)
 {
 	Efficiency::globalHashOperations++;
 	int index = getAddress(k);
