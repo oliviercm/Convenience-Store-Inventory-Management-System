@@ -1,6 +1,7 @@
 #include "Interface.h"
 #include "Input.h"
 #include "Item.h"
+#include "HashTable.h"
 
 #include <iostream>
 #include <iomanip>
@@ -94,12 +95,12 @@ namespace Interface
 	{
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string mainMenuText = "[ MAIN MENU ]";
-		const std::string addNewDataText = "[ 1 ] ADD NEW DATA";
-		const std::string deleteDataText = "[ 2 ] DELETE DATA";
-		const std::string searchText = "[ 3 ] SEARCH";
-		const std::string listDataHashText = "[ 4 ] LIST DATA IN HASH TABLE SEQUENCE";
-		const std::string listDataKeyText = "[ 5 ] LIST DATA IN KEY SEQUENCE";
-		const std::string printTreeText = "[ 6 ] PRINT TREE";
+		const std::string addNewDataText = "[ 1 ] ADD ITEM";
+		const std::string deleteDataText = "[ 2 ] DELETE ITEM";
+		const std::string searchText = "[ 3 ] SEARCH BY UID";
+		const std::string listDataKeyText = "[ 4 ] LIST DATA SORTED BY UID";
+		const std::string listDataHashText = "[ 5 ] PRINT HASH TABLE";
+		const std::string printTreeText = "[ 6 ] PRINT BINARY TREE";
 		const std::string efficiencyText = "[ 7 ] EFFICIENCY";
 		const std::string teamOptionText = "[ 8 ] MARGINS AND PROFITABILITY";
 		const std::string quitText = "[ 9 ] QUIT";
@@ -115,8 +116,8 @@ namespace Interface
 		std::cout << std::setw(optionMargin + addNewDataText.length()) << addNewDataText << std::endl << std::endl
 			<< std::setw(optionMargin + deleteDataText.length()) << deleteDataText << std::endl << std::endl
 			<< std::setw(optionMargin + searchText.length()) << searchText << std::endl << std::endl
-			<< std::setw(optionMargin + listDataHashText.length()) << listDataHashText << std::endl << std::endl
 			<< std::setw(optionMargin + listDataKeyText.length()) << listDataKeyText << std::endl << std::endl
+			<< std::setw(optionMargin + listDataHashText.length()) << listDataHashText << std::endl << std::endl
 			<< std::setw(optionMargin + printTreeText.length()) << printTreeText << std::endl << std::endl
 			<< std::setw(optionMargin + efficiencyText.length()) << efficiencyText << std::endl << std::endl
 			<< std::setw(optionMargin + teamOptionText.length()) << teamOptionText << std::endl << std::endl
@@ -197,14 +198,14 @@ namespace Interface
 		}
 
 	}
-	Item addNewItem(Array<Item>& itemArray)
+	Item addNewItem(List<Item>& itemList)
 	{
+		clearScreen();
+		
 		int newUid, newCategory, newQuantity;
 		std::string newUpc, newName, newSize;
 		double newWholeSale, newRetail;
 		bool found = false;
-
-		Interface::clearScreen(true);
 
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string titleText = "[ ADD NEW DATA ]";
@@ -213,40 +214,40 @@ namespace Interface
 		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
 
 		std::cout << "Enter the 4-digit UID of the item" << std::endl;
-		newUid = Input::getInt(1, 5999);
+		newUid = Input::getInt(0, 9999);
 		std::cout << std::endl;
 		std::string temp = std::to_string(newUid);
 		while (temp.length() != 4)
 		{
 			std::cout << "ERROR: UID must be a 4-digits long, try again:" << std::endl;
-			newUid = Input::getInt(1, 5999);
+			newUid = Input::getInt(1, 9999);
 			std::cout << std::endl;
 			temp = std::to_string(newUid);
 		}
-		for (int i = 0; i < itemArray.getSize(); i++)
+		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			while (itemArray[i].uid == newUid)
+			while (itemList[i].uid == newUid)
 			{
-				std::cout << "ERROR: The UID you enter already exists, try another UID:" << std::endl;
-				newUid = Input::getInt(1, 5999);
+				std::cout << "ERROR: The UID you entered already exists, try another UID:" << std::endl;
+				newUid = Input::getInt(1, 9999);
 				std::cout << std::endl;
 			}
 		}
 		std::cout << "Enter the UPC of the item" << std::endl;
 		newUpc = Input::getString();
 		std::cout << std::endl;
-		while (newUpc.length() < 12)
+		while (newUpc.length() != 13)
 		{
 			std::cout << "ERROR: UPC must be 13-digits long, try again:" << std::endl;
 			newUpc = Input::getString();
 			std::cout << std::endl;
 		}
 
-		for (int i = 0; i < itemArray.getSize(); i++)
+		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			while (itemArray[i].upc == newUpc)
+			while (itemList[i].upc == newUpc)
 			{
-				std::cout << "ERROR: The UPC you enter already exists, try another UPC:" << std::endl;
+				std::cout << "ERROR: The UPC you entered already exists, try another UPC:" << std::endl;
 				newUpc = Input::getString();
 				std::cout << std::endl;
 			}
@@ -254,9 +255,9 @@ namespace Interface
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
 		std::cout << std::endl;
-		for (int i = 0; i < itemArray.getSize(); i++)
+		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			while (itemArray[i].name == newName)
+			while (itemList[i].name == newName)
 			{
 				std::cout << "ERROR: The name you enter already exists, try another name:" << std::endl;
 				newName = Input::getString();
@@ -269,31 +270,29 @@ namespace Interface
 		std::cout << std::endl;
 
 		std::cout << "Enter the category of the item" << std::endl;
-		newCategory = Input::getInt(1, 6);
+		newCategory = Input::getInt(1, 5);
 		std::cout << std::endl;
 
 		std::cout << "Enter the whole-sale of the item" << std::endl;
-		newWholeSale = Input::getDouble(0.0, 100000.0);
+		newWholeSale = Input::getDouble();
 		std::cout << std::endl;
 
 		std::cout << "Enter the retail price of the item" << std::endl;
-		newRetail = Input::getDouble(0.0, 100000.0);
+		newRetail = Input::getDouble();
 		std::cout << std::endl;
 
 		std::cout << "Enter the quantity of the tem" << std::endl;
-		newQuantity = Input::getInt(1, 1000);
+		newQuantity = Input::getInt();
 		std::cout << std::endl;
 
-		Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
-
-		itemArray.append(newItem);
-		pause();
-		clearScreen(true);
+		Item newItem = Item(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
 
 		return newItem;
 	}
 	void displayDeleteMenu()
 	{
+		clearScreen();
+		
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string deleteText = "[ DELETE ]";
 		const std::string byUidText = "[ 1 ] BY UID";
@@ -316,111 +315,117 @@ namespace Interface
 
 		return;
 	}
-	Item deleteByUid(Array<Item>& itemArray)
+	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
 	{
-		int intItemToDelete, i = 0, positionOfItem = 0;
-		bool found = false;
-		Item itemDeleted;
+		clearScreen();
 
-		Interface::clearScreen(true);
-		std::cout << "Enter the UID of the item you want to delete:" << std::endl << std::endl;
-		intItemToDelete = Input::getInt(1, 5999);
-		for (i = 0; i < itemArray.getSize(); i++)
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string deleteText = "[ DELETE ]";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + deleteText.length()) / 2;
+		const size_t optionMargin = titleMargin - deleteText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << deleteText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << "Enter the UID of the item you want to delete:" << std::endl;
+		const int uidToDelete = Input::getInt(1, 9999);
+
+		//Check that the item exists
+		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			if (itemArray[i].uid == intItemToDelete)
+			if (itemList[i].uid == uidToDelete)
 			{
-				positionOfItem = i;
-				found = true;
-				break;
+				const Item itemToDelete = itemList[i];
+				itemList.remove(i);
+				itemHashTable.remove(itemToDelete.uid, itemToDelete);
+				std::cout << std::endl << "Item found: " << std::endl;
+				std::cout << itemToDelete << std::endl;
+				std::cout << "Item successfully deleted." << std::endl << std::endl;
+				return;
 			}
 		}
-		if (found == true)
-		{
-			//itemDeleted = itemArray.getData(positionOfItem);
-			itemArray.remove(positionOfItem);
-			std::cout << "The Item was deleted succesfully..." << std::endl;
-		}
-		else
-		{
-			std::cout << "ERROR: The UID you entered does not exists" << std::endl;
-		}
-		pause();
 
-		return itemDeleted;
+		//The item doesn't exist
+		std::cout << "ERROR: The UID you entered does not exist." << std::endl << std::endl;
 	}
-	Item deleteByName(Array<Item>& itemArray)
+	void deleteByName(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
 	{
-		int i = 0, positionOfItem = 0;
-		std::string strItemToDelete;
-		bool found = false;
-		Item itemDeleted;
+		clearScreen();
 
-		Interface::clearScreen(true);
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string deleteText = "[ DELETE ]";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + deleteText.length()) / 2;
+		const size_t optionMargin = titleMargin - deleteText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << deleteText << std::endl << std::endl << bars << std::endl << std::endl;
+
 		std::cout << "Enter the name of the item you want to delete:" << std::endl << std::endl;
-		strItemToDelete = Input::getString();
-		for (i = 0; i < itemArray.getSize(); i++)
+		const std::string nameToDelete = Input::getString();
+
+		//Check that the item exists
+		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			if (itemArray[i].name == strItemToDelete)
+			if (itemList[i].name.find(nameToDelete) != std::string::npos)
 			{
-				positionOfItem = i;
-				found = true;
-				break;
+				const Item itemToDelete = itemList[i];
+				itemList.remove(i);
+				itemHashTable.remove(itemToDelete.uid, itemToDelete);
+				std::cout << std::endl << "Item found: " << std::endl;
+				std::cout << itemToDelete << std::endl;
+				std::cout << "Item successfully deleted." << std::endl << std::endl;
+				return;
 			}
 		}
-		if (found == true)
-		{
-			//itemDeleted = itemList.getData(positionOfItem);
-			itemArray.remove(positionOfItem);
-			std::cout << "The Item was deleted succesfully..." << std::endl;
-		}
-		else
-		{
-			std::cout << "ERROR: The name you entered does not exists" << std::endl;
-		}
-		pause();
 
-		return itemDeleted;
+		//The item doesn't exist
+		std::cout << "ERROR: The name you entered does not exist." << std::endl << std::endl;
 	}
-	Item deleteByUpc(Array<Item>& itemArray)
+	void deleteByUpc(List<Item>& itemList, HashTable<int, Item>& itemHashTable)
 	{
-		int i = 0, positionOfItem = 0;
-		std::string strItemToDelete;
-		bool found = false;
-		Item itemDeleted;
+		clearScreen();
 
-		Interface::clearScreen(true);
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string deleteText = "[ DELETE ]";
+
+		const size_t titleMargin = (TERMINAL_WIDTH + deleteText.length()) / 2;
+		const size_t optionMargin = titleMargin - deleteText.length();
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << deleteText << std::endl << std::endl << bars << std::endl << std::endl;
+
 		std::cout << "Enter the UPC of the item you want to delete:" << std::endl << std::endl;
-		strItemToDelete = Input::getString();
-		for (i = 0; i < itemArray.getSize(); i++)
+		const std::string upcToDelete = Input::getString();
+
+		//Check that the item exists
+		for (int i = 0; i < itemList.getCount(); i++)
 		{
-			if (itemArray[i].upc == strItemToDelete)
+			if (itemList[i].upc.find(upcToDelete) != std::string::npos)
 			{
-				positionOfItem = i;
-				found = true;
-				break;
+				const Item itemToDelete = itemList[i];
+				itemList.remove(i);
+				itemHashTable.remove(itemToDelete.uid, itemToDelete);
+				std::cout << std::endl << "Item found: " << std::endl;
+				std::cout << itemToDelete << std::endl;
+				std::cout << "Item successfully deleted." << std::endl << std::endl;
+				return;
 			}
 		}
-		if (found == true)
-		{
-			//itemDeleted = itemList.getData(positionOfItem);
-			itemArray.remove(positionOfItem);
-			std::cout << "The Item was deleted succesfully..." << std::endl;
-		}
-		else
-		{
-			std::cout << "ERROR: The UPC you entered does not exists" << std::endl;
-		}
-		pause();
 
-		return itemDeleted;
+		//The item doesn't exist
+		std::cout << "ERROR: The name you entered does not exist." << std::endl << std::endl;
 	}
-	void displaySearchMenu()
+	void searchForItem(HashTable<int, Item>& itemHashTable)
 	{
+		clearScreen();
+		
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string sortText = "[ SEARCH ]";
-		const std::string byNameText = "[ 1 ] BY NAME";
-		const std::string byRetailText = "[ 2 ] BY UPC";
-		const std::string backtext = "[ 3 ] BACK";
 
 		const size_t titleMargin = (TERMINAL_WIDTH + sortText.length()) / 2;
 		const size_t optionMargin = titleMargin - sortText.length();
@@ -429,12 +434,22 @@ namespace Interface
 
 		std::cout << std::setw(titleMargin) << sortText << std::endl << std::endl << bars << std::endl << std::endl;
 
-		std::cout << std::setw(optionMargin + byNameText.length()) << byNameText << std::endl << std::endl
-			<< std::setw(optionMargin + byRetailText.length()) << byRetailText << std::endl << std::endl
-			<< std::setw(optionMargin + backtext.length()) << backtext << std::endl << std::endl
-			<< bars << std::endl << std::endl;
+		std::cout << "Enter the UID of the item to search for:" << std::endl;
+		const int uidToFind = Input::getInt();
 
-		return;
+		//Try to find the item in the hash table
+		HashList<int, Item>* list = itemHashTable.getListAtKey(uidToFind);
+		for (int i = 0; i < list->getCount(); i++)
+		{
+			if (list->getData(i).uid = uidToFind)
+			{
+				std::cout << std::endl << "Found item: " << std::endl << list->getData(i) << std::endl;
+				return;
+			}
+		}
+
+		//The item doesn't exist
+		std::cout << "ERROR: The UID you entered does not exist." << std::endl << std::endl;
 	}
 	Item searchByName(Array<Item>& itemArray)
 	{
@@ -490,8 +505,10 @@ namespace Interface
 	} 
 	void displayHashTable(HashTable<int, Item>& itemHashTable)
 	{
+		clearScreen();
+		
 		const std::string bars = generateBars(TERMINAL_WIDTH);
-		const std::string titleText = "[DISPLAYED HASH TABLE]";
+		const std::string titleText = "[ HASH TABLE ]";
 		const std::string uidText = "UID:";
 		const std::string upcText = "UPC:";
 		const std::string nameText = "NAME:";
@@ -532,7 +549,7 @@ namespace Interface
 		{
 			//Get the linked list at hash table array position i
 			HashList<int, Item>* list = itemHashTable.getListAtKey(i);
-			std::cout << "Hash array position: " << i << std::endl;
+			std::cout << "[" << i << "]" << std::endl;
 			//Loop through each item inside the linked list
 			for (int i = 0; i < list->getCount(); i++)
 			{
@@ -553,7 +570,7 @@ namespace Interface
 				}
 				else if (item.category == 3)
 				{
-					std::cout << std::setw(categoryColumnLength) << "Tabacco";
+					std::cout << std::setw(categoryColumnLength) << "Tobacco";
 				}
 				else if (item.category == 4)
 				{
@@ -567,17 +584,18 @@ namespace Interface
 					<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << item.retail
 					<< std::setw(quantityColumnLength) << item.quantity;
 
-				std::cout << std::endl << std::endl;
+				std::cout << std::endl;
 			}
+			std::cout << std::endl;
 		}
 	}
 	void displayKeySequence(Array<Item>& itemArray)
 	{
-		//Merge sort itemList
-		SortList::mergeSortItemList(itemArray);
+		//Merge sort array
+		Sort::mergeSortItemArray(itemArray);
 
 		const std::string bars = generateBars(TERMINAL_WIDTH);
-		const std::string titleText = "[DISPLAYED KEY SEQUENCE]";
+		const std::string titleText = "[LIST BY UID]";
 		const std::string uidText = "UID:";
 		const std::string upcText = "UPC:";
 		const std::string nameText = "NAME:";
@@ -630,7 +648,7 @@ namespace Interface
 			}
 			else if (itemArray[i].category == 3)
 			{
-				std::cout << std::setw(categoryColumnLength) << "Tabacco";
+				std::cout << std::setw(categoryColumnLength) << "Tobacco";
 			}
 			else if (itemArray[i].category == 4)
 			{

@@ -17,10 +17,7 @@ Yue Pan
 #include "Input.h"
 #include "List.h"
 #include "HashTable.h"
-#include "AVLTree.h"
-#include "SortList.h"
 #include "BinarySearchTree.h"
-#include "BinaryTreeNode.h"
 
 using namespace std;
 
@@ -85,7 +82,9 @@ int main()
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
-	Interface::displayInventory(itemArray);
+	cout << "There were " << Efficiency::globalArrayOperations << " Array operations." << endl;
+	cout << "There were " << Efficiency::globalListOperations << " List operations." << endl;
+	cout << "There were " << Efficiency::globalHashOperations << " Hash operations." << endl;
 	Interface::pause();
 	Interface::clearScreen();
 
@@ -107,195 +106,123 @@ int main()
 			{
 				do
 				{
-					Item newItem;
-					newItem = Interface::addNewItem(itemArray);
-					FileIO::saveArrayIntoFile(itemArray, filepath);
-					itemHashTable.add(newItem.uid, newItem);
-					Interface::displayInventory(itemArray);
-					cout << endl;
-
+					const int beginningArrayOperations = Efficiency::globalArrayOperations;
+					const int beginningListOperations = Efficiency::globalListOperations;
+					const int beginningHashOperations = Efficiency::globalHashOperations;
+					itemArray.append(Interface::addNewItem(itemList));
+					itemList.insertLast(itemArray.back());
+					itemHashTable.add(itemArray.back().uid, itemArray.back());
+					cout << "Item added: " << endl;
+					cout << itemArray.back() << endl;
+					cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
+					cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+					cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
 					cout << "Would you like to add another item? [1] Yes [2] No" << endl;
 					inputAgain = Input::getInt(1, 2);
 				} while (inputAgain == 1);
+
+				break;
 			}
-			Interface::clearScreen(true);
-			break;
 			case 2: //Delete data
 			{
 				do
 				{
-					Interface::clearScreen(true);
 					Interface::displayDeleteMenu();
 					Interface::promptOption();
 					inputSubMenu = Input::getInt(1, 4);
 
 					switch (inputSubMenu)
 					{
-					case 1://deleteByUid
-					{
-						Item itemDeleted;
-						itemDeleted = Interface::deleteByUid(itemArray);
-						itemHashTable.remove(itemDeleted.uid, itemDeleted);
-						//FileIO::saveListIntoFile(itemList, filepath);
-						FileIO::saveArrayIntoFile(itemArray, filepath);
-						cout << endl;
-						Interface::displayInventory(itemArray);
-						Interface::pause();
-					}
-					Interface::clearScreen(true);
-					break;
-					case 2://deleteByName
-					{
-						Item itemDeleted;
-						itemDeleted = Interface::deleteByName(itemArray);
-						//FileIO::saveListIntoFile(itemList, filepath);
-						FileIO::saveArrayIntoFile(itemArray, filepath);
-						cout << endl;
-						Interface::displayInventory(itemArray);
-						Interface::pause();
-					}
-					Interface::clearScreen(true);
-					break;
-					case 3://deleteByUpc
-					{
-						Item itemDeleted;
-						itemDeleted = Interface::deleteByUpc(itemArray);
-						//FileIO::saveListIntoFile(itemList, filepath);
-						FileIO::saveArrayIntoFile(itemArray, filepath);
-						cout << endl;
-						Interface::displayInventory(itemArray);
-						Interface::pause();
-					}
-					Interface::clearScreen(true);
-					break;
-					default:
-						break;
+						case 1://Delete data -> deleteByUid
+						{
+							const int beginningListOperations = Efficiency::globalListOperations;
+							const int beginningHashOperations = Efficiency::globalHashOperations;
+							Interface::deleteByUid(itemList, itemHashTable);
+							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+							Interface::pause();
+							break;
+						}
+						case 2://Delete data -> deleteByName
+						{
+							const int beginningListOperations = Efficiency::globalListOperations;
+							const int beginningHashOperations = Efficiency::globalHashOperations;
+							Interface::deleteByName(itemList, itemHashTable);
+							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+							Interface::pause();
+							break;
+						}
+						case 3://Delete data -> deleteByUpc
+						{
+							const int beginningListOperations = Efficiency::globalListOperations;
+							const int beginningHashOperations = Efficiency::globalHashOperations;
+							Interface::deleteByUpc(itemList, itemHashTable);
+							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+							Interface::pause();
+							break;
+						}
+						default:
+						{
+							break;
+						}
 					}
 				} while (inputSubMenu != 4);
-				Interface::clearScreen(true);
+
 				break;
 			}
 			case 3: //Search
 			{
-				do
-				{
-					Interface::clearScreen();
-					Interface::displaySearchMenu();
-					Interface::promptOption();
-					inputSubMenu = Input::getInt(1, 3);
-
-					switch (inputSubMenu)
-					{
-
-					case 1://searchByName
-					{
-						int beginningListOperations = Efficiency::globalListOperations;
-						Item foundItem = Interface::searchByName(itemArray);
-						//Item wasn't found
-						if (foundItem == Item())
-						{
-							cout << "Item not found." << endl;
-						}
-						//Item was found
-						else
-						{
-							cout << foundItem << endl;
-						}
-						cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
-						Interface::pause();
-					}
-					Interface::clearScreen(true);
-					break;
-					case 2://searchByUpc
-					{
-						int beginningListOperations = Efficiency::globalListOperations;
-						Item foundItem = Interface::searchByUpc(itemArray);
-						//Item wasn't found
-						if (foundItem == Item())
-						{
-							cout << "Item not found." << endl;
-						}
-						//Item was found
-						else
-						{
-							cout << foundItem << endl;
-						}
-						cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
-						Interface::pause();
-					}
-					default:
-						break;
-					}
-				}while (inputSubMenu != 3);
-				break;
-				Interface::clearScreen(true);
-			}
-			case 4: //List data in Hash Table Sequence
-			{
-				int beginningListOperations = Efficiency::globalListOperations;
-				int beginningHashOperations = Efficiency::globalHashOperations;
-				Interface::clearScreen(true);
-				Interface::displayHashTable(itemHashTable);
-				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
+				const int beginningListOperations = Efficiency::globalListOperations;
+				const int beginningHashOperations = Efficiency::globalHashOperations;
+				Interface::searchForItem(itemHashTable);
+				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 				cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
-				Interface::pause();
-			}
-			break;
-			case 5: //List data in Key Sequence
-			{
-				/*
-				Item item;
-				int i = item.uid;
-				avlUidTree.inorder_traverse_avl(avlUidTree.myVisit);*/
 
-				Interface::clearScreen(true);
-				int beginningListOperations = Efficiency::globalListOperations;
-				Interface::displayKeySequence(itemArray);
-				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
-				
 				Interface::pause();
-				Interface::clearScreen(true);
-			}
-			Interface::clearScreen(true);
 				break;
+			}
+			case 4: //Print items sorted by UID
+			{
+				const int beginningArrayOperations = Efficiency::globalArrayOperations;
+				const int beginningListOperations = Efficiency::globalListOperations;
+				Array<Item> copyItemArray = Array<Item>::buildArrayFromList(itemList);
+				Interface::displayKeySequence(copyItemArray);
+				cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
+				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
+
+				Interface::pause();
+				break;
+			}
+			case 5: //Print hash table
+			{
+				const int beginningListOperations = Efficiency::globalListOperations;
+				const int beginningHashOperations = Efficiency::globalHashOperations;
+				Interface::displayHashTable(itemHashTable);
+				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
+				cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl << endl;
+
+				Interface::pause();
+				break;
+			}
 			case 6: //Print Tree
 			{
-				do
-				{
-					Interface::clearScreen();
-					Interface::displayTypeTrees();
-					Interface::promptOption();
-					inputSubMenu = Input::getInt(1, 3);
-
-					switch (inputSubMenu)
-					{
-					case 1:
-						//avlWholesaleTree.print_tree_avl();
-						cout << endl;
-						Interface::pause();
-						break;
-					case 2:
-						//avlRetailTree.print_tree_avl();
-						cout << endl;
-						Interface::pause();
-						break;
-					default:
-						break;
-					}
-				} while (inputSubMenu != 3);
-				Interface::clearScreen();
+				Interface::pause();
 				break;
 			}
 			case 7: //Efficiency
 			{
 				Interface::clearScreen();
+				cout << "There are " << itemList.getCount() << " data entries." << endl;
+				cout << endl;
+				cout << "The total number of Array operations since launch is: " << Efficiency::globalArrayOperations << "." << endl;
 				cout << "The total number of List operations since launch is: " << Efficiency::globalListOperations << "." << endl;
 				cout << "The total number of Hash operations since launch is: " << Efficiency::globalHashOperations << "." << endl;
 				cout << endl;
-				cout << "There are currently " << itemHashTable.getOffTable() << " hash collisions." << endl;
 				cout << "The size of the hash table is " << itemHashTable.getSize() << "." << endl;
-				cout << "The number of elements stored in the hash table is " << itemHashTable.getCount() << "." << endl;
 				cout << "The load factor of the hash table is " << itemHashTable.calcLoadFactor() << "." << endl;
+				cout << "There are currently " << itemHashTable.getOffTable() << " hash collisions." << endl;
 				cout << endl;
 				Interface::pause();
 				break;

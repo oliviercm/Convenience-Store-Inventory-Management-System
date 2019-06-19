@@ -3,6 +3,7 @@
 class Efficiency
 {
 public:
+	static int globalArrayOperations;
 	static int globalListOperations;
 	static int globalHashOperations;
 };

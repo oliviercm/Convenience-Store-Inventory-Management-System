@@ -283,19 +283,16 @@ namespace FileIO
 				}
 			}
 
-			Item item = Item(std::move(uid), std::move(upc), std::move(name), std::move(size), std::move(category), std::move(wholesale), std::move(retail), std::move(quantity));
-
-			arr.append(item);
-			
+			arr.append(Item(std::move(uid), std::move(upc), std::move(name), std::move(size), std::move(category), std::move(wholesale), std::move(retail), std::move(quantity)));
 		}
 	}
-	void saveArrayIntoFile(Array<Item>& arr, const std::string& filePath)
+	void saveListIntoFile(List<Item>& list, const std::string& filePath)
 	{
 		std::string itemsString = std::string();
 
-		for (int i = 0; i < arr.getSize(); i++)
+		for (int i = 0; i < list.getCount(); i++)
 		{
-			itemsString.append(itemToString(arr[i]));
+			itemsString.append(itemToString(list[i]));
 		}
 
 		std::ofstream os;

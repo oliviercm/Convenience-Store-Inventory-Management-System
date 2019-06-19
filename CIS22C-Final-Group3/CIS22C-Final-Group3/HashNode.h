@@ -41,4 +41,3 @@ HashNode<K, T>::HashNode(K k, T& d, HashNode<K, T>* n) : Node<T>(d), key(k), nex
 {
     
 }
-

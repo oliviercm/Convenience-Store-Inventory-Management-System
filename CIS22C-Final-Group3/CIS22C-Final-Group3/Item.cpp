@@ -11,20 +11,6 @@ Item::Item(int&& ui, std::string&& up, std::string&& na, std::string&& si, int&&
 
 }
 
-Item& Item::operator=(const Item& item)
-{
-	uid = item.uid;
-	upc = item.upc;
-	name = item.name;
-	size = item.size;
-	category = item.category;
-	wholesale = item.wholesale;
-	retail = item.retail;
-	quantity = item.quantity;
-
-	return *this;
-}
-
 bool Item::operator==(const Item& item) const
 {
 	return (uid == item.uid &&

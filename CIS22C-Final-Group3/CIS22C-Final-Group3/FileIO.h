@@ -15,6 +15,7 @@
 #include <string>
 #include "Item.h"
 #include "Array.h"
+#include "List.h"
 
 namespace FileIO
 {
@@ -35,11 +36,11 @@ namespace FileIO
 	*
 	* @brief Serializes the list of items into a file at the given filepath.
 	*
-	* @pre arr should contain any number of Items. filePath should point to the current data file location.
+	* @pre list should contain any number of Items. filePath should point to the current data file location.
 	* @post The file at filePath will be overwritten to contain the contents of list, serialized into database format following documentation.
 	*
-	* @param arr The Array to serialize.
+	* @param list The List to serialize.
 	* @param filePath The filepath of the file to save the serialized data.
 	*/
-	void saveArrayIntoFile(Array<Item>& arr, const std::string& filePath);
+	void saveListIntoFile(List<Item>& list, const std::string& filePath);
 };

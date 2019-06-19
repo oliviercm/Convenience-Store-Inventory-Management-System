@@ -17,7 +17,7 @@
 
 namespace Input
 {
-	int getInt(int, int);
-	double getDouble(double, double);
+	int getInt(int = INT_MIN, int = INT_MAX);
+	double getDouble(double = DBL_MIN, double = DBL_MAX);
 	std::string getString();
 };

@@ -41,12 +41,13 @@ public:
 	int quantity;
 
 	Item() = default;
+	Item(const Item&) = default;
 	virtual ~Item() = default;
 
 	Item(const int&, const std::string&, const std::string&, const std::string&, const int&, const double&, const double&, const int&); //Parameter order follows the same order as the declaration order in this header
 	Item(int&&, std::string&&, std::string&&, std::string&&, int&&, double&&, double&&, int&&); //Parameter order follows the same order as the declaration order in this header
 	
-	Item& operator=(const Item&);
+	Item& operator=(const Item&) = default;
 	bool operator==(const Item&) const;
 
 	friend std::ostream& operator<<(std::ostream& , const Item&);

@@ -33,7 +33,7 @@
     <ClCompile Include="Efficiency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SortList.cpp">
+    <ClCompile Include="Sort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,10 +86,10 @@
     <ClInclude Include="Efficiency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SortList.h">
+    <ClInclude Include="Array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Array.h">
+    <ClInclude Include="Sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

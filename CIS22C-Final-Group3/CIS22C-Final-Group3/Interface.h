@@ -16,7 +16,7 @@
 #include "List.h"
 #include "AVLTree.h"
 #include "HashTable.h"
-#include "SortList.h"
+#include "Sort.h"
 #include "Array.h"
 
 
@@ -29,12 +29,12 @@ namespace Interface
 	void promptOption();
 	void displayMainMenu();
 	void displayInventory(Array<Item>&);
-	Item addNewItem(Array<Item>&);
+	Item addNewItem(List<Item>&);
 	void displayDeleteMenu();
-	Item deleteByUid(Array<Item>&);
-	Item deleteByName(Array<Item>&);
-	Item deleteByUpc(Array<Item>&);
-	void displaySearchMenu();
+	void deleteByUid(List<Item>&, HashTable<int, Item>&);
+	void deleteByName(List<Item>&, HashTable<int, Item>&);
+	void deleteByUpc(List<Item>&, HashTable<int, Item>&);
+	void searchForItem(HashTable<int, Item>&);
 	Item searchByName(Array<Item>&);
 	Item searchByUpc(Array<Item>&);
 	void displayHashTable(HashTable<int, Item>&);

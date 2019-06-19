@@ -49,6 +49,7 @@ public:
 	virtual Node<T>* insertFirst(T&);
 	virtual Node<T>* insertLast(T&);
 	virtual void remove(const int); //A number outside the range 0-(count - 1) will throw an std::out_of_range exception.
+	virtual void remove(const T&);
 	virtual void removeFirst();
 	virtual void removeLast();
 	virtual void removeAll();
@@ -86,14 +87,7 @@ Checks if the link-list is empty
 template <typename T>
 bool List<T>::isEmpty() const
 {
-	if (count == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return count == 0;
 }
 
 /*
@@ -135,9 +129,9 @@ Node<T>* List<T>::insert(T& newData, const int pos)
 	{
 		Node<T>* temp = head;
 		head = new Node<T>(newData, temp);
+		Efficiency::globalListOperations++;
 
 		returnNode = head;
-		Efficiency::globalListOperations++;
 	}
 	else
 	{
@@ -207,8 +201,8 @@ void List<T>::remove(const int pos)
 		Node<T>* nextNode = head->next;
 
 		delete head;
-		head = nextNode;
 		Efficiency::globalListOperations++;
+		head = nextNode;
 	}
 	else
 	{
@@ -225,7 +219,6 @@ void List<T>::remove(const int pos)
 		{
 			Node<T>* temp = currentNode->next;
 			previousNode->next = temp;
-			Efficiency::globalListOperations++;
 		}
 
 		delete currentNode;
@@ -234,6 +227,32 @@ void List<T>::remove(const int pos)
 
 	count--;
 	return;
+}
+
+template <typename T>
+void List<T>::remove(const T& dataToRemove)
+{
+	if (head == nullptr) //The list is empty
+	{
+		throw std::out_of_range("List is empty.");
+	}
+
+	Node<T>* currentNode = head;
+	for (int i = 0; i < count; i++)
+	{
+		if (currentNode->data == dataToRemove)
+		{
+			remove(i);
+			return;
+		}
+		else
+		{
+			currentNode = currentNode->next;
+			Efficiency::globalListOperations++;
+		}
+	}
+
+	throw std::invalid_argument("Data to remove does not exist.");
 }
 
 /*
@@ -418,13 +437,11 @@ template <typename T>
 void List<T>::setFirstData(T& newData)
 {
 	setData(newData, 0);
-	return;
 }
 template <typename T>
 void List<T>::setFirstData(T&& newData)
 {
 	setData(std::move(newData), 0);
-	return;
 }
 
 /*
@@ -437,14 +454,12 @@ template <typename T>
 void List<T>::setLastData(T& newData)
 {
 	setData(newData, count - 1);
-	return;
 }
 
 template <typename T>
 void List<T>::setLastData(T&& newData)
 {
 	setData(std::move(newData), count - 1);
-	return;
 }
 
 template <typename T>

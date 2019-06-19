@@ -11,6 +11,9 @@
 
 #pragma once
 
+#include "Efficiency.h"
+#include "List.h"
+
 template <typename T>
 class Array
 {
@@ -24,6 +27,9 @@ protected:
 public:
 	Array(); //Creates an array of size 0.
 	Array(int); //Creates an array of size int.
+
+	Array(const Array<T>&);
+
 	~Array();
 
 	/**
@@ -33,8 +39,8 @@ public:
 	*
 	* @param The reference to add to the array.
 	*/
-	void append(const T&);
-	void append(T&&);
+	T& append(const T&);
+	T& append(T&&);
 	/**
 	* remove
 	*
@@ -76,12 +82,18 @@ public:
 	* @brief Returns size.
 	*/
 	int getSize() const;
+	/**
+	* @brief Returns capacity.
+	*/
+	int getCapacity() const;
+
+	static Array<T> buildArrayFromList(List<T>&);
 };
 
 template <typename T>
-Array<T>::Array()
+Array<T>::Array() : Array(0)
 {
-	Array(0);
+
 }
 
 template <typename T>
@@ -91,9 +103,22 @@ Array<T>::Array(int sz)
 }
 
 template <typename T>
+Array<T>::Array(const Array<T>& arrToCopy) : capacity(arrToCopy.capacity), size(arrToCopy.size)
+{
+	arr = new T[capacity];
+	Efficiency::globalArrayOperations++;
+
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = arrToCopy[i];
+	}
+}
+
+template <typename T>
 Array<T>::~Array()
 {
 	delete[] arr;
+	Efficiency::globalArrayOperations++;
 }
 
 template <typename T>
@@ -112,6 +137,7 @@ void Array<T>::allocateArray(int sz)
 	}
 
 	arr = new T[capacity];
+	Efficiency::globalArrayOperations++;
 }
 
 template <typename T>
@@ -134,21 +160,25 @@ void Array<T>::reallocateArray(int sz)
 		throw std::invalid_argument("Insufficent size.");
 	}
 
+	capacity = newCapacity;
 	T* newArray = new T[newCapacity];
+	Efficiency::globalArrayOperations++;
 
 	//Copy old elements into the new array
 	for (int i = 0; i < size; i++)
 	{
 		newArray[i] = arr[i];
+		Efficiency::globalArrayOperations++;
 	}
 
 	//Delete the old managed array and set the new array as our managed array
 	delete[] arr;
 	arr = newArray;
+	Efficiency::globalArrayOperations++;
 }
 
 template <typename T>
-void Array<T>::append(const T& data)
+T& Array<T>::append(const T& data)
 {
 	//Make the array larger if needed
 	if (size + 1 > capacity)
@@ -158,10 +188,13 @@ void Array<T>::append(const T& data)
 	
 	arr[size] = data;
 	size++;
+	Efficiency::globalArrayOperations++;
+
+	return arr[size - 1];
 }
 
 template <typename T>
-void Array<T>::append(T&& data)
+T& Array<T>::append(T&& data)
 {
 	//Make the array larger if needed
 	if (size + 1 > capacity)
@@ -171,6 +204,9 @@ void Array<T>::append(T&& data)
 
 	arr[size] = data;
 	size++;
+	Efficiency::globalArrayOperations++;
+
+	return arr[size - 1];
 }
 
 template <typename T>
@@ -181,7 +217,13 @@ void Array<T>::remove(const int index)
 		throw std::out_of_range("Out of range.");
 	}
 	
+	for (int i = index; i < size - 1; i++)
+	{
+		arr[i] = arr[i + 1];
+	}
+
 	size--;
+	Efficiency::globalArrayOperations++;
 }
 
 template <typename T>
@@ -191,7 +233,8 @@ T& Array<T>::front()
 	{
 		throw std::out_of_range("Out of range.");
 	}
-	
+
+	Efficiency::globalArrayOperations++;
 	return arr[0];
 }
 template <typename T>
@@ -202,6 +245,7 @@ const T& Array<T>::front() const
 		throw std::out_of_range("Out of range.");
 	}
 
+	Efficiency::globalArrayOperations++;
 	return arr[0];
 }
 
@@ -213,7 +257,8 @@ T& Array<T>::back()
 		throw std::out_of_range("Out of range.");
 	}
 
-	return arr[size];
+	Efficiency::globalArrayOperations++;
+	return arr[size - 1];
 }
 template <typename T>
 const T& Array<T>::back() const
@@ -223,7 +268,8 @@ const T& Array<T>::back() const
 		throw std::out_of_range("Out of range.");
 	}
 
-	return arr[size];
+	Efficiency::globalArrayOperations++;
+	return arr[size - 1];
 }
 
 template <typename T>
@@ -234,6 +280,7 @@ T& Array<T>::operator[](int index)
 		throw std::out_of_range("Out of range.");
 	}
 
+	Efficiency::globalArrayOperations++;
 	return arr[index];
 }
 template <typename T>
@@ -244,6 +291,7 @@ const T& Array<T>::operator[](int index) const
 		throw std::out_of_range("Out of range.");
 	}
 
+	Efficiency::globalArrayOperations++;
 	return arr[index];
 }
 
@@ -251,4 +299,23 @@ template <typename T>
 int Array<T>::getSize() const
 {
 	return size;
+}
+
+template <typename T>
+int Array<T>::getCapacity() const
+{
+	return capacity;
+}
+
+template <typename T>
+Array<T> Array<T>::buildArrayFromList(List<T>& list)
+{
+	Array<T> newArray = Array<T>(list.getCount());
+
+	for (int i = 0; i < list.getCount(); i++)
+	{
+		newArray.append(list[i]);
+	}
+
+	return std::move(newArray);
 }

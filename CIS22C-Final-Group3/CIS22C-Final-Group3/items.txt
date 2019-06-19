@@ -548,23 +548,3 @@
 	<retail>18.12</retail>
 	<quantity>16</quantity>
 </item>
-<item>
-	<UID>1234</UID>
-	<UPC>123456789012</UPC>
-	<name>example</name>
-	<size>12</size>
-	<category>2</category>
-	<wholesale>33.33</wholesale>
-	<retail>34.44</retail>
-	<quantity>22</quantity>
-</item>
-<item>
-	<UID>1235</UID>
-	<UPC>1234567890123</UPC>
-	<name>THE EXAMPLE</name>
-	<size>33oz</size>
-	<category>3</category>
-	<wholesale>12.43</wholesale>
-	<retail>21.33</retail>
-	<quantity>2</quantity>
-</item>

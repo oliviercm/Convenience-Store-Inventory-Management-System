@@ -218,8 +218,7 @@ template<typename K, typename T>
 HashTable<K, T>::HashTable()
 {
     //Member Variables initialized, size set to prime number
-    size = 101
-	;
+    size = 101;
     count = 0;
     arr = new HashList<K,T>[size];
     offTable = 0;
@@ -249,13 +248,13 @@ double HashTable<K, T>::calcLoadFactor() const
 template<typename K, typename T>
 bool HashTable<K, T>::add(K key, T& item)
 {
-	Efficiency::globalHashOperations++;
 	int index = getAddress(key);
     //Shows numbers of extraneous nodes linked in the list...non-O(1) traversal
 	if (!(arr + index)->isEmpty())
 		offTable++;
     //Calls hash function and stores at beginning of the list at computed index
     (arr + index)->insertFirst(key, item);
+	Efficiency::globalHashOperations++;
     //Increments number of nodes
     count++;
     //If load factor becomes greater than 75%
@@ -267,7 +266,6 @@ bool HashTable<K, T>::add(K key, T& item)
 template<typename K, typename T>
 bool HashTable<K, T>::remove(const K key, const T& value)
 {
-	Efficiency::globalHashOperations++;
 	//Get hash address
     int index = getAddress(key);
     //Finds specific item's location in the list
@@ -276,6 +274,7 @@ bool HashTable<K, T>::remove(const K key, const T& value)
         return false;
     //Removes it from list
     (arr + index)->remove(position);
+	Efficiency::globalHashOperations++;
     if ((arr + index)->getCount() >= 1)
         offTable--;
     //Decrement Count
@@ -286,7 +285,8 @@ bool HashTable<K, T>::remove(const K key, const T& value)
 template<typename K, typename T>
 int HashTable<K, T>::getAddress(K item)
 {
-    //Passes item to a genAlg function when data type of item is determined and returns a hash address
+	Efficiency::globalHashOperations++;
+	//Passes item to a genAlg function when data type of item is determined and returns a hash address
     return genAlg(item);
 }
 
@@ -330,7 +330,7 @@ int HashTable<K, T>::genAlg(std::string item)
 template<typename K, typename T>
 int HashTable<K, T>::getOffTable() const
 {
-    //Return nodes off the table
+	//Return nodes off the table
     return offTable;
 }
 
@@ -380,14 +380,14 @@ void HashTable<K, T>::reHash()
 template<typename K, typename T>
 bool HashTable<K, T>::isEmpty()
 {
-    //Returns number of nodes present in the table
+	//Returns number of nodes present in the table
     return (count == 0);
 }
 
 template<typename K, typename T>
 void HashTable<K, T>::empty()
 {
-    //Count set to zero
+	//Count set to zero
     count = 0;
     //Remove all elements of linked list across all indexes
     for (int i = 0; i < size; i++)
@@ -395,7 +395,7 @@ void HashTable<K, T>::empty()
         if (!(arr + i)->isEmpty())
             (arr + i)->removeAll();
     }
-    
+	Efficiency::globalHashOperations++;
 }
 
 template<typename K, typename T>
@@ -406,6 +406,7 @@ HashTable<K, T>::~HashTable()
     //Delete the array
     arr = 0;
     delete[] arr;
+	Efficiency::globalHashOperations++;
 }
 
 template<typename K, typename T>
@@ -419,52 +420,6 @@ HashList<K, T>* HashTable<K, T>::getListAtKey(K key)
 template<typename U, typename V>
 std::ostream& operator<<(std::ostream& os, const HashTable<U, V> & table)
 {
-	/*const std::string uidText = "UID:";
-	const std::string upcText = "UPC:";
-	const std::string nameText = "NAME:";
-	const std::string sizeText = "SIZE:";
-	const std::string categoryText = "CATEGORY:";
-	const std::string wholesaleText = "WHOLESALE:";
-	const std::string retailText = "RETAIL:";
-	const std::string quantityText = "QUANTITY:";
-
-	const size_t columnSpacing = 3;
-	const size_t uidColumnLength = 3 + columnSpacing;
-	const size_t upcColumnLength = 13 + columnSpacing;
-	const size_t sizeColumnLength = 7 + columnSpacing;
-	const size_t categoryColumnLength = 9 + columnSpacing;
-	const size_t wholesaleColumnLength = wholesaleText.length() + columnSpacing;
-	const size_t retailColumnLength = retailText.length() + columnSpacing;
-	const size_t quantityColumnLength = quantityText.length() + columnSpacing;
-
-	const size_t nameColumnLength = ((120 - uidColumnLength - upcColumnLength - sizeColumnLength - categoryColumnLength - quantityColumnLength - wholesaleColumnLength - retailColumnLength) / 2) + 15;
-
-	os << std::left;
-
-	os << std::setw(uidColumnLength) << uidText
-		<< std::setw(upcColumnLength) << upcText
-		<< std::setw(nameColumnLength) << nameText
-		<< std::setw(sizeColumnLength) << sizeText
-		<< std::setw(categoryColumnLength) << categoryText
-		<< std::setw(wholesaleColumnLength) << wholesaleText
-		<< std::setw(retailColumnLength) << retailText
-		<< std::setw(quantityColumnLength) << quantityText
-		<< std::endl << std::endl;
-
-	for (int i = 0; i < table.size; i++)
-	{
-
-		os << std::setw(uidColumnLength) << table.arr
-			<< std::setw(upcColumnLength) << table[i].upc
-			<< std::setw(nameColumnLength) << table[i].name.substr(0, 30)
-			<< std::setw(sizeColumnLength) << table[i].size
-			<< std::setw(categoryColumnLength) << table[i].category
-			<< std::setw(wholesaleColumnLength) << table[i].wholesale
-			<< std::setw(retailColumnLength) << table[i].retail
-			<< std::setw(quantityColumnLength) << table[i].quantity;
-
-		std::cout << std::endl << std::endl;
-	}*/
     //Printing the table
     for (int i = 0; i < table.size; i++)
     {
@@ -481,7 +436,7 @@ std::ostream& operator<<(std::ostream& os, const HashTable<U, V> & table)
 template<typename K, typename T>
 int HashTable<K, T>::getNextPrime() const
 {
-    bool flag = true;
+	bool flag = true;
     int n = size + 1;
     while (flag)
     {

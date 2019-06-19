@@ -175,14 +175,7 @@ HashList<K, T>::~HashList()
 template <typename K, typename T>
 bool HashList<K, T>::isEmpty() const
 {
-	if (List<T>::count == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return List<T>::count == 0;
 }
 
 template <typename K, typename T>
@@ -212,9 +205,9 @@ HashNode<K, T>* HashList<K, T>::insert(K k, T& newData, const int pos)
 	{
 		HashNode<K, T>* temp = head;
 		head = new HashNode<K, T>(k, newData, temp);
+		Efficiency::globalListOperations++;
 
 		returnNode = head;
-		Efficiency::globalListOperations++;
 	}
     else
     {
@@ -286,14 +279,12 @@ void HashList<K, T>::remove(const int pos)
     }
 
 	List<T>::count--;
-	return;
 }
 
 template <typename K, typename T>
 void HashList<K, T>::removeFirst()
 {
     remove(0);
-    return;
 }
 
 template <typename K, typename T>
@@ -319,8 +310,6 @@ void HashList<K, T>::removeAll()
     }
 	List<T>::count = 0;
     head = nullptr;
-
-    return;
 }
 
 template <typename K, typename T>
@@ -365,6 +354,7 @@ K HashList<K, T>::getKey(const int pos)
     for (int i = 0; i < pos; i++)
     {
         currentNode = currentNode->next;
+		Efficiency::globalListOperations++;
     }
     return currentNode->key;
 }
@@ -386,8 +376,9 @@ int HashList<K, T>::getPos(const T& item)
 {
 	int pos = 0;
 	HashNode<K, T> *current = head;
-	while (current != 0)
+	while (current != nullptr)
 	{
+		Efficiency::globalListOperations++;
 		if (current->data == item)
 			return pos;
 		pos++;

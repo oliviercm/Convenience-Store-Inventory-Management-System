@@ -1,6 +1,6 @@
-#include "SortList.h"
+#include "Sort.h"
 
-namespace SortList
+namespace Sort
 {
 	namespace
 	{
@@ -59,24 +59,24 @@ namespace SortList
 			delete[] leftArr;
 			delete[] rightArr;
 		}
-		void mergeSortItemList(Array<Item>& array, int start, int end)
+		void mergeSortItemArray(Array<Item>& arr, int start, int end)
 		{
 			//Recursion case
 			if (start < end)
 			{
 				//Split the array into 2 parts and sort them 
 				int middle = (start + end) / 2;
-				mergeSortItemList(array, start, middle);
-				mergeSortItemList(array, middle + 1, end);
+				mergeSortItemArray(arr, start, middle);
+				mergeSortItemArray(arr, middle + 1, end);
 
 				//Merge the 2 parts together
-				merge(array, start, middle, end);
+				merge(arr, start, middle, end);
 			}
 		}
 	}
 
-	void mergeSortItemList(Array<Item>& list)
+	void mergeSortItemArray(Array<Item>& arr)
 	{
-		mergeSortItemList(list, 0, list.getSize() - 1);
+		mergeSortItemArray(arr, 0, arr.getSize() - 1);
 	}
 }

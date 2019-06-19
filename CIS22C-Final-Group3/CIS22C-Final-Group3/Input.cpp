@@ -4,7 +4,7 @@
 
 namespace Input
 {
-	int getInt(const int min = INT_MIN, const int max = INT_MAX)
+	int getInt(const int min, const int max)
 	{
 		std::string input;
 		int inputInt;
@@ -49,7 +49,7 @@ namespace Input
 		return inputInt;
 	}
 
-	double getDouble(const double min = DBL_MIN, const double max = DBL_MAX)
+	double getDouble(const double min, const double max)
 	{
 		std::string input;
 		double inputDouble;
