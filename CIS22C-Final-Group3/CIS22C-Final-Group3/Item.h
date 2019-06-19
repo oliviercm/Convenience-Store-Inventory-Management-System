@@ -14,7 +14,7 @@
 * don't have UPCs (e.g. Mega Millions tickets)
 * The same logic applies to size, wholesale, retail, and quantity.
 * 
-* If an item is defined without a category in the data file, the default category
+* If an item is defined without a category in the data file, the default category 0
 * will be assigned to it.
 * 
 * Wholesale and retail prices are not checked for negative values. This is because

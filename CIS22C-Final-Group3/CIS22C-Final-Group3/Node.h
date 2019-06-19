@@ -4,11 +4,13 @@
 * Author: Olivier Chan - 70%
 * Author: Luis Guerrero - 30%
 *
-* The purpose of this class is to provide a Node ADT.
+* The purpose of this class is to provide data container for List.
 *****************
 ***** USAGE *****
 *****************
-* WIP
+* This class is a structure used for linked list nodes.
+* 
+* Nodes must be initialized with a valid reference.
 *********************************************************************************/
 
 #pragma once

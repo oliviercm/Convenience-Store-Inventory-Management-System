@@ -8,7 +8,12 @@
 *****************
 ***** USAGE *****
 *****************
-* WIP
+* Use this class as a general purpose linked list.
+* Keep in mind that this linked list only stores references to data.
+* 
+* Add data with insert(), insertFirst(), and insertLast().
+* Remove data with remove(), removeFirst(), and removeLast().
+* Access data references with List[index] or alternatively List.getData(index)
 *********************************************************************************/
 
 #pragma once
@@ -215,11 +220,7 @@ void List<T>::remove(const int pos)
 			Efficiency::globalListOperations++;
 		}
 
-		if (currentNode->next != nullptr)
-		{
-			Node<T>* temp = currentNode->next;
-			previousNode->next = temp;
-		}
+		previousNode->next = currentNode->next;
 
 		delete currentNode;
 		Efficiency::globalListOperations++;

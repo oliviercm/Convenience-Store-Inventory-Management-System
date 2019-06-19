@@ -1,3 +1,17 @@
+/********************************************************************************
+************************************* BST ***************************************
+*********************************************************************************
+* Author: Yue Pan - 90% - Primary author
+* Author: Olivier Chan - 10% - Conversion to store references
+*
+* The purpose of this class is to model a Binary Search Tree ADT.
+*****************
+***** USAGE *****
+*****************
+* Add new nodes to the tree with BST.add()
+* Remove nodes with BST.remove()
+*********************************************************************************/
+
 #pragma once
 #ifndef BINARYSEARCHTREE
 #define BINARYSEARCHTREE

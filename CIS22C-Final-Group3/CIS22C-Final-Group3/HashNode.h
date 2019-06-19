@@ -1,7 +1,8 @@
 /********************************************************************************
- ************************************ HashList ***************************************
- *********************************************************************************
- * Author: Hiren Rathod - 100%
+ ********************************* HashNode *************************************
+ ********************************************************************************
+ * Author: Hiren Rathod - 95% - Primary author
+ * Author: Olivier Chan - 5% - Conversion to store references, use key/values
  *
  * The purpose of this struct is to extend from the typical Node Struct while introducing a key variable.
  * This HashNode struct inherits from Node Struct and allows for two separate types of template parameters.
@@ -12,7 +13,7 @@
  *****************
  * Instantiate this struct and set the variables
  * Manipulate the data and allow for use in the List ADTs
- *********************************************************************************/
+ ********************************************************************************/
 
 #pragma once
 

@@ -7,7 +7,8 @@
 *****************
 ***** USAGE *****
 *****************
-* WIP
+* Use loadFileIntoArray to load Items into an Array from a text file.
+* Use saveListIntoFile to save Items from a List into a text file.
 *********************************************************************************/
 
 #pragma once

@@ -11,7 +11,12 @@
 ***** USAGE *****
 *****************
 * Declare an object of type Stack, using template initialization.
-* You may then call Stack functions on the new Queue object.
+* You may then call Stack functions on the new Stack object.
+*	pop()
+*	peek()
+*	empty()
+*	getCount()
+*	isEmpty()
 *********************************************************************************/
 
 #pragma once

@@ -1,6 +1,8 @@
-#pragma once
-/******************************************************************************** ******************************** HashTable Class ********************************* *********************************************************************************
- * Author: (Hiren Rathod) (100%)
+/**********************************************************************************
+ *********************************** HashTable ************************************
+ **********************************************************************************
+ * Author: Hiren Rathod - 90% - Primary author
+ * Author: Olivier Chan - 10% - Conversion to store references, use key/values
  *
  * This class serves as a hash table that provides a user with efficiency in insertion, removal, and searching.
  * It contains several ADT functions to allow the user to experience optimal functionality with their data.
@@ -23,8 +25,9 @@
  Keep in mind:
  * It's advised to avoid repeatedly entering the same data. In order to preserve the search efficiency of the table, the table will resize itself but newly allocated memory becomes wasted if it is not used.
  * Avoid attempts of removing or getting the number of operations used on data not present in the table.
- *********************************************************************************************************************************************************************************************************************************************************/
+ ********************************************************************************/
 
+#pragma once
 #ifndef Hash_h
 #define Hash_h
 

@@ -1,8 +1,8 @@
-#pragma once
-/********************************************************************************
- ************************************ HashList ***************************************
+/*********************************************************************************
+ ********************************** HashList *************************************
  *********************************************************************************
- * Author: Hiren Rathod - 100%
+ * Author: Hiren Rathod - 90% - Primary author
+ * Author: Olivier Chan - 10% - Conversion to store references, use key/values
  *
  * The purpose of this class is to provide a List like ADT that works optimally for a hash table.
  * This HashList class inherits from the List ADT and allows for two separate types of template parameters.
@@ -21,6 +21,8 @@
  * Retrieve Data
  * isEmpty
  *********************************************************************************/
+
+#pragma once
 
 #include "List.h"
 #include "HashNode.h"
@@ -266,13 +268,8 @@ void HashList<K, T>::remove(const int pos)
             currentNode = currentNode->next;
 			Efficiency::globalListOperations++;
         }
-        
-        if (currentNode->next != nullptr)
-        {
-            HashNode<K, T>* temp = currentNode->next;
-            previousNode->next = temp;
-			Efficiency::globalListOperations++;
-        }
+
+        previousNode->next = currentNode->next;
         
         delete currentNode;
 		Efficiency::globalListOperations++;

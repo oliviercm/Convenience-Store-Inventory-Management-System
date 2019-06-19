@@ -1,12 +1,15 @@
 /********************************************************************************
 *********************************** Array ***************************************
 *********************************************************************************
-* WIP
+* Author: Olivier Chan - 100%
+* 
 * The purpose of this class is act as a std::vector-like.
 *****************
 ***** USAGE *****
 *****************
-* WIP
+* Declare Arrays with Array() or Array(size)
+* Add new data to Arrays with Array.append(data)
+* Access stored data with Array[index]
 *********************************************************************************/
 
 #pragma once

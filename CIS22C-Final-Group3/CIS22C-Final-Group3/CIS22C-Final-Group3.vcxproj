@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
-    <ClInclude Include="AVLTree.h" />
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BinaryTreeNode.h" />
     <ClInclude Include="Efficiency.h" />
