@@ -56,9 +56,6 @@ int main()
 		return 0;
 	}
 
-	cout << itemArray.getSize();
-
-
 	for (int i = 1; i < itemArray.getSize(); i++)
 	{
 		cout << itemArray[i] << endl;
@@ -94,7 +91,7 @@ int main()
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
-	Interface::displayInventory(itemList);
+	//Interface::displayInventory(itemList);
 	Interface::pause();
 	Interface::clearScreen();
 

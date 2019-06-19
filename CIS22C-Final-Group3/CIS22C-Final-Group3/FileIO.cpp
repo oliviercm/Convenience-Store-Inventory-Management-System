@@ -285,7 +285,8 @@ namespace FileIO
 
 			Item item = Item(std::move(uid), std::move(upc), std::move(name), std::move(size), std::move(category), std::move(wholesale), std::move(retail), std::move(quantity));
 
-			arr.append(std::move(item));
+			arr.append(item);
+			
 		}
 	}
 	void saveArrayIntoFile(Array<Item>& arr, const std::string& filePath)

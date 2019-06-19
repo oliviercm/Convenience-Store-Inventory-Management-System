@@ -152,29 +152,27 @@ void Array<T>::reallocateArray(int sz)
 template <typename T>
 void Array<T>::append(const T& data)
 {
-	size++;
-	
 	//Make the array larger if needed
-	if (size > capacity)
+	if (size + 1 > capacity)
 	{
-		reallocateArray(size);
+		reallocateArray(size + 1);
 	}
 	
 	arr[size] = data;
+	size++;
 }
 
 template <typename T>
 void Array<T>::append(T&& data)
 {
-	size++;
-
 	//Make the array larger if needed
-	if (size > capacity)
+	if (size + 1 > capacity)
 	{
-		reallocateArray(size);
+		reallocateArray(size + 1);
 	}
 
 	arr[size] = data;
+	size++;
 }
 
 template <typename T>
