@@ -485,7 +485,10 @@ bool BinarySearchTree<T>::search(const T & i_item)
 {
 	BinaryTreeNode<T> * new_ptr = new BinaryTreeNode<T>(i_item);
 	Efficiency::globalBinaryTreeOperations++;
-	return search_r(root_ptr, new_ptr);
+	bool result = search_r(root_ptr, new_ptr);
+	delete new_ptr;
+	new_ptr = nullptr;
+	return result;
 }
 
 template <typename T>
