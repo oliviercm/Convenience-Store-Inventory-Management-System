@@ -222,6 +222,7 @@ int main()
 			}
 			case 6: //Print Tree
 			{
+				Interface::clearScreen();
 				itemBinaryTree.print_tree();
 				Interface::pause();
 				break;
