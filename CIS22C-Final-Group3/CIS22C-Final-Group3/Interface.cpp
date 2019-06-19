@@ -452,7 +452,7 @@ namespace Interface
 		{
 			if (list->getData(i).uid = uidToFind)
 			{
-				std::cout << std::endl << "Found item: " << std::endl << list->getData(i) << std::endl;
+				std::cout << std::endl << "Found item: " << std::endl << std::endl << list->getData(i) << std::endl;
 				return;
 			}
 		}
