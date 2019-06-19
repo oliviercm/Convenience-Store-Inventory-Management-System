@@ -43,4 +43,5 @@ namespace Interface
 	void displayHashTable(HashTable<int, Item>&);
 	void displayKeySequence(Array<Item>&);
 	void displayTypeTrees();
+	void displayGoodbye();
 };

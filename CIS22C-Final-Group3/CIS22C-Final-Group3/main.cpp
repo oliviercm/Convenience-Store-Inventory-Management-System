@@ -261,5 +261,7 @@ int main()
 	//FileIO::saveListIntoFile(itemList, filepath);
 	cout << "Success." << endl;
 	Interface::pause();
+	Interface::displayGoodbye();
+	Interface::pause();
 	return 0;
 }
