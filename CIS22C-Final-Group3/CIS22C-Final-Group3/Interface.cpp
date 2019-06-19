@@ -341,7 +341,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -377,7 +377,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -413,7 +413,7 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
