@@ -55,11 +55,11 @@ int main()
 		return 0;
 	}
 
-	cout << itemArray.getSize();
+	/*cout << itemArray.getSize();
 	for (int i = 0; i < itemArray.getSize(); i++)
 	{
 		cout << itemArray[i] << endl;
-	}
+	}*/
 
 
 	//Load the linked list from the array
@@ -92,7 +92,7 @@ int main()
 
 	//Signal that load was successful
 	cout << "Load successful." << endl;
-	Interface::displayInventory(itemList);
+	Interface::displayInventory(itemArray);
 	Interface::pause();
 	Interface::clearScreen();
 
@@ -115,10 +115,10 @@ int main()
 				do
 				{
 					Item newItem;
-					newItem = Interface::addNewItem(itemList);
+					newItem = Interface::addNewItem(itemArray);
 					FileIO::saveArrayIntoFile(itemArray, filepath);
 					itemHashTable.add(newItem.uid, newItem);
-					Interface::displayInventory(itemList);
+					Interface::displayInventory(itemArray);
 					cout << endl;
 
 					cout << "Would you like to add another item? [1] Yes [2] No" << endl;
@@ -141,12 +141,12 @@ int main()
 					case 1://deleteByUid
 					{
 						Item itemDeleted;
-						itemDeleted = Interface::deleteByUid(itemList);
+						itemDeleted = Interface::deleteByUid(itemArray);
 						itemHashTable.remove(itemDeleted.uid, itemDeleted);
 						//FileIO::saveListIntoFile(itemList, filepath);
 						FileIO::saveArrayIntoFile(itemArray, filepath);
 						cout << endl;
-						Interface::displayInventory(itemList);
+						Interface::displayInventory(itemArray);
 						Interface::pause();
 					}
 					Interface::clearScreen(true);
@@ -154,11 +154,11 @@ int main()
 					case 2://deleteByName
 					{
 						Item itemDeleted;
-						itemDeleted = Interface::deleteByName(itemList);
+						itemDeleted = Interface::deleteByName(itemArray);
 						//FileIO::saveListIntoFile(itemList, filepath);
 						FileIO::saveArrayIntoFile(itemArray, filepath);
 						cout << endl;
-						Interface::displayInventory(itemList);
+						Interface::displayInventory(itemArray);
 						Interface::pause();
 					}
 					Interface::clearScreen(true);
@@ -166,11 +166,11 @@ int main()
 					case 3://deleteByUpc
 					{
 						Item itemDeleted;
-						itemDeleted = Interface::deleteByUpc(itemList);
+						itemDeleted = Interface::deleteByUpc(itemArray);
 						//FileIO::saveListIntoFile(itemList, filepath);
 						FileIO::saveArrayIntoFile(itemArray, filepath);
 						cout << endl;
-						Interface::displayInventory(itemList);
+						Interface::displayInventory(itemArray);
 						Interface::pause();
 					}
 					Interface::clearScreen(true);
@@ -197,7 +197,7 @@ int main()
 					case 1://searchByName
 					{
 						int beginningListOperations = Efficiency::globalListOperations;
-						Item foundItem = Interface::searchByName(itemList);
+						Item foundItem = Interface::searchByName(itemArray);
 						//Item wasn't found
 						if (foundItem == Item())
 						{
@@ -216,7 +216,7 @@ int main()
 					case 2://searchByUpc
 					{
 						int beginningListOperations = Efficiency::globalListOperations;
-						Item foundItem = Interface::searchByUpc(itemList);
+						Item foundItem = Interface::searchByUpc(itemArray);
 						//Item wasn't found
 						if (foundItem == Item())
 						{
@@ -233,7 +233,7 @@ int main()
 					default:
 						break;
 					}
-				}while (inputSubMenu != 4);
+				}while (inputSubMenu != 3);
 				break;
 				Interface::clearScreen(true);
 			}
@@ -248,13 +248,13 @@ int main()
 				/*
 				Item item;
 				int i = item.uid;
-				avlUidTree.inorder_traverse_avl(avlUidTree.myVisit);
+				avlUidTree.inorder_traverse_avl(avlUidTree.myVisit);*/
 
 				Interface::clearScreen(true);
 				int beginningListOperations = Efficiency::globalListOperations;
-				Interface::displayKeySequence(itemList);
+				Interface::displayKeySequence(itemArray);
 				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
-				*/
+				
 				Interface::pause();
 				Interface::clearScreen(true);
 			}

@@ -126,7 +126,7 @@ namespace Interface
 		return;
 
 	}
-	void displayInventory(List<Item>& itemList)
+	void displayInventory(Array<Item>& itemArray)
 	{
 		const std::string uidText = "UID:";
 		const std::string upcText = "UPC:";
@@ -162,42 +162,42 @@ namespace Interface
 			<< std::setw(quantityColumnLength) << quantityText
 			<< std::endl << std::endl;
 
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
 
-			std::cout << std::setw(uidColumnLength) << itemList[i].uid
-				<< std::setw(upcColumnLength) << itemList[i].upc
-				<< std::setw(nameColumnLength) << itemList[i].name.substr(0, 30)
-				<< std::setw(sizeColumnLength) << itemList[i].size;
-				if (itemList[i].category == 1)
+			std::cout << std::setw(uidColumnLength) << itemArray[i].uid
+				<< std::setw(upcColumnLength) << itemArray[i].upc
+				<< std::setw(nameColumnLength) << itemArray[i].name.substr(0, 30)
+				<< std::setw(sizeColumnLength) << itemArray[i].size;
+				if (itemArray[i].category == 1)
 				{
 					std::cout << std::setw(categoryColumnLength) << "Snack";
 				}
-				else if (itemList[i].category == 2)
+				else if (itemArray[i].category == 2)
 				{
 					std::cout << std::setw(categoryColumnLength) << "Drink";
 				}
-				else if (itemList[i].category == 3)
+				else if (itemArray[i].category == 3)
 				{
 					std::cout << std::setw(categoryColumnLength) << "Tabacco";
 				}
-				else if (itemList[i].category == 4)
+				else if (itemArray[i].category == 4)
 				{
 					std::cout << std::setw(categoryColumnLength) << "Lotto";
 				}
-				else if (itemList[i].category == 5)
+				else if (itemArray[i].category == 5)
 				{
 					std::cout << std::setw(categoryColumnLength) << "Misc";
 				}
-				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemList[i].wholesale
-				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemList[i].retail
-				<< std::setw(quantityColumnLength) << itemList[i].quantity;
+				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].wholesale
+				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].retail
+				<< std::setw(quantityColumnLength) << itemArray[i].quantity;
 
 			std::cout << std::endl << std::endl;
 		}
 
 	}
-	Item addNewItem(List<Item>& itemList)
+	Item addNewItem(Array<Item>& itemArray)
 	{
 		int newUid, newCategory, newQuantity;
 		std::string newUpc, newName, newSize;
@@ -223,9 +223,9 @@ namespace Interface
 			std::cout << std::endl;
 			temp = std::to_string(newUid);
 		}
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
-			while (itemList[i].uid == newUid)
+			while (itemArray[i].uid == newUid)
 			{
 				std::cout << "ERROR: The UID you enter already exists, try another UID:" << std::endl;
 				newUid = Input::getInt(1, 5999);
@@ -242,9 +242,9 @@ namespace Interface
 			std::cout << std::endl;
 		}
 
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
-			while (itemList[i].upc == newUpc)
+			while (itemArray[i].upc == newUpc)
 			{
 				std::cout << "ERROR: The UPC you enter already exists, try another UPC:" << std::endl;
 				newUpc = Input::getString();
@@ -254,9 +254,9 @@ namespace Interface
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
 		std::cout << std::endl;
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
-			while (itemList[i].name == newName)
+			while (itemArray[i].name == newName)
 			{
 				std::cout << "ERROR: The name you enter already exists, try another name:" << std::endl;
 				newName = Input::getString();
@@ -286,7 +286,9 @@ namespace Interface
 
 		Item newItem(newUid, newUpc, newName, newSize, newCategory, newWholeSale, newRetail, newQuantity);
 
-		itemList.insertLast(newItem);
+		itemArray.append(newItem);
+		pause();
+		clearScreen(true);
 
 		return newItem;
 	}
@@ -314,7 +316,7 @@ namespace Interface
 
 		return;
 	}
-	Item deleteByUid(List<Item>& itemList)
+	Item deleteByUid(Array<Item>& itemArray)
 	{
 		int intItemToDelete, i = 0, positionOfItem = 0;
 		bool found = false;
@@ -323,9 +325,9 @@ namespace Interface
 		Interface::clearScreen(true);
 		std::cout << "Enter the UID of the item you want to delete:" << std::endl << std::endl;
 		intItemToDelete = Input::getInt(1, 5999);
-		for (i = 0; i < itemList.getCount(); i++)
+		for (i = 0; i < itemArray.getSize(); i++)
 		{
-			if (itemList[i].uid == intItemToDelete)
+			if (itemArray[i].uid == intItemToDelete)
 			{
 				positionOfItem = i;
 				found = true;
@@ -334,8 +336,8 @@ namespace Interface
 		}
 		if (found == true)
 		{
-			itemDeleted = itemList.getData(positionOfItem);
-			itemList.remove(positionOfItem);
+			//itemDeleted = itemArray.getData(positionOfItem);
+			itemArray.remove(positionOfItem);
 			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
 		else
@@ -346,7 +348,7 @@ namespace Interface
 
 		return itemDeleted;
 	}
-	Item deleteByName(List<Item>& itemList)
+	Item deleteByName(Array<Item>& itemArray)
 	{
 		int i = 0, positionOfItem = 0;
 		std::string strItemToDelete;
@@ -356,9 +358,9 @@ namespace Interface
 		Interface::clearScreen(true);
 		std::cout << "Enter the name of the item you want to delete:" << std::endl << std::endl;
 		strItemToDelete = Input::getString();
-		for (i = 0; i < itemList.getCount(); i++)
+		for (i = 0; i < itemArray.getSize(); i++)
 		{
-			if (itemList[i].name == strItemToDelete)
+			if (itemArray[i].name == strItemToDelete)
 			{
 				positionOfItem = i;
 				found = true;
@@ -367,8 +369,8 @@ namespace Interface
 		}
 		if (found == true)
 		{
-			itemDeleted = itemList.getData(positionOfItem);
-			itemList.remove(positionOfItem);
+			//itemDeleted = itemList.getData(positionOfItem);
+			itemArray.remove(positionOfItem);
 			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
 		else
@@ -379,7 +381,7 @@ namespace Interface
 
 		return itemDeleted;
 	}
-	Item deleteByUpc(List<Item>& itemList)
+	Item deleteByUpc(Array<Item>& itemArray)
 	{
 		int i = 0, positionOfItem = 0;
 		std::string strItemToDelete;
@@ -389,9 +391,9 @@ namespace Interface
 		Interface::clearScreen(true);
 		std::cout << "Enter the UPC of the item you want to delete:" << std::endl << std::endl;
 		strItemToDelete = Input::getString();
-		for (i = 0; i < itemList.getCount(); i++)
+		for (i = 0; i < itemArray.getSize(); i++)
 		{
-			if (itemList[i].upc == strItemToDelete)
+			if (itemArray[i].upc == strItemToDelete)
 			{
 				positionOfItem = i;
 				found = true;
@@ -400,8 +402,8 @@ namespace Interface
 		}
 		if (found == true)
 		{
-			itemDeleted = itemList.getData(positionOfItem);
-			itemList.remove(positionOfItem);
+			//itemDeleted = itemList.getData(positionOfItem);
+			itemArray.remove(positionOfItem);
 			std::cout << "The Item was deleted succesfully..." << std::endl;
 		}
 		else
@@ -434,7 +436,7 @@ namespace Interface
 
 		return;
 	}
-	Item searchByName(List<Item>& itemList)
+	Item searchByName(Array<Item>& itemArray)
 	{
 		clearScreen(true);
 
@@ -450,17 +452,17 @@ namespace Interface
 		std::cout << "Enter the name of the item you want to search:" << std::endl << std::endl;
 		const std::string userInputName = Input::getString();
 
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
-			if (itemList[i].name.find(userInputName) != std::string::npos)
+			if (itemArray[i].name.find(userInputName) != std::string::npos)
 			{
-				return itemList[i];
+				return itemArray[i];
 			}
 		}
 
 		return Item();
 	}
-	Item searchByUpc(List<Item>& itemList)
+	Item searchByUpc(Array<Item>& itemArray)
 	{
 		clearScreen(true);
 
@@ -476,11 +478,11 @@ namespace Interface
 		std::cout << "Enter the UPC of the item you want to search:" << std::endl << std::endl;
 		const std::string userInputUpc = Input::getString();
 
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
-			if (itemList[i].upc.find(userInputUpc) != std::string::npos)
+			if (itemArray[i].upc.find(userInputUpc) != std::string::npos)
 			{
-				return itemList[i];
+				return itemArray[i];
 			}
 		}
 
@@ -570,10 +572,10 @@ namespace Interface
 		pause();
 		clearScreen(true);
 	}
-	void displayKeySequence(List<Item>& itemList)
+	void displayKeySequence(Array<Item>& itemArray)
 	{
 		//Merge sort itemList
-		SortList::mergeSortItemList(itemList);
+		SortList::mergeSortItemList(itemArray);
 
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string titleText = "[DISPLAYED KEY SEQUENCE]";
@@ -612,36 +614,36 @@ namespace Interface
 			<< std::setw(quantityColumnLength) << quantityText
 			<< std::endl << std::endl;
 
-		for (int i = 0; i < itemList.getCount(); i++)
+		for (int i = 0; i < itemArray.getSize(); i++)
 		{
 			//Print out each item
-			std::cout << std::setw(uidColumnLength) << itemList[i].uid
-				<< std::setw(upcColumnLength) << itemList[i].upc
-				<< std::setw(nameColumnLength) << itemList[i].name.substr(0, 30)
-				<< std::setw(sizeColumnLength) << itemList[i].size;
-			if (itemList[i].category == 1)
+			std::cout << std::setw(uidColumnLength) << itemArray[i].uid
+				<< std::setw(upcColumnLength) << itemArray[i].upc
+				<< std::setw(nameColumnLength) << itemArray[i].name.substr(0, 30)
+				<< std::setw(sizeColumnLength) << itemArray[i].size;
+			if (itemArray[i].category == 1)
 			{
 				std::cout << std::setw(categoryColumnLength) << "Snack";
 			}
-			else if (itemList[i].category == 2)
+			else if (itemArray[i].category == 2)
 			{
 				std::cout << std::setw(categoryColumnLength) << "Drink";
 			}
-			else if (itemList[i].category == 3)
+			else if (itemArray[i].category == 3)
 			{
 				std::cout << std::setw(categoryColumnLength) << "Tabacco";
 			}
-			else if (itemList[i].category == 4)
+			else if (itemArray[i].category == 4)
 			{
 				std::cout << std::setw(categoryColumnLength) << "Lotto";
 			}
-			else if (itemList[i].category == 5)
+			else if (itemArray[i].category == 5)
 			{
 				std::cout << std::setw(categoryColumnLength) << "Misc";
 			}
-			std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemList[i].wholesale
-				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemList[i].retail
-				<< std::setw(quantityColumnLength) << itemList[i].quantity;
+			std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].wholesale
+				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].retail
+				<< std::setw(quantityColumnLength) << itemArray[i].quantity;
 
 			std::cout << std::endl << std::endl;
 		}
