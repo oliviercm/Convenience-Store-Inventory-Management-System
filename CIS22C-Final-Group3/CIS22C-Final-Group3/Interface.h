@@ -17,6 +17,7 @@
 #include "AVLTree.h"
 #include "HashTable.h"
 #include "SortList.h"
+#include "Array.h"
 
 
 namespace Interface
@@ -27,17 +28,17 @@ namespace Interface
 	void printHeader();
 	void promptOption();
 	void displayMainMenu();
-	void displayInventory(List<Item>&);
-	Item addNewItem(List<Item>&);
+	void displayInventory(Array<Item>&);
+	Item addNewItem(Array<Item>&);
 	void displayDeleteMenu();
-	Item deleteByUid(List<Item>&);
-	Item deleteByName(List<Item>&);
-	Item deleteByUpc(List<Item>&);
+	Item deleteByUid(Array<Item>&);
+	Item deleteByName(Array<Item>&);
+	Item deleteByUpc(Array<Item>&);
 	void displaySearchMenu();
-	Item searchByName(List<Item>&);
-	Item searchByUpc(List<Item>&);
+	Item searchByName(Array<Item>&);
+	Item searchByUpc(Array<Item>&);
 	void displayHashTable(HashTable<int, Item>&);
-	void displayKeySequence(List<Item>&);
+	void displayKeySequence(Array<Item>&);
 	void displayTypeTrees();
 	void calculateProfit(AVLTree<double>&, AVLTree<double>&);
 };

@@ -4,7 +4,7 @@ namespace SortList
 {
 	namespace
 	{
-		void merge(List<Item>& parentArr, const int start, const int middle, const int end)
+		void merge(Array<Item>& parentArr, const int start, const int middle, const int end)
 		{
 			//Copy the left and right subarrays from the parent array
 			const int leftSize = middle - start + 1;
@@ -59,24 +59,24 @@ namespace SortList
 			delete[] leftArr;
 			delete[] rightArr;
 		}
-		void mergeSortItemList(List<Item>& list, int start, int end)
+		void mergeSortItemList(Array<Item>& array, int start, int end)
 		{
 			//Recursion case
 			if (start < end)
 			{
 				//Split the array into 2 parts and sort them 
 				int middle = (start + end) / 2;
-				mergeSortItemList(list, start, middle);
-				mergeSortItemList(list, middle + 1, end);
+				mergeSortItemList(array, start, middle);
+				mergeSortItemList(array, middle + 1, end);
 
 				//Merge the 2 parts together
-				merge(list, start, middle, end);
+				merge(array, start, middle, end);
 			}
 		}
 	}
 
-	void mergeSortItemList(List<Item>& list)
+	void mergeSortItemList(Array<Item>& list)
 	{
-		mergeSortItemList(list, 0, list.getCount() - 1);
+		mergeSortItemList(list, 0, list.getSize() - 1);
 	}
 }

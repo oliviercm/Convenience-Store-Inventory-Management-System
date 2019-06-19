@@ -2,8 +2,9 @@
 
 #include "List.h"
 #include "Item.h"
+#include "Array.h"
 
 namespace SortList
 {
-	void mergeSortItemList(List<Item>&);
+	void mergeSortItemList(Array<Item>&);
 }
