@@ -33,9 +33,6 @@
     <ClCompile Include="Efficiency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sort.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BSTTraversal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -71,16 +65,10 @@
     <ClInclude Include="HashNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Trunk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Efficiency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BST.h">

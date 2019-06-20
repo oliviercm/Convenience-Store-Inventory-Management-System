@@ -122,7 +122,6 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Sort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
@@ -138,10 +137,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Sort.h" />
-    <ClInclude Include="Stack.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Trunk.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="items.txt" />
