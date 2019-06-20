@@ -231,6 +231,9 @@ int main()
 				cout << "The load factor of the hash table is " << itemHashTable.calcLoadFactor() << "." << endl;
 				cout << "There are currently " << itemHashTable.getOffTable() << " hash collisions." << endl;
 				cout << endl;
+				cout << "The UID BST is " << itemUidBst.maxDepth() << " levels deep." << endl;
+				cout << "The Profit Margin BST is " << itemMarginBst.maxDepth() << " levels deep." << endl;
+				cout << endl;
 				Interface::pause();
 				break;
 			}

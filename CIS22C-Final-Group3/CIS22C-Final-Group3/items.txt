@@ -130,7 +130,7 @@
 </item>
 <item>
 	<UID>2006</UID>
-	<UPC>0611269991246</UPC>
+	<UPC>611269991000</UPC>
 	<name>Red Bull</name>
 	<size>8oz</size>
 	<category>2</category>
@@ -140,7 +140,7 @@
 </item>
 <item>
 	<UID>2004</UID>
-	<UPC>9011020724310</UPC>
+	<UPC>011020724310</UPC>
 	<name>Gatorade</name>
 	<size>16oz</size>
 	<category>2</category>
@@ -150,7 +150,7 @@
 </item>
 <item>
 	<UID>2005</UID>
-	<UPC>0818094000246</UPC>
+	<UPC>818094000246</UPC>
 	<name>Rockstar</name>
 	<size>16oz</size>
 	<category>2</category>
@@ -160,7 +160,7 @@
 </item>
 <item>
 	<UID>2003</UID>
-	<UPC>0049000030730</UPC>
+	<UPC>049000030730</UPC>
 	<name>Fanta</name>
 	<size>12oz</size>
 	<category>2</category>
@@ -170,7 +170,7 @@
 </item>
 <item>
 	<UID>2007</UID>
-	<UPC>0072890000118</UPC>
+	<UPC>072890000118</UPC>
 	<name>Heineken</name>
 	<size>12oz</size>
 	<category>2</category>
@@ -180,7 +180,7 @@
 </item>
 <item>
 	<UID>2008</UID>
-	<UPC>0012000041396</UPC>
+	<UPC>012000041396</UPC>
 	<name>Starbucks Coffee</name>
 	<size>11oz</size>
 	<category>2</category>
@@ -300,7 +300,7 @@
 </item>
 <item>
 	<UID>4000</UID>
-	<UPC>0986547231234</UPC>
+	<UPC>986547231234</UPC>
 	<name>Mega Millions</name>
 	<size>N/A</size>
 	<category>4</category>
@@ -310,7 +310,7 @@
 </item>
 <item>
 	<UID>4001</UID>
-	<UPC>0983517452435</UPC>
+	<UPC>983517452435</UPC>
 	<name>Powerball</name>
 	<size>N/A</size>
 	<category>4</category>
@@ -320,7 +320,7 @@
 </item>
 <item>
 	<UID>4004</UID>
-	<UPC>0956274983756</UPC>
+	<UPC>956274983756</UPC>
 	<name>SuperLotto</name>
 	<size>N/A</size>
 	<category>4</category>

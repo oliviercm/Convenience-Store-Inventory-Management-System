@@ -26,6 +26,7 @@ protected:
 	BST_Node<K, V>* findByKey(const K&, BST_Node<K, V>*);
 	BST_Node<K, V>* findInorderSuccessor(BST_Node<K, V>*); //Pass the right child of the node to find the successor of.
 	void deleteAll(BST_Node<K, V>*);
+	int maxDepth(int, const BST_Node<K, V>*);
 public:
 	BST();
 	virtual ~BST();
@@ -72,6 +73,12 @@ public:
 	* @brief Deletes all managed nodes using a queue.
 	*/
 	virtual void deleteAll();
+	/**
+	* maxDepth
+	*
+	* @brief Returns the max depth of the BST.
+	*/
+	int maxDepth();
 };
 
 template <typename K, typename V>
@@ -272,4 +279,24 @@ template <typename K, typename V>
 void BST<K, V>::deleteAll()
 {
 	deleteAll(head);
+}
+
+template <typename K, typename V>
+int BST<K, V>::maxDepth()
+{
+	return maxDepth(0, head);
+}
+
+template <typename K, typename V>
+int BST<K, V>::maxDepth(int depth, const BST_Node<K, V>* root)
+{
+	if (root == nullptr)
+	{
+		return depth;
+	}
+
+	const int maxLeft = maxDepth(depth, root->left);
+	const int maxRight = maxDepth(depth, root->right);
+
+	return maxLeft >= maxRight ? maxLeft + 1: maxRight + 1;
 }

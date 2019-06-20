@@ -244,9 +244,9 @@ namespace Interface
 		std::cout << std::endl;
 		//Checks if the upc is 
 		//Allow blank UPC to be entered - this is because some products may not actually have a UPC!
-		while (newUpc.length() != 13 && newUpc.length() != 0)
+		while (newUpc.length() != 12 && newUpc.length() != 0)
 		{
-			std::cout << "ERROR: UPC must be 13 digits long, try again:" << std::endl;
+			std::cout << "ERROR: UPC must be 12 digits long, try again:" << std::endl;
 			newUpc = Input::getString();
 			std::cout << std::endl;
 		}
