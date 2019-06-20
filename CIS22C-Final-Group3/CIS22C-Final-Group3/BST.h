@@ -56,7 +56,7 @@ public:
 	*
 	* @brief Recursively finds the node with the matching key from the tree.
 	*
-	* @param T The data to search for.
+	* @param K The key to search for.
 	*
 	* @param bool Whether to search for matching key or matching data. True searches for matching key.
 	*
@@ -140,15 +140,15 @@ BST_Node<K, V>* BST<K, V>::findByKey(const K& searchKey, BST_Node<K, V>* root)
 	}
 	else
 	{
-		if (searchKey == root->key)
+		if (searchKey == root->key) //The node was found
 		{
 			return root;
 		}
-		else if (searchKey < root->key) //if data is less than root, search the data from the left.
+		else if (searchKey < root->key) //if key is less than root, search from the left.
 		{
 			return find(searchKey, root->left, searchKey);
 		}
-		else if (searchKey > root->key) //if data is greater than root, search the data from the right.
+		else if (searchKey > root->key) //if key is greater than root, search from the right.
 		{
 			return find(searchKey, root->right, searchKey);
 		}
@@ -188,6 +188,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		}
 		else if (root->left == nullptr) //if root has only one right child
 		{
+			//Copy the values from the right child into root and then delete the right child
 			BST_Node<K, V>* temp = root->right;
 			root->key = temp->key;
 			root->value = temp->value;
@@ -198,6 +199,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		}
 		else if (root->right == nullptr) //if root has only one left child
 		{
+			//Copy the values from the left child into root and then delete the left child
 			BST_Node<K, V>* temp = root->left;
 			root->key = temp->key;
 			root->value = temp->value;
@@ -208,6 +210,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		}
 		else //if root has a left and right child.
 		{
+			//Copy the values from the inorder successor to the root and then delete the inorder successor
 			BST_Node<K, V>* temp = findInorderSuccessor(root->right);
 			root->key = temp->key;
 			root->value = temp->value;

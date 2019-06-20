@@ -24,17 +24,11 @@ public:
 	BST_Node<K, V>* right;
 
 	BST_Node(K, V&, BST_Node<K, V>* = nullptr, BST_Node<K, V>* = nullptr);
-	virtual ~BST_Node();
+	virtual ~BST_Node() = default;
 };
 
 template <typename K, typename V>
 BST_Node<K, V>::BST_Node(K k, V& v, BST_Node<K, V>* l, BST_Node<K, V>* r) : key(k), value(v), left(l), right(r)
 {
 
-}
-
-template <typename K, typename V>
-BST_Node<K, V>::~BST_Node()
-{
-	
 }
