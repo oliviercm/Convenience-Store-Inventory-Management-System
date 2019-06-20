@@ -149,6 +149,7 @@ namespace Interface
 	* @param The reference of the array of items.
 	*/
 	void displayKeySequence(Array<Item>&);
+	void displayMarginProfit(Array<Item>& itemArray, BST<double, Item>&);
 	void displayTypeTrees();
 	/**
 	* displayGoodbye

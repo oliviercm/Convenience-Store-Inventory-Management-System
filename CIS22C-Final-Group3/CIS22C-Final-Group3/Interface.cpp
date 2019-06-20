@@ -107,7 +107,7 @@ namespace Interface
 		const std::string saveText = "[ 9 ] SAVE DATA TO FILE";
 		const std::string quitText = "[ 0 ] QUIT";
 
-		
+
 		const size_t titleMargin = (TERMINAL_WIDTH + mainMenuText.length()) / 2;
 		const size_t optionMargin = titleMargin - mainMenuText.length();
 
@@ -172,27 +172,27 @@ namespace Interface
 				<< std::setw(upcColumnLength) << itemArray[i].upc
 				<< std::setw(nameColumnLength) << itemArray[i].name.substr(0, 30)
 				<< std::setw(sizeColumnLength) << itemArray[i].size;
-				if (itemArray[i].category == 1)
-				{
-					std::cout << std::setw(categoryColumnLength) << "Snack";
-				}
-				else if (itemArray[i].category == 2)
-				{
-					std::cout << std::setw(categoryColumnLength) << "Drink";
-				}
-				else if (itemArray[i].category == 3)
-				{
-					std::cout << std::setw(categoryColumnLength) << "Tabacco";
-				}
-				else if (itemArray[i].category == 4)
-				{
-					std::cout << std::setw(categoryColumnLength) << "Lotto";
-				}
-				else if (itemArray[i].category == 5)
-				{
-					std::cout << std::setw(categoryColumnLength) << "Misc";
-				}
-				std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].wholesale
+			if (itemArray[i].category == 1)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Snack";
+			}
+			else if (itemArray[i].category == 2)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Drink";
+			}
+			else if (itemArray[i].category == 3)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Tabacco";
+			}
+			else if (itemArray[i].category == 4)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Lotto";
+			}
+			else if (itemArray[i].category == 5)
+			{
+				std::cout << std::setw(categoryColumnLength) << "Misc";
+			}
+			std::cout << std::setw(wholesaleColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].wholesale
 				<< std::setw(retailColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].retail
 				<< std::setw(quantityColumnLength) << itemArray[i].quantity;
 
@@ -203,7 +203,7 @@ namespace Interface
 	Item addNewItem(Array<Item>& itemArray, List<Item>& itemList)
 	{
 		clearScreen();
-		
+
 		int newUid, newCategory, newQuantity;
 		std::string newUpc, newName, newSize;
 		double newWholeSale, newRetail;
@@ -321,7 +321,7 @@ namespace Interface
 	void displayDeleteMenu()
 	{
 		clearScreen();
-		
+
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string deleteText = "[ DELETE ]";
 		const std::string byUidText = "[ 1 ] BY UID";
@@ -458,7 +458,7 @@ namespace Interface
 	void searchForItem(HashTable<int, Item>& itemHashTable)
 	{
 		clearScreen();
-		
+
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string sortText = "[ SEARCH ]";
 
@@ -537,11 +537,11 @@ namespace Interface
 		}
 
 		return Item();
-	} 
+	}
 	void displayHashTable(HashTable<int, Item>& itemHashTable)
 	{
 		clearScreen();
-		
+
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string titleText = "[ HASH TABLE ]";
 		const std::string uidText = "UID:";
@@ -721,6 +721,49 @@ namespace Interface
 			<< bars << std::endl << std::endl;
 
 		return;
+	}
+	void displayMarginProfit(Array<Item>& itemArray, BST<double, Item>& itemMarginBst)
+	{
+		BSTTraversal::inorder(itemMarginBst);
+		const std::string bars = generateBars(TERMINAL_WIDTH);
+		const std::string typeTreesText = "[ MARGINS AND PROFITS ]";
+		const std::string uidText = "UID:";
+		const std::string nameText = "NAME:";
+		const std::string profirMarginText = "PROFIT MARGIN:";
+		const std::string profitText = "PROFIT:";
+
+		const size_t columnSpacing = 3;
+		const size_t uidColumnLength = 3 + columnSpacing;
+		const size_t profitMarginColumnLength = profirMarginText.length() + columnSpacing;
+		const size_t profitColumnLength = profitText.length() + columnSpacing;
+
+		const size_t titleMargin = (TERMINAL_WIDTH + typeTreesText.length()) / 2;
+		const size_t nameColumnLength = ((TERMINAL_WIDTH - uidColumnLength - profitMarginColumnLength - profitColumnLength) / 2) + 25;
+
+		std::cout << std::right;
+
+		std::cout << std::setw(titleMargin) << typeTreesText << std::endl << std::endl << bars << std::endl << std::endl;
+
+		std::cout << std::left;
+
+		std::cout << std::setw(uidColumnLength) << uidText
+			<< std::setw(nameColumnLength) << nameText
+			<< std::setw(profitMarginColumnLength) << profirMarginText
+			<< std::setw(profitColumnLength) << profitText
+			<< std::endl << std::endl;
+
+		for (int i = 0; i < itemArray.getSize(); i++)
+		{
+			//Print out each item
+			std::cout << std::setw(uidColumnLength) << itemArray[i].uid
+				<< std::setw(nameColumnLength) << itemArray[i].name.substr(0, 55);
+			std::cout << std::setw(profitMarginColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].getMargin()
+				<< std::setw(profitColumnLength) << std::fixed << std::setprecision(2) << itemArray[i].retail - itemArray[i].wholesale;
+
+			std::cout << std::endl << std::endl;
+		}
+		return;
+
 	}
 	void displayGoodbye()
 	{
