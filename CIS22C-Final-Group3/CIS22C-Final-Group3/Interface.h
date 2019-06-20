@@ -90,7 +90,7 @@ namespace Interface
 	*
 	* @param The reference of the list of items.
 	*/
-	Item addNewItem(List<Item>&);
+	Item addNewItem(Array<Item>&, List<Item>&);
 	/**
 	* displayDeleteMenu
 	*
