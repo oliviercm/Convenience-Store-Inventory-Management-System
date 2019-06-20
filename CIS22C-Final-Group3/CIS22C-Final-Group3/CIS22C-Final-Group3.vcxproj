@@ -137,10 +137,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
-<<<<<<< HEAD
-    <ClInclude Include="Stack.h" />
-=======
->>>>>>> 077135362160322f6d7e4d8b14128a4ec23bfb67
     <ClInclude Include="Input.h" />
   </ItemGroup>
   <ItemGroup>
