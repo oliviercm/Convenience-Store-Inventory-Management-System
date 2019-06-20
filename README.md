@@ -2,10 +2,6 @@
 
 This is a convenience store manager that manages the inventory of a store, and provides reports and analysis based on stored data.
 
-The software can perform the following tasks:
-
-* WIP
-
 ## Authors
 
 All authors are students at De Anza College, Cupertino, California.
