@@ -29,9 +29,54 @@ Yue Pan
 #include "HashTable.h"
 #include "BinarySearchTree.h"
 
+#include "BST.h"
+#include "BST_Node.h"
+
 #include "Item.h"
 
 using namespace std;
+
+/**
+* inorder
+*
+* @brief Prints a BST in inorder fashion.
+*
+* @param The root of the BST to print.
+*/
+template <typename K, typename V>
+void inorder(BST<K, V>& bst)
+{
+	inorder(bst.getHead());
+}
+template <typename K, typename V>
+void inorder(BST_Node<K, V>* root)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	inorder(root->left);
+	cout << root->key << endl;
+	inorder(root->right);
+}
+template <>
+void inorder(BST_Node<double, Item>* root)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	inorder(root->left);
+	cout << "The item " << root->value.uid << " " << root->value.name << " has a profit margin of: " << root->key << endl;
+	inorder(root->right);
+}
+template <>
+void inorder(BST<double, Item>& bst)
+{
+	inorder(bst.getHead());
+}
 
 int main()
 {
@@ -83,6 +128,15 @@ int main()
 	{
 		itemBinaryTree.add(itemArray[i]);
 	}
+
+	//Load the BST from the array
+	BST<double, Item> myBST;
+	for (int i = 0; i < itemArray.getSize(); i++)
+	{
+		myBST.insert(itemArray[i].getMargin(), itemArray[i]);
+	}
+
+	inorder(myBST);
 
 	//Signal that load was successful
 	cout << "Load successful." << endl << endl;
