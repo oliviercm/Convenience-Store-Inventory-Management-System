@@ -243,8 +243,7 @@ int main()
 			{
 				Interface::clearScreen();
 				const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-				//BSTTraversal::inorder(itemMarginBst);
-				Interface::displayMarginProfit(itemArray, itemMarginBst);
+				BSTTraversal::inorder(itemMarginBst);
 				cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 				Interface::pause();
 				break;
