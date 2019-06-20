@@ -241,9 +241,10 @@ namespace Interface
 		newUpc = Input::getString();
 		std::cout << std::endl;
 		//Checks if the upc is 
-		while (newUpc.length() < 12)
+		//Allow blank UPC to be entered - this is because some products may not actually have a UPC!
+		while (newUpc.length() != 13 && newUpc.length() != 0)
 		{
-			std::cout << "ERROR: UPC must be at least 12-digits long, try again:" << std::endl;
+			std::cout << "ERROR: UPC must be 13 digits long, try again:" << std::endl;
 			newUpc = Input::getString();
 			std::cout << std::endl;
 		}
@@ -275,11 +276,11 @@ namespace Interface
 		newSize = Input::getString();
 		std::cout << std::endl;
 
-		std::cout << "Enter the category of the item: [1]Snack [2]Drink [3]Tobacco [4]Lotto [5]miscellaneous" << std::endl << std::endl;
+		std::cout << "Enter the category of the item: [1]Snack [2]Drink [3]Tobacco [4]Lotto [5]Miscellaneous" << std::endl << std::endl;
 		newCategory = Input::getInt(1, 5);
 		std::cout << std::endl;
 
-		std::cout << "Enter the whole-sale of the item" << std::endl;
+		std::cout << "Enter the wholesale price of the item" << std::endl;
 		newWholeSale = Input::getDouble();
 		std::cout << std::endl;
 
@@ -600,6 +601,8 @@ namespace Interface
 	}
 	void displayKeySequence(Array<Item>& itemArray)
 	{
+		clearScreen();
+		
 		//Merge sort array
 		Sort::mergeSortItemArray(itemArray);
 

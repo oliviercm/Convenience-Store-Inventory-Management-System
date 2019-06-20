@@ -199,7 +199,6 @@ int main()
 			}
 			case 4: //Print items sorted by UID
 			{
-				Interface::clearScreen();
 				const int beginningArrayOperations = Efficiency::globalArrayOperations;
 				const int beginningListOperations = Efficiency::globalListOperations;
 				Array<Item> copyItemArray = Array<Item>::buildArrayFromList(itemList);
