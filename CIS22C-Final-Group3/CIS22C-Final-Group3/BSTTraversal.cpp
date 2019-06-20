@@ -41,9 +41,9 @@ void BSTTraversal::inorder(const BST_Node<double, Item>* root)
 	Item& item = root->value;
 	//Print out each item
 	std::cout << std::setw(6) << item.uid
-		<< std::setw(88) << item.name.substr(0, 55);
-	std::cout << std::setw(17) << std::fixed << std::setprecision(2) << item.getMargin()
-		<< std::setw(10) << std::fixed << std::setprecision(2) << item.retail - item.wholesale;
+		<< std::setw(88) << item.name;
+	std::cout << std::setw(20) << std::fixed << std::setprecision(2) << item.getMargin();
+	std::cout << std::setw(10) << std::fixed << std::setprecision(2) << item.retail - item.wholesale;
 	std::cout << std::endl << std::endl;
 	inorder(root->right);
 
@@ -58,16 +58,16 @@ void BSTTraversal::inorder(const BST<double, Item>& bst)
 	const std::string typeTreesText = "[ MARGINS AND PROFITS ]";
 	const std::string uidText = "UID:";
 	const std::string nameText = "NAME:";
-	const std::string profirMarginText = "PROFIT MARGIN:";
+	const std::string profirMarginText = "PROFIT MARGIN:(%)";
 	const std::string profitText = "PROFIT:";
 
 	const size_t columnSpacing = 3;
 	const size_t uidColumnLength = 3 + columnSpacing;
-	const size_t profitMarginColumnLength = profirMarginText.length() + columnSpacing;
+	const size_t profitMarginColumnLength = profirMarginText.length() + columnSpacing + 5;
 	const size_t profitColumnLength = profitText.length() + columnSpacing;
 
 	const size_t titleMargin = (Interface::TERMINAL_WIDTH + typeTreesText.length()) / 2;
-	const size_t nameColumnLength = ((Interface::TERMINAL_WIDTH - uidColumnLength - profitMarginColumnLength - profitColumnLength) / 2) + 25;
+	const size_t nameColumnLength = ((Interface::TERMINAL_WIDTH - uidColumnLength - profitMarginColumnLength - profitColumnLength) / 2) + 23;
 
 	std::cout << std::right;
 
