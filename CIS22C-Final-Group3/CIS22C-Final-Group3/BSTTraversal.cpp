@@ -36,7 +36,7 @@ void BSTTraversal::inorder(const BST_Node<double, Item>* root)
 	}
 
 	inorder(root->left);
-	std::cout << "The item " << root->value.uid << " " << root->value.name << " has a profit margin of: " << root->key << std::endl;
+	std::cout /*<< "The item " << root->value.uid << " " << root->value.name << " has a profit margin of: " */<< root->key << std::endl;
 	inorder(root->right);
 
 	Efficiency::globalBinaryTreeOperations++;
