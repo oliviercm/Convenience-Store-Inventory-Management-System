@@ -71,10 +71,12 @@ int main()
 	BST<double, Item> itemMarginBst;
 	for (int i = 0; i < itemArray.getSize(); i++)
 	{
-		itemList.insertLast(itemArray[i]);
-		itemHashTable.add(itemArray[i].uid, itemArray[i]);
-		itemUidBst.insert(itemArray[i].uid, itemArray[i]);
-		itemMarginBst.insert(itemArray[i].getMargin(), itemArray[i]);
+		Item& item = itemArray[i];
+		
+		itemList.insertLast(item);
+		itemHashTable.add(item.uid, item);
+		itemUidBst.insert(item.uid, item);
+		itemMarginBst.insert(item.getMargin(), item);
 	}
 
 	//Signal that load was successful
@@ -108,13 +110,13 @@ int main()
 					const int beginningListOperations = Efficiency::globalListOperations;
 					const int beginningHashOperations = Efficiency::globalHashOperations;
 					const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-					itemArray.append(Interface::addNewItem(itemArray, itemList));
-					itemList.insertLast(itemArray.back());
-					itemHashTable.add(itemArray.back().uid, itemArray.back());
-					itemUidBst.insert(itemArray.back().uid, itemArray.back());
-					itemMarginBst.insert(itemArray.back().getMargin(), itemArray.back());
+					Item& newItem = itemArray.append(Interface::addNewItem(itemArray, itemList));
+					itemList.insertLast(newItem);
+					itemHashTable.add(newItem.uid, newItem);
+					itemUidBst.insert(newItem.uid, newItem);
+					itemMarginBst.insert(newItem.getMargin(), newItem);
 					cout << "Item added: " << endl << endl;
-					cout << itemArray.back() << endl;
+					cout << newItem << endl;
 					cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
 					cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 					cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
