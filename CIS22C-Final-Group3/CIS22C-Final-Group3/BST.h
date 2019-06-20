@@ -190,7 +190,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		{
 			BST_Node<K, V>* temp = root->right;
 			root->key = temp->key;
-			root->data = temp->data;
+			root->value = temp->value;
 			root->left = temp->left;
 			root->right = temp->right;
 			delete temp;
@@ -200,7 +200,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		{
 			BST_Node<K, V>* temp = root->left;
 			root->key = temp->key;
-			root->data = temp->data;
+			root->value = temp->value;
 			root->left = temp->left;
 			root->right = temp->right;
 			delete temp;
@@ -210,8 +210,8 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		{
 			BST_Node<K, V>* temp = findInorderSuccessor(root->right);
 			root->key = temp->key;
-			root->data = temp->data;
-			root->right = remove(temp->key, root->right);
+			root->value = temp->value;
+			root->right = remove(temp->key, temp->value, root->right);
 		}
 	}
 	return root;

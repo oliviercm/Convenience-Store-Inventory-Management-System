@@ -200,7 +200,7 @@ int main()
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
 							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-							Interface::deleteByUid(itemList, itemHashTable, itemBinaryTree);
+							Interface::deleteByUid(itemList, itemHashTable, itemBinaryTree, myBST);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
 							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
@@ -277,7 +277,8 @@ int main()
 			case 6: //Print Tree
 			{
 				Interface::clearScreen();
-				itemBinaryTree.print_tree();
+				//itemBinaryTree.print_tree();
+				inorder(myBST);
 				Interface::pause();
 				break;
 			}

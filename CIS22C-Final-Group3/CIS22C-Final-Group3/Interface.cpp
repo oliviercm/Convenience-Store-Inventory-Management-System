@@ -322,7 +322,7 @@ namespace Interface
 
 		return;
 	}
-	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree)
+	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree, BST<double, Item>& myBST)
 	{
 		clearScreen();
 
@@ -347,7 +347,8 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				itemBinaryTree.remove(itemToDelete);
+				myBST.remove(itemToDelete.getMargin(), itemToDelete);
+				//itemBinaryTree.remove(itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;

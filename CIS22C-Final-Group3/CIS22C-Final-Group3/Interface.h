@@ -20,6 +20,7 @@
 #include "Item.h"
 #include "List.h"
 #include "BinarySearchTree.h"
+#include "BST.h"
 #include "HashTable.h"
 #include "Array.h"
 
@@ -104,7 +105,7 @@ namespace Interface
 	*
 	* @param The reference of the List , hash table, and BST of items.
 	*/
-	void deleteByUid(List<Item>&, HashTable<int, Item>&, BinarySearchTree<Item>&);
+	void deleteByUid(List<Item>&, HashTable<int, Item>&, BinarySearchTree<Item>&, BST<double, Item>&);
 	/**
 	* deleteByName
 	*
