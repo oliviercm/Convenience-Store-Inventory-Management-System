@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BSTTraversal.cpp" />
     <ClCompile Include="Efficiency.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="Interface.cpp" />
@@ -125,9 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
-    <ClInclude Include="BinarySearchTree.h" />
-    <ClInclude Include="BinaryTreeNode.h" />
     <ClInclude Include="BST.h" />
+    <ClInclude Include="BSTTraversal.h" />
     <ClInclude Include="BST_Node.h" />
     <ClInclude Include="Efficiency.h" />
     <ClInclude Include="FileIO.h" />
@@ -138,7 +138,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Queue.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="Input.h" />

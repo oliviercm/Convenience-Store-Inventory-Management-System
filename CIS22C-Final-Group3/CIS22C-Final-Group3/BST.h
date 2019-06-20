@@ -27,6 +27,7 @@ protected:
 public:
 	BST();
 	virtual ~BST();
+
 	/**
 	* getHead
 	*
@@ -34,7 +35,7 @@ public:
 	*
 	* @return head
 	*/
-	BST_Node<K, V>* getHead();
+	BST_Node<K, V>* getHead() const;
 	/**
 	* insert
 	*
@@ -84,7 +85,7 @@ BST<K, V>::~BST()
 }
 
 template <typename K, typename V>
-BST_Node<K, V>* BST<K, V>::getHead()
+BST_Node<K, V>* BST<K, V>::getHead() const
 {
 	return head;
 }

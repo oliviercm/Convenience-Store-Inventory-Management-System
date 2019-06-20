@@ -22,61 +22,17 @@ Yue Pan
 #include "FileIO.h"
 #include "Interface.h"
 #include "Input.h"
+#include "BSTTraversal.h"
 
 //ADTs
 #include "Array.h"
 #include "List.h"
 #include "HashTable.h"
-#include "BinarySearchTree.h"
-
 #include "BST.h"
-#include "BST_Node.h"
 
 #include "Item.h"
 
 using namespace std;
-
-/**
-* inorder
-*
-* @brief Prints a BST in inorder fashion.
-*
-* @param The root of the BST to print.
-*/
-template <typename K, typename V>
-void inorder(BST<K, V>& bst)
-{
-	inorder(bst.getHead());
-}
-template <typename K, typename V>
-void inorder(BST_Node<K, V>* root)
-{
-	if (root == nullptr)
-	{
-		return;
-	}
-
-	inorder(root->left);
-	cout << root->key << endl;
-	inorder(root->right);
-}
-template <>
-void inorder(BST_Node<double, Item>* root)
-{
-	if (root == nullptr)
-	{
-		return;
-	}
-
-	inorder(root->left);
-	cout << "The item " << root->value.uid << " " << root->value.name << " has a profit margin of: " << root->key << endl;
-	inorder(root->right);
-}
-template <>
-void inorder(BST<double, Item>& bst)
-{
-	inorder(bst.getHead());
-}
 
 int main()
 {
@@ -108,35 +64,18 @@ int main()
 		return 0;
 	}
 
-	//Load the linked list from the array
+	//Load ADTs from the array
 	List<Item> itemList;
+	HashTable<int, Item> itemHashTable;
+	BST<int, Item> itemUidBst;
+	BST<double, Item> itemMarginBst;
 	for (int i = 0; i < itemArray.getSize(); i++)
 	{
 		itemList.insertLast(itemArray[i]);
-	}
-
-	//Load the hash table from the array
-	HashTable<int, Item> itemHashTable;
-	for (int i = 0; i < itemArray.getSize(); i++)
-	{
 		itemHashTable.add(itemArray[i].uid, itemArray[i]);
+		itemUidBst.insert(itemArray[i].uid, itemArray[i]);
+		itemMarginBst.insert(itemArray[i].getMargin(), itemArray[i]);
 	}
-
-	//Load the binary tree from the array
-	BinarySearchTree<Item> itemBinaryTree;
-	for (int i = 0; i < itemArray.getSize(); i++)
-	{
-		itemBinaryTree.add(itemArray[i]);
-	}
-
-	//Load the BST from the array
-	BST<double, Item> myBST;
-	for (int i = 0; i < itemArray.getSize(); i++)
-	{
-		myBST.insert(itemArray[i].getMargin(), itemArray[i]);
-	}
-
-	inorder(myBST);
 
 	//Signal that load was successful
 	cout << "Load successful." << endl << endl;
@@ -172,7 +111,8 @@ int main()
 					itemArray.append(Interface::addNewItem(itemList));
 					itemList.insertLast(itemArray.back());
 					itemHashTable.add(itemArray.back().uid, itemArray.back());
-					itemBinaryTree.add(itemArray.back());
+					itemUidBst.insert(itemArray.back().uid, itemArray.back());
+					itemMarginBst.insert(itemArray.back().getMargin(), itemArray.back());
 					cout << "Item added: " << endl << endl;
 					cout << itemArray.back() << endl;
 					cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
@@ -200,7 +140,7 @@ int main()
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
 							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-							Interface::deleteByUid(itemList, itemHashTable, itemBinaryTree, myBST);
+							Interface::deleteByUid(itemList, itemHashTable, itemUidBst, itemMarginBst);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
 							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
@@ -212,7 +152,7 @@ int main()
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
 							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-							Interface::deleteByName(itemList, itemHashTable, itemBinaryTree);
+							Interface::deleteByName(itemList, itemHashTable, itemUidBst, itemMarginBst);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
 							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
@@ -224,7 +164,7 @@ int main()
 							const int beginningListOperations = Efficiency::globalListOperations;
 							const int beginningHashOperations = Efficiency::globalHashOperations;
 							const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-							Interface::deleteByUpc(itemList, itemHashTable, itemBinaryTree);
+							Interface::deleteByUpc(itemList, itemHashTable, itemUidBst, itemMarginBst);
 							cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl;
 							cout << "The last operation took " << Efficiency::globalHashOperations - beginningHashOperations << " Hash operations." << endl;
 							cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
@@ -255,8 +195,8 @@ int main()
 			{
 				const int beginningArrayOperations = Efficiency::globalArrayOperations;
 				const int beginningListOperations = Efficiency::globalListOperations;
-				Array<Item> copyItemArray = Array<Item>::buildArrayFromList(itemList);
-				Interface::displayKeySequence(copyItemArray);
+				BSTTraversal::inorder(itemUidBst);
+				//Interface::displayKeySequence(itemUidBst);
 				cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
 				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
 
@@ -276,9 +216,6 @@ int main()
 			}
 			case 6: //Print Tree
 			{
-				Interface::clearScreen();
-				//itemBinaryTree.print_tree();
-				inorder(myBST);
 				Interface::pause();
 				break;
 			}
@@ -301,6 +238,8 @@ int main()
 			}
 			case 8: //Margins and profitability
 			{
+				Interface::clearScreen();
+				BSTTraversal::inorder(itemMarginBst);
 				Interface::pause();
 				break;
 			}

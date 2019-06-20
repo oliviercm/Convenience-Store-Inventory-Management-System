@@ -6,6 +6,8 @@
 #include "Input.h"
 #include "Item.h"
 #include "HashTable.h"
+#include "BST.h"
+#include "BSTTraversal.h"
 #include "Sort.h"
 
 namespace Interface
@@ -322,7 +324,7 @@ namespace Interface
 
 		return;
 	}
-	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree, BST<double, Item>& myBST)
+	void deleteByUid(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BST<int, Item>& itemUidBst, BST<double, Item>& itemMarginBst)
 	{
 		clearScreen();
 
@@ -347,8 +349,8 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				myBST.remove(itemToDelete.getMargin(), itemToDelete);
-				//itemBinaryTree.remove(itemToDelete);
+				itemUidBst.remove(itemToDelete.uid, itemToDelete);
+				itemMarginBst.remove(itemToDelete.getMargin(), itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -359,7 +361,7 @@ namespace Interface
 		//The item doesn't exist
 		std::cout << "ERROR: The UID you entered does not exist." << std::endl << std::endl;
 	}
-	void deleteByName(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree)
+	void deleteByName(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BST<int, Item>& itemUidBst, BST<double, Item>& itemMarginBst)
 	{
 		clearScreen();
 
@@ -384,7 +386,8 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				itemBinaryTree.remove(itemToDelete);
+				itemUidBst.remove(itemToDelete.uid, itemToDelete);
+				itemMarginBst.remove(itemToDelete.getMargin(), itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -395,7 +398,7 @@ namespace Interface
 		//The item doesn't exist
 		std::cout << "ERROR: The name you entered does not exist." << std::endl << std::endl;
 	}
-	void deleteByUpc(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BinarySearchTree<Item>& itemBinaryTree)
+	void deleteByUpc(List<Item>& itemList, HashTable<int, Item>& itemHashTable, BST<int, Item>& itemUidBst, BST<double, Item>& itemMarginBst)
 	{
 		clearScreen();
 
@@ -420,7 +423,8 @@ namespace Interface
 				const Item itemToDelete = itemList[i];
 				itemList.remove(i);
 				itemHashTable.remove(itemToDelete.uid, itemToDelete);
-				itemBinaryTree.remove(itemToDelete);
+				itemUidBst.remove(itemToDelete.uid, itemToDelete);
+				itemMarginBst.remove(itemToDelete.getMargin(), itemToDelete);
 				std::cout << std::endl << "Item found: " << std::endl;
 				std::cout << itemToDelete << std::endl;
 				std::cout << "Item successfully deleted." << std::endl << std::endl;
@@ -600,12 +604,9 @@ namespace Interface
 			std::cout << std::endl;
 		}
 	}
-	void displayKeySequence(Array<Item>& itemArray)
+	void displayKeySequence(BST<int, Item>& itemUidBst)
 	{
 		clearScreen();
-		
-		//Merge sort array
-		Sort::mergeSortItemArray(itemArray);
 
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string titleText = "[LIST BY UID]";
@@ -643,7 +644,7 @@ namespace Interface
 			<< std::setw(retailColumnLength) << retailText
 			<< std::setw(quantityColumnLength) << quantityText
 			<< std::endl << std::endl;
-
+		/*
 		for (int i = 0; i < itemArray.getSize(); i++)
 		{
 			//Print out each item
@@ -677,6 +678,7 @@ namespace Interface
 
 			std::cout << std::endl << std::endl;
 		}
+		*/
 	}
 	void displayTypeTrees()
 	{

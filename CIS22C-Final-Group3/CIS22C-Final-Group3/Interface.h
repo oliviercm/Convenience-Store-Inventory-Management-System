@@ -18,11 +18,12 @@
 #pragma once
 
 #include "Item.h"
-#include "List.h"
-#include "BinarySearchTree.h"
-#include "BST.h"
-#include "HashTable.h"
+
+//ADTs
 #include "Array.h"
+#include "List.h"
+#include "HashTable.h"
+#include "BST.h"
 
 namespace Interface
 {
@@ -105,7 +106,7 @@ namespace Interface
 	*
 	* @param The reference of the List , hash table, and BST of items.
 	*/
-	void deleteByUid(List<Item>&, HashTable<int, Item>&, BinarySearchTree<Item>&, BST<double, Item>&);
+	void deleteByUid(List<Item>&, HashTable<int, Item>&, BST<int, Item>&, BST<double, Item>&);
 	/**
 	* deleteByName
 	*
@@ -113,7 +114,7 @@ namespace Interface
 	*
 	* @param The reference of the List , hash table, and BST of items.
 	*/
-	void deleteByName(List<Item>&, HashTable<int, Item>&, BinarySearchTree<Item>&);
+	void deleteByName(List<Item>&, HashTable<int, Item>&, BST<int, Item>&, BST<double, Item>&);
 	/**
 	* deleteByUpc
 	*
@@ -121,7 +122,7 @@ namespace Interface
 	*
 	* @param The reference of the List , hash table, and BST of items.
 	*/
-	void deleteByUpc(List<Item>&, HashTable<int, Item>&, BinarySearchTree<Item>&);
+	void deleteByUpc(List<Item>&, HashTable<int, Item>&, BST<int, Item>&, BST<double, Item>&);
 	/**
 	* searchForItem
 	*
