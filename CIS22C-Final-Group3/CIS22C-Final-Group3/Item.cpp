@@ -13,7 +13,12 @@ Item::Item(int&& ui, std::string&& up, std::string&& na, std::string&& si, int&&
 
 double Item::getMargin() const
 {
-	return (wholesale / retail) * 100;
+	if (wholesale == 0)
+	{
+		return 0;
+	}
+	
+	return (1 - wholesale / retail) * 100;
 }
 
 

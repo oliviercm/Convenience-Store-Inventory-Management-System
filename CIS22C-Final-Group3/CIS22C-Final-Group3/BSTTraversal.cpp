@@ -40,10 +40,13 @@ void BSTTraversal::inorder(const BST_Node<double, Item>* root)
 	inorder(root->left);
 	Item& item = root->value;
 	//Print out each item
+
+	const std::string marginString = static_cast<int>(item.getMargin()) <= 0 ? std::string("N/A") : std::to_string(static_cast<int>(item.getMargin())) + "%";
+
 	std::cout << std::setw(6) << item.uid
 		<< std::setw(88) << item.name;
-	std::cout << std::setw(20) << std::fixed << std::setprecision(2) << item.getMargin();
-	std::cout << std::setw(10) << std::fixed << std::setprecision(2) << item.retail - item.wholesale;
+	std::cout << std::setw(3) << std::fixed << std::setprecision(2) << marginString;
+	std::cout << std::setw(18) << std::fixed << std::setprecision(2) << std::right << "$" << item.retail - item.wholesale << std::left;
 	std::cout << std::endl << std::endl;
 	inorder(root->right);
 
