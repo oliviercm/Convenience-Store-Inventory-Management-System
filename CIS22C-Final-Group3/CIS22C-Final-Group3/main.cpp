@@ -274,6 +274,8 @@ int main()
 		}
 	} while (inputMainMenu != 0); //Quit
 
+	FileIO::saveListIntoFile(itemList, filepath);
+
 	Interface::displayGoodbye();
 	Interface::pause();
 	return 0;
