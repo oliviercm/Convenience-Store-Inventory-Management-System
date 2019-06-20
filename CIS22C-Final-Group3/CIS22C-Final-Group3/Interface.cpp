@@ -7,8 +7,6 @@
 #include "Item.h"
 #include "HashTable.h"
 #include "BST.h"
-#include "BSTTraversal.h"
-#include "Sort.h"
 
 namespace Interface
 {
