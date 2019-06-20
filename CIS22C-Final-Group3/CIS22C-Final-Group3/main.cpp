@@ -108,7 +108,7 @@ int main()
 					const int beginningListOperations = Efficiency::globalListOperations;
 					const int beginningHashOperations = Efficiency::globalHashOperations;
 					const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
-					itemArray.append(Interface::addNewItem(itemList));
+					itemArray.append(Interface::addNewItem(itemArray, itemList));
 					itemList.insertLast(itemArray.back());
 					itemHashTable.add(itemArray.back().uid, itemArray.back());
 					itemUidBst.insert(itemArray.back().uid, itemArray.back());

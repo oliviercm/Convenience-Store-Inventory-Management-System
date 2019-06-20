@@ -202,14 +202,13 @@ namespace Interface
 		}
 
 	}
-	Item addNewItem(List<Item>& itemList)
+	Item addNewItem(Array<Item>& itemArray, List<Item>& itemList)
 	{
 		clearScreen();
 		
 		int newUid, newCategory, newQuantity;
 		std::string newUpc, newName, newSize;
 		double newWholeSale, newRetail;
-		bool found = false;
 
 		const std::string bars = generateBars(TERMINAL_WIDTH);
 		const std::string titleText = "[ ADD NEW DATA ]";
@@ -217,62 +216,85 @@ namespace Interface
 		const size_t titleMargin = (TERMINAL_WIDTH + titleText.length()) / 2;
 		std::cout << std::setw(titleMargin) << titleText << std::endl << std::endl << bars << std::endl << std::endl;
 
-		std::cout << "Enter the 4-digit UID of the item" << std::endl;
-		newUid = Input::getInt(0, 9999);
-		std::cout << std::endl;
-		std::string temp = std::to_string(newUid);
-		//Checks if uid is 4-digits long
-		while (temp.length() != 4)
+		bool valid;
+
+		//Enter UID
+		valid = false;
+		while (!valid)
 		{
-			std::cout << "ERROR: UID must be a 4-digits long, try again:" << std::endl;
-			newUid = Input::getInt(1, 9999);
+			valid = true;
+			
+			std::cout << "Enter the UID of the item (0 - 9999)" << std::endl;
+			newUid = Input::getInt(0, 9999);
 			std::cout << std::endl;
-			temp = std::to_string(newUid);
-		}
-		//Checks if the uid already exists
-		for (int i = 0; i < itemList.getCount(); i++)
-		{
-			while (itemList[i].uid == newUid)
+			try
 			{
-				std::cout << "ERROR: The UID you entered already exists, try another UID:" << std::endl;
-				newUid = Input::getInt(1, 9999);
-				std::cout << std::endl;
+
+				for (int i = 0; i < itemArray.getSize(); i++)
+				{
+					//Check if the UID already exists in the array
+					if (itemArray[i].uid == newUid)
+					{
+						//The UID exists in the array, but we need to check that it also exists in the list
+						for (int i = 0; i < itemList.getCount(); i++)
+						{
+							//Check if the duplicate UID is in the list - if it isn't then it means the duplicate UID has actually been deleted and it is safe to add the new item.
+							if (itemList[i].uid == newUid)
+							{
+								std::cout << "ERROR: The UID you entered already exists, try another UID." << std::endl << std::endl;
+								valid = false;
+							}
+						}
+					}
+				}
+			}
+			catch (std::out_of_range& e)
+			{
+				std::cout << e.what();
 			}
 		}
-		std::cout << "Enter the UPC of the item" << std::endl;
-		newUpc = Input::getString();
-		std::cout << std::endl;
-		//Checks if the upc is 
-		//Allow blank UPC to be entered - this is because some products may not actually have a UPC!
-		while (newUpc.length() != 12 && newUpc.length() != 0)
+
+		//Enter UPC
+		valid = false;
+		while (!valid)
 		{
-			std::cout << "ERROR: UPC must be 12 digits long, try again:" << std::endl;
+			valid = true;
+
+			std::cout << "Enter the UPC of the item (12 digits)" << std::endl;
 			newUpc = Input::getString();
 			std::cout << std::endl;
-		}
-		//Checks if the UPC already exists
-		for (int i = 0; i < itemList.getCount(); i++)
-		{
-			while (itemList[i].upc == newUpc)
+
+			//UPCs must be either blank or 12 digits long.
+			if (newUpc.length() == 0 || newUpc.length() == 12)
 			{
-				std::cout << "ERROR: The UPC you entered already exists, try another UPC:" << std::endl;
-				newUpc = Input::getString();
-				std::cout << std::endl;
+				for (int i = 0; i < itemArray.getSize(); i++)
+				{
+					//Check if the UPC already exists in the array
+					if (itemArray[i].upc == newUpc)
+					{
+						//The UPC exists in the array, but we need to check that it also exists in the list
+						for (int i = 0; i < itemList.getCount(); i++)
+						{
+							//Check if the duplicate UPC is in the list - if it isn't then it means the duplicate UPC has actually been deleted and it is safe to add the new item.
+							if (itemList[i].upc == newUpc)
+							{
+								std::cout << "ERROR: The UPC you entered already exists, try another UPC." << std::endl << std::endl;
+								valid = false;
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				std::cout << "ERROR: UPC must be 12 digits long or blank." << std::endl << std::endl;
+				valid = false;
 			}
 		}
+
 		std::cout << "Enter the name of the item" << std::endl;
 		newName = Input::getString();
 		std::cout << std::endl;
-		//Checks if the item already exists
-		for (int i = 0; i < itemList.getCount(); i++)
-		{
-			while (itemList[i].name == newName)
-			{
-				std::cout << "ERROR: The name you enter already exists, try another name:" << std::endl;
-				newName = Input::getString();
-				std::cout << std::endl;
-			}
-		}
 
 		std::cout << "Enter the size of the item" << std::endl;
 		newSize = Input::getString();
