@@ -1,6 +1,9 @@
 /********************************************************************************
 ********************************** BST_Node *************************************
 *********************************************************************************
+* Author: Olivier Chan - 50%
+* Author: Luis Guerrero - 50%
+*
 * This class is part of a BST (binary search tree) abstract data structure.
 * The purpose of this class is to act as a data-containing node in a tree structure,
 * with each node having a branch to two deeper nodes.
