@@ -5,6 +5,8 @@
 #include "BST_Node.h"
 #include "Item.h"
 
+#include "Efficiency.h"
+
 //Printing out the UID tree
 void BSTTraversal::inorder(const BST_Node<int, Item>* root)
 {
@@ -16,6 +18,8 @@ void BSTTraversal::inorder(const BST_Node<int, Item>* root)
 	inorder(root->left);
 	std::cout << root->value << std::endl;
 	inorder(root->right);
+
+	Efficiency::globalBinaryTreeOperations++;
 }
 
 void BSTTraversal::inorder(const BST<int, Item>& bst)
@@ -34,6 +38,8 @@ void BSTTraversal::inorder(const BST_Node<double, Item>* root)
 	inorder(root->left);
 	std::cout << "The item " << root->value.uid << " " << root->value.name << " has a profit margin of: " << root->key << std::endl;
 	inorder(root->right);
+
+	Efficiency::globalBinaryTreeOperations++;
 }
 
 void BSTTraversal::inorder(const BST<double, Item>& bst)

@@ -12,6 +12,8 @@
 
 #include "BST_Node.h"
 
+#include "Efficiency.h"
+
 template <typename K, typename V>
 class BST
 {
@@ -102,12 +104,14 @@ BST_Node<K, V>* BST<K, V>::insert(K k, V& v, BST_Node<K, V>* root)
 	if (head == nullptr)
 	{
 		head = new BST_Node<K, V>(k, v);
+		Efficiency::globalBinaryTreeOperations++;
 		return head;
 	}
 	
 	//If the root is non-existent, create a new node and return it - the new node will be saved in the previous call
 	if (root == nullptr)
 	{
+		Efficiency::globalBinaryTreeOperations++;
 		return new BST_Node<K, V>(k, v);
 	}
 
@@ -115,11 +119,13 @@ BST_Node<K, V>* BST<K, V>::insert(K k, V& v, BST_Node<K, V>* root)
 	if (k < root->key)
 	{
 		root->left = insert(k, v, root->left);
+		Efficiency::globalBinaryTreeOperations++;
 	}
 	//If the new data is greater or equal than root, recur for right root
 	else
 	{
 		root->right = insert(k, v, root->right);
+		Efficiency::globalBinaryTreeOperations++;
 	}
 
 	//Return the root so previous recursion calls keep their current values for left and right
@@ -143,14 +149,17 @@ BST_Node<K, V>* BST<K, V>::findByKey(const K& searchKey, BST_Node<K, V>* root)
 	{
 		if (searchKey == root->key) //The node was found. Duplicate keys will return the first node found.
 		{
+			Efficiency::globalBinaryTreeOperations++;
 			return root;
 		}
 		else if (searchKey < root->key) //if key is less than root, search from the left.
 		{
+			Efficiency::globalBinaryTreeOperations++;
 			return find(searchKey, root->left, searchKey);
 		}
 		else if (searchKey > root->key) //if key is greater than root, search from the right.
 		{
+			Efficiency::globalBinaryTreeOperations++;
 			return find(searchKey, root->right, searchKey);
 		}
 	}
@@ -174,14 +183,17 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 	else if (key < root->key)//if data is less than root, remove the root from the left.
 	{
 		root->left = remove(key, value, root->left);
+		Efficiency::globalBinaryTreeOperations++;
 	}
 	else if (key > root->key)//if data is greater than root, remove the root from the right.
 	{
 		root->right = remove(key, value, root->right);
+		Efficiency::globalBinaryTreeOperations++;
 	}
-	else if (value == root->value)//if key matches, make sure value matches as well. Otherwise, the correct node must be to the right.
+	else if (value != root->value)//if key matches, make sure value matches as well. Otherwise, the correct node must be to the right.
 	{
 		root->right = remove(key, value, root->right);
+		Efficiency::globalBinaryTreeOperations++;
 	}
 	else//the key and value match. delete the node
 	{
@@ -190,6 +202,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 		{
 			delete root;
 			root = nullptr;
+			Efficiency::globalBinaryTreeOperations++;
 		}
 		else if (root->left == nullptr) //if root has only one right child
 		{
@@ -201,6 +214,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 			root->right = temp->right;
 			delete temp;
 			temp = nullptr;
+			Efficiency::globalBinaryTreeOperations++;
 		}
 		else if (root->right == nullptr) //if root has only one left child
 		{
@@ -212,6 +226,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 			root->right = temp->right;
 			delete temp;
 			temp = nullptr;
+			Efficiency::globalBinaryTreeOperations++;
 		}
 		else //if root has a left and right child.
 		{
@@ -220,6 +235,7 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 			root->key = temp->key;
 			root->value = temp->value;
 			root->right = remove(temp->key, temp->value, root->right);
+			Efficiency::globalBinaryTreeOperations++;
 		}
 	}
 	return root;
@@ -232,6 +248,7 @@ BST_Node<K, V>* BST<K, V>::findInorderSuccessor(BST_Node<K, V>* root)
 	while (current->left != nullptr)
 	{
 		current = current->left;
+		Efficiency::globalBinaryTreeOperations++;
 	}
 	return current;
 }
@@ -248,6 +265,7 @@ void BST<K, V>::deleteAll(BST_Node<K, V>* root)
 	deleteAll(root->right);
 	delete root;
 	root = nullptr;
+	Efficiency::globalBinaryTreeOperations++;
 }
 
 template <typename K, typename V>

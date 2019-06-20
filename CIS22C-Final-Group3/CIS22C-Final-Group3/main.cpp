@@ -193,12 +193,10 @@ int main()
 			}
 			case 4: //Print items sorted by UID
 			{
-				const int beginningArrayOperations = Efficiency::globalArrayOperations;
-				const int beginningListOperations = Efficiency::globalListOperations;
+				const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
+				Interface::clearScreen();
 				BSTTraversal::inorder(itemUidBst);
-				//Interface::displayKeySequence(itemUidBst);
-				cout << "The last operation took " << Efficiency::globalArrayOperations - beginningArrayOperations << " Array operations." << endl;
-				cout << "The last operation took " << Efficiency::globalListOperations - beginningListOperations << " List operations." << endl << endl;
+				cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 
 				Interface::pause();
 				break;
@@ -239,7 +237,9 @@ int main()
 			case 8: //Margins and profitability
 			{
 				Interface::clearScreen();
+				const int beginningBinaryTreeOperations = Efficiency::globalBinaryTreeOperations;
 				BSTTraversal::inorder(itemMarginBst);
+				cout << "The last operation took " << Efficiency::globalBinaryTreeOperations - beginningBinaryTreeOperations << " BST operations." << endl << endl;
 				Interface::pause();
 				break;
 			}

@@ -278,7 +278,7 @@ namespace Interface
 		newSize = Input::getString();
 		std::cout << std::endl;
 
-		std::cout << "Enter the category of the item: [1]Snack [2]Drink [3]Tobacco [4]Lotto [5]Miscellaneous" << std::endl << std::endl;
+		std::cout << "Enter the category of the item: [1]Snack [2]Drink [3]Tobacco [4]Lotto [5]Miscellaneous" << std::endl;
 		newCategory = Input::getInt(1, 5);
 		std::cout << std::endl;
 
