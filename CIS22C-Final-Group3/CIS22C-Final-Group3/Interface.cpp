@@ -7,27 +7,21 @@
 #include "Item.h"
 #include "HashTable.h"
 #include "BST.h"
+#include "BSTTraversal.h"
 
 namespace Interface
 {
-	namespace
+	std::string generateBars(const int number)
 	{
-		const std::string BARS_CHARACTER = "=";
-		const int TERMINAL_WIDTH = 160;
-		const int TERMINAL_HEIGHT = 60;
+		std::string bars = std::string();
+		const std::string bar = BARS_CHARACTER;
 
-		std::string generateBars(const int number)
+		for (int i = 0; i < number; i++)
 		{
-			std::string bars = std::string();
-			const std::string bar = BARS_CHARACTER;
-
-			for (int i = 0; i < number; i++)
-			{
-				bars.append(bar);
-			}
-
-			return bars;
+			bars.append(bar);
 		}
+
+		return bars;
 	}
 
 	void clearScreen(const bool displayHeader)

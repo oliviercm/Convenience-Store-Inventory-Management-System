@@ -27,6 +27,12 @@
 
 namespace Interface
 {
+	const std::string BARS_CHARACTER = "=";
+	const int TERMINAL_WIDTH = 160;
+	const int TERMINAL_HEIGHT = 60;
+
+	std::string generateBars(const int number);
+
 	/**
 	* clearScreen
 	*
