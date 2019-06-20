@@ -140,7 +140,7 @@ BST_Node<K, V>* BST<K, V>::findByKey(const K& searchKey, BST_Node<K, V>* root)
 	}
 	else
 	{
-		if (searchKey == root->key) //The node was found
+		if (searchKey == root->key) //The node was found. Duplicate keys will return the first node found.
 		{
 			return root;
 		}
@@ -178,7 +178,11 @@ BST_Node<K, V>* BST<K, V>::remove(const K& key, const V& value, BST_Node<K, V>* 
 	{
 		root->right = remove(key, value, root->right);
 	}
-	else
+	else if (value == root->value)//if key matches, make sure value matches as well. Otherwise, the correct node must be to the right.
+	{
+		root->right = remove(key, value, root->right);
+	}
+	else//the key and value match. delete the node
 	{
 		//if root has no child
 		if (root->left == nullptr && root->right == nullptr)
