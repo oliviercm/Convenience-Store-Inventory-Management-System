@@ -61,7 +61,7 @@ void BSTTraversal::inorder(const BST<double, Item>& bst)
 	const std::string typeTreesText = "[ MARGINS AND PROFITS ]";
 	const std::string uidText = "UID:";
 	const std::string nameText = "NAME:";
-	const std::string profirMarginText = "PROFIT MARGIN:(%)";
+	const std::string profirMarginText = "PROFIT MARGIN:";
 	const std::string profitText = "PROFIT:";
 
 	const size_t columnSpacing = 3;
@@ -85,4 +85,66 @@ void BSTTraversal::inorder(const BST<double, Item>& bst)
 		<< std::endl << std::endl;
 	
 	inorder(bst.getHead());
+}
+
+void BSTTraversal::postorder(const BST_Node<int, Item>* root, int indent)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	if (root->right)
+	{
+		postorder(root->right, indent + 8);
+	}
+	std::cout << std::setw(indent) << ' ';
+	if (root->right)
+	{
+		std::cout << "/\n" << std::setw(indent) << ' ';
+	}
+	std::cout << root->key << "\n ";
+	if (root->left)
+	{
+		std::cout << std::setw(indent) << ' ' << " \\\n";
+		postorder(root->left, indent + 8);
+	}
+
+	Efficiency::globalBinaryTreeOperations++;
+}
+
+void BSTTraversal::postorder(const BST<int, Item>& bst)
+{
+	postorder(bst.getHead(), 0);
+}
+
+void BSTTraversal::postorder(const BST_Node<double, Item>* root, int indent)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	if (root->right)
+	{
+		postorder(root->right, indent + 8);
+	}
+	std::cout << std::setw(indent) << ' ';
+	if (root->right)
+	{
+		std::cout << "/\n" << std::setw(indent) << ' ';
+	}
+	std::cout << root->key << "\n ";
+	if (root->left)
+	{
+		std::cout << std::setw(indent) << ' ' << " \\\n";
+		postorder(root->left, indent + 8);
+	}
+
+	Efficiency::globalBinaryTreeOperations++;
+}
+
+void BSTTraversal::postorder(const BST<double, Item>& bst)
+{
+	postorder(bst.getHead(), 0);
 }

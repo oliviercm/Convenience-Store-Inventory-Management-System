@@ -216,6 +216,16 @@ int main()
 			}
 			case 6: //Print Tree
 			{
+				Interface::clearScreen();
+				cout << "***************" << endl;
+				cout << "*** UID BST ***" << endl;
+				cout << "***************" << endl;
+				BSTTraversal::postorder(itemUidBst);
+				cout << endl;
+				cout << "*************************" << endl;
+				cout << "*** PROFIT MARGIN BST ***" << endl;
+				cout << "*************************" << endl;
+				BSTTraversal::postorder(itemMarginBst);
 				Interface::pause();
 				break;
 			}

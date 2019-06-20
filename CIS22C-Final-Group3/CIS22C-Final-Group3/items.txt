@@ -1,4 +1,44 @@
 <item>
+	<UID>3000</UID>
+	<UPC>028200136800</UPC>
+	<name>Marlboro Red Label</name>
+	<size>12ct</size>
+	<category>3</category>
+	<wholesale>5.10</wholesale>
+	<retail>5.99</retail>
+	<quantity>89</quantity>
+</item>
+<item>
+	<UID>5008</UID>
+	<UPC>604079016100</UPC>
+	<name>Philosophy Pure & Miraculous Trio</name>
+	<size>8oz</size>
+	<category>5</category>
+	<wholesale>7.20</wholesale>
+	<retail>17.97</retail>
+	<quantity>16</quantity>
+</item>
+<item>
+	<UID>5007</UID>
+	<UPC>724742003234</UPC>
+	<name>Alba Botanica Deep Sea Facial Mask 4oz</name>
+	<size>4oz</size>
+	<category>5</category>
+	<wholesale>3.70</wholesale>
+	<retail>9.24</retail>
+	<quantity>23</quantity>
+</item>
+<item>
+	<UID>5013</UID>
+	<UPC>020714494940</UPC>
+	<name>Clinique High Impact 01 Black Waterproof Mascara</name>
+	<size>0.28oz</size>
+	<category>5</category>
+	<wholesale>7.60</wholesale>
+	<retail>19.00</retail>
+	<quantity>18</quantity>
+</item>
+<item>
 	<UID>1005</UID>
 	<UPC>028400070560</UPC>
 	<name>Doritos Nacho Cheese Tortilla Chips</name>
@@ -57,6 +97,36 @@
 	<wholesale>2.27</wholesale>
 	<retail>3.83</retail>
 	<quantity>37</quantity>
+</item>
+<item>
+	<UID>2004</UID>
+	<UPC>011020724310</UPC>
+	<name>Gatorade</name>
+	<size>16oz</size>
+	<category>2</category>
+	<wholesale>2.50</wholesale>
+	<retail>4.25</retail>
+	<quantity>30</quantity>
+</item>
+<item>
+	<UID>2005</UID>
+	<UPC>818094000246</UPC>
+	<name>Rockstar</name>
+	<size>16oz</size>
+	<category>2</category>
+	<wholesale>3.50</wholesale>
+	<retail>4.89</retail>
+	<quantity>50</quantity>
+</item>
+<item>
+	<UID>2003</UID>
+	<UPC>049000030730</UPC>
+	<name>Fanta</name>
+	<size>12oz</size>
+	<category>2</category>
+	<wholesale>2.50</wholesale>
+	<retail>3.98</retail>
+	<quantity>60</quantity>
 </item>
 <item>
 	<UID>1002</UID>
@@ -119,6 +189,26 @@
 	<quantity>80</quantity>
 </item>
 <item>
+	<UID>4006</UID>
+	<UPC>053137012880</UPC>
+	<name>Mermaid Money</name>
+	<size>N/A</size>
+	<category>4</category>
+	<wholesale>0.00</wholesale>
+	<retail>1.00</retail>
+	<quantity>831</quantity>
+</item>
+<item>
+	<UID>4009</UID>
+	<UPC>053137012545</UPC>
+	<name>Gold Rush Bingo</name>
+	<size>N/A</size>
+	<category>4</category>
+	<wholesale>0.00</wholesale>
+	<retail>3.00</retail>
+	<quantity>245</quantity>
+</item>
+<item>
 	<UID>2002</UID>
 	<UPC>018200007712</UPC>
 	<name>Budweiser</name>
@@ -137,36 +227,6 @@
 	<wholesale>3.00</wholesale>
 	<retail>4.60</retail>
 	<quantity>70</quantity>
-</item>
-<item>
-	<UID>2004</UID>
-	<UPC>011020724310</UPC>
-	<name>Gatorade</name>
-	<size>16oz</size>
-	<category>2</category>
-	<wholesale>2.50</wholesale>
-	<retail>4.25</retail>
-	<quantity>30</quantity>
-</item>
-<item>
-	<UID>2005</UID>
-	<UPC>818094000246</UPC>
-	<name>Rockstar</name>
-	<size>16oz</size>
-	<category>2</category>
-	<wholesale>3.50</wholesale>
-	<retail>4.89</retail>
-	<quantity>50</quantity>
-</item>
-<item>
-	<UID>2003</UID>
-	<UPC>049000030730</UPC>
-	<name>Fanta</name>
-	<size>12oz</size>
-	<category>2</category>
-	<wholesale>2.50</wholesale>
-	<retail>3.98</retail>
-	<quantity>60</quantity>
 </item>
 <item>
 	<UID>2007</UID>
@@ -199,14 +259,24 @@
 	<quantity>60</quantity>
 </item>
 <item>
-	<UID>3000</UID>
-	<UPC>028200136800</UPC>
-	<name>Marlboro Red Label</name>
-	<size>12ct</size>
-	<category>3</category>
-	<wholesale>5.10</wholesale>
-	<retail>5.99</retail>
-	<quantity>89</quantity>
+	<UID>5000</UID>
+	<UPC>045893072239</UPC>
+	<name>Suave Advanced Therapy Body Lotion 18-ounce</name>
+	<size>18oz</size>
+	<category>5</category>
+	<wholesale>1.60</wholesale>
+	<retail>3.99</retail>
+	<quantity>15</quantity>
+</item>
+<item>
+	<UID>5001</UID>
+	<UPC>079400187765</UPC>
+	<name>Suave Skin Therapy Exhale Alluring Rich + Moisturizing Body Lotion Lavender Vani</name>
+	<size>18oz</size>
+	<category>5</category>
+	<wholesale>1.28</wholesale>
+	<retail>3.19</retail>
+	<quantity>12</quantity>
 </item>
 <item>
 	<UID>3005</UID>
@@ -379,46 +449,6 @@
 	<quantity>45</quantity>
 </item>
 <item>
-	<UID>4006</UID>
-	<UPC>053137012880</UPC>
-	<name>Mermaid Money</name>
-	<size>N/A</size>
-	<category>4</category>
-	<wholesale>0.00</wholesale>
-	<retail>1.00</retail>
-	<quantity>831</quantity>
-</item>
-<item>
-	<UID>4009</UID>
-	<UPC>053137012545</UPC>
-	<name>Gold Rush Bingo</name>
-	<size>N/A</size>
-	<category>4</category>
-	<wholesale>0.00</wholesale>
-	<retail>3.00</retail>
-	<quantity>245</quantity>
-</item>
-<item>
-	<UID>5000</UID>
-	<UPC>045893072239</UPC>
-	<name>Suave Advanced Therapy Body Lotion 18-ounce</name>
-	<size>18oz</size>
-	<category>5</category>
-	<wholesale>1.60</wholesale>
-	<retail>3.99</retail>
-	<quantity>15</quantity>
-</item>
-<item>
-	<UID>5001</UID>
-	<UPC>079400187765</UPC>
-	<name>Suave Skin Therapy Exhale Alluring Rich + Moisturizing Body Lotion Lavender Vani</name>
-	<size>18oz</size>
-	<category>5</category>
-	<wholesale>1.28</wholesale>
-	<retail>3.19</retail>
-	<quantity>12</quantity>
-</item>
-<item>
 	<UID>5003</UID>
 	<UPC>381370036005</UPC>
 	<name>Aveeno Active Naturals Daily Moisturizing Lotion</name>
@@ -477,36 +507,6 @@
 	<wholesale>3.84</wholesale>
 	<retail>9.59</retail>
 	<quantity>21</quantity>
-</item>
-<item>
-	<UID>5008</UID>
-	<UPC>604079016100</UPC>
-	<name>Philosophy Pure & Miraculous Trio</name>
-	<size>8oz</size>
-	<category>5</category>
-	<wholesale>7.20</wholesale>
-	<retail>17.97</retail>
-	<quantity>16</quantity>
-</item>
-<item>
-	<UID>5007</UID>
-	<UPC>724742003234</UPC>
-	<name>Alba Botanica Deep Sea Facial Mask 4oz</name>
-	<size>4oz</size>
-	<category>5</category>
-	<wholesale>3.70</wholesale>
-	<retail>9.24</retail>
-	<quantity>23</quantity>
-</item>
-<item>
-	<UID>5013</UID>
-	<UPC>020714494940</UPC>
-	<name>Clinique High Impact 01 Black Waterproof Mascara</name>
-	<size>0.28oz</size>
-	<category>5</category>
-	<wholesale>7.60</wholesale>
-	<retail>19.00</retail>
-	<quantity>18</quantity>
 </item>
 <item>
 	<UID>5011</UID>
